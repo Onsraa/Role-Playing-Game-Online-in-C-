@@ -59,7 +59,9 @@ struct Gears
     Armor *armor;
 };
 
-void initializeClass(User *user, int selection);
+void chooseClass();
+
+void addClass(User *user, int selection);
 
 void warriorSelected(Character *character);
 

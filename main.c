@@ -14,5 +14,9 @@ int main(){
 
         userInfo(me);
 
+        initializeElement(me, 2);
+
+        Element * fire = malloc(sizeof(Element));
+        initializeElement(fire, 1);
         exit(EXIT_SUCCESS);
 }
