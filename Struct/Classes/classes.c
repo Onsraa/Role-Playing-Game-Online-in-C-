@@ -14,7 +14,7 @@ enum classes
 void chooseClass(User *user)
 {
 
-    char *classes = {"Warrior", "Rogue", "Archer", "Mage"};
+    char **classes = {"Warrior", "Rogue", "Archer", "Mage"};
     int answer;
 
     do
