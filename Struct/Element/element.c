@@ -4,21 +4,7 @@ void initializeElement(Character *character, int element)
 {
 
     character->element = malloc(sizeof(Element));
-
-    switch (element)
-    {
-    case FIRE:
-        character->element->type = "fire";
-        break;
-
-    case WATER:
-        character->element->type = "water";
-        break;
-
-    case PLANT:
-        character->element->type = "plant";
-        break;
-    }
+    character->element->type = element;
 }
 
 int compability(Element *first_element, Element *second_element)
@@ -62,5 +48,17 @@ int compability(Element *first_element, Element *second_element)
                 return INEFFECTIVE;
             }
         }
+    }
+}
+
+char * numberToElementName(int number){
+
+    switch(number){
+        case FIRE : 
+            return "fire";
+        case WATER : 
+            return "water";
+        case PLANT : 
+            return "plant";
     }
 }

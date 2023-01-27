@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include "./Struct/Users/users.h"
+#include "./main.h"
 
 int main(){
 
@@ -12,11 +9,7 @@ int main(){
         me->nb_characters = 0;
         me->characters = NULL;
 
-        userInfo(me);
+        chooseClass(me);
 
-        initializeElement(me, 2);
-
-        Element * fire = malloc(sizeof(Element));
-        initializeElement(fire, 1);
         exit(EXIT_SUCCESS);
 }

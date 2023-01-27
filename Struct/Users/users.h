@@ -1,5 +1,10 @@
 #ifndef USERS_H_
 #define USERS_H_
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 #include "../Classes/classes.h"
 
 typedef struct User User;
@@ -11,7 +16,7 @@ struct User
     char *nickname;
     char *password;
 
-    Character *characters;
+    Character **characters; // Array of characters
     int nb_characters;
 };
 

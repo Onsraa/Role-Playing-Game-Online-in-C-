@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "classes.h"
 
 enum classes
@@ -14,7 +11,13 @@ enum classes
 void chooseClass(User *user)
 {
 
-    char **classes = {"Warrior", "Rogue", "Archer", "Mage"};
+    char **classes = malloc(sizeof(char *) * 4);
+
+    classes[0] = "Warrior";
+    classes[1] = "Rogue";
+    classes[2] = "Archer";
+    classes[3] = "Mage";
+
     int answer;
 
     do
@@ -30,8 +33,6 @@ void chooseClass(User *user)
         scanf("%d", &answer);
     } while (answer < 1 || answer > sizeof(classes));
 
-    user->characters = malloc(sizeof(Character));
-
     if(!user->characters){
         system("clear");
         printf("An error occurred while initializing the character.");
@@ -41,44 +42,52 @@ void chooseClass(User *user)
     switch (answer)
     {
     case WARRIOR:
-        addClass(user->characters, WARRIOR);
-
+        addClass(user, WARRIOR);
         break;
 
     case ROGUE:
-        addClass(user->characters, ROGUE);
+        addClass(user, ROGUE);
         break;
 
     case ARCHER:
-        addClass(user->characters, ARCHER);
+        addClass(user, ARCHER);
         break;
 
     case MAGE:
-        addClass(user->characters, MAGE);
+        addClass(user, MAGE);
         break;
     }
+
+    for(int i = 0 ; i < 4 ; i++){
+        free(classes[i]);
+    }free(classes);
 };
 
 void addClass(User *user, int selection)
 {
 
-    if(!user->characters){ // If no character has been created yet then you malloc first.
-        user->characters = malloc(sizeof(Character *));
+    if(!user->characters && user->nb_characters == 0){ // If no character has been created yet then you malloc first.
         user->nb_characters = 1;
+        user->characters = malloc(sizeof(Character*));
+    }else if(!user->characters){
+            system("clear");
+            printf("An error occurred, the pointer to your characters doesn't exist.");
+            exit(EXIT_FAILURE);
     }else{
         user->nb_characters += 1;
-        user->characters = realloc(user->characters, sizeof(Character *) * user->nb_characters);
+        user->characters = realloc(user->characters, sizeof(Character*) * user->nb_characters);
     }
 
     Character *new_character = malloc(sizeof(Character));
-
-    user->characters[user->nb_characters - 1] = new_character;
 
     if(!new_character){
         system("clear");
         printf("An error occurred while adding the class.");
         exit(EXIT_FAILURE);
     }
+
+    user->characters[user->nb_characters - 1] = new_character;
+
 
     new_character->level = 0;
     new_character->experience = 0;

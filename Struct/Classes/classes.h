@@ -1,5 +1,10 @@
 #ifndef CLASSES_H_
 #define CLASSES_H_
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
 #include "../Element/element.h"
 #include "../Spells/spells.h"
 #include "../Users/users.h"
@@ -12,7 +17,6 @@ typedef struct Item Item;
 typedef struct Gears Gears;
 typedef struct Weapon Weapon;
 typedef struct Armor Armor;
-
 
 struct Character
 {
@@ -59,7 +63,7 @@ struct Gears
     Armor *armor;
 };
 
-void chooseClass();
+void chooseClass(User *user);
 
 void addClass(User *user, int selection);
 
