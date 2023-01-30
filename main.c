@@ -11,5 +11,7 @@ int main(){
 
         chooseClass(me);
 
+        pritnf("TEST GIT");
+        
         exit(EXIT_SUCCESS);
 }
