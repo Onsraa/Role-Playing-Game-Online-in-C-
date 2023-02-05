@@ -1,4 +1,6 @@
-#include "classes.h"
+#include "../struct.h"
+
+#define NB_CLASSES 4
 
 enum classes
 {
@@ -8,8 +10,19 @@ enum classes
     MAGE = 4
 };
 
+void initializeCharacter(User *user){
+    
+    user->characters = malloc(sizeof(Character *));
+    chooseClass(user);
+}
+
 void chooseClass(User *user)
 {
+    if(!user->characters){
+        system("clear");
+        printf("An error occurred while initializing the character.");
+        exit(EXIT_FAILURE);
+    }
 
     char **classes = malloc(sizeof(char *) * 4);
 
@@ -25,19 +38,14 @@ void chooseClass(User *user)
         system("clear");
         printf("What class do you choose ?");
         puts("\n");
-        for (int i = 0; i < sizeof(classes); i++)
+        for (int i = 0; i < NB_CLASSES; i++)
         {
             printf("%d - %s\n", i + 1, classes[i]);
         }
-        puts("\n");
+        puts(" ");
+        printf("Your choice: ");
         scanf("%d", &answer);
-    } while (answer < 1 || answer > sizeof(classes));
-
-    if(!user->characters){
-        system("clear");
-        printf("An error occurred while initializing the character.");
-        exit(EXIT_FAILURE);
-    }
+    } while (answer < 1 || answer > NB_CLASSES);
 
     switch (answer)
     {
@@ -57,37 +65,35 @@ void chooseClass(User *user)
         addClass(user, MAGE);
         break;
     }
-
-    for(int i = 0 ; i < 4 ; i++){
-        free(classes[i]);
-    }free(classes);
 };
 
 void addClass(User *user, int selection)
 {
 
-    if(!user->characters && user->nb_characters == 0){ // If no character has been created yet then you malloc first.
-        user->nb_characters = 1;
-        user->characters = malloc(sizeof(Character*));
-    }else if(!user->characters){
+    if(!user->characters){
             system("clear");
             printf("An error occurred, the pointer to your characters doesn't exist.");
             exit(EXIT_FAILURE);
-    }else{
-        user->nb_characters += 1;
-        user->characters = realloc(user->characters, sizeof(Character*) * user->nb_characters);
+    }
+
+    /* Update the size of the array of characters */
+    user->nb_characters += 1;
+
+    user->characters = realloc(user->characters, sizeof(Character*) * user->nb_characters);
+
+    if(!user->characters){
+            system("clear");
+            printf("An error occurred while reallocating your characters array.");
+            exit(EXIT_FAILURE);
     }
 
     Character *new_character = malloc(sizeof(Character));
 
     if(!new_character){
         system("clear");
-        printf("An error occurred while adding the class.");
+        printf("An error occurred while allocating the character.");
         exit(EXIT_FAILURE);
     }
-
-    user->characters[user->nb_characters - 1] = new_character;
-
 
     new_character->level = 0;
     new_character->experience = 0;
@@ -99,13 +105,18 @@ void addClass(User *user, int selection)
     {
     case WARRIOR:
         warriorSelected(new_character);
+        break;
     case ROGUE:
         rogueSelected(new_character);
+        break;
     case ARCHER:
         archerSelected(new_character);
+        break;
     case MAGE:
         mageSelected(new_character);
-    }
+        break;
+    }   
+    user->characters[user->nb_characters - 1] = new_character;
 };
 
 void warriorSelected(Character *character)
@@ -159,3 +170,18 @@ void mageSelected(Character *character)
     character->maxMp = 120;
     character->currentHp = character->maxMp;
 };
+
+void characterStat(Character *character){
+    
+    printf("Name: %s\n", character->className);
+
+    printf("Physical Power: %d\n", character->physicalPower);
+    printf("Magic Power: %d\n", character->magicPower);
+
+    printf("HP: %d\n", character->currentHp);
+    printf("MP: %d\n", character->currentMp);
+
+    printf("Level: %d\n", character->level);
+
+    printf("\n");
+}
