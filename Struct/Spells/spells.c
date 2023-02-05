@@ -1,1 +1,1 @@
-#include "./spells.h"
+#include "../struct.h"

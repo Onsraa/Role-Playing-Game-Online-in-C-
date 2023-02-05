@@ -1,4 +1,7 @@
-#include "./main.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include "./Struct/struct.h"
 
 int main(){
 
@@ -9,9 +12,13 @@ int main(){
         me->nb_characters = 0;
         me->characters = NULL;
 
+        initializeCharacter(me);
         chooseClass(me);
-
-        pritnf("TEST GIT");
         
+        system("clear");
+
+        characterStat(me->characters[0]);
+        characterStat(me->characters[1]);
+
         exit(EXIT_SUCCESS);
 }
