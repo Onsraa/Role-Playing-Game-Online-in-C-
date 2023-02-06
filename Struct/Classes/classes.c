@@ -1,6 +1,7 @@
 #include "../struct.h"
 
 #define NB_CLASSES 4
+#define BAR_LENGTH 40
 
 enum classes
 {
@@ -129,7 +130,7 @@ void warriorSelected(Character *character)
     character->currentHp = character->maxHp;
 
     character->maxMp = 40;
-    character->currentHp = character->maxMp;
+    character->currentMp = character->maxMp;
 };
 
 void rogueSelected(Character *character)
@@ -142,7 +143,7 @@ void rogueSelected(Character *character)
     character->currentHp = character->maxHp;
 
     character->maxMp = 30;
-    character->currentHp = character->maxMp;
+    character->currentMp = character->maxMp;
 };
 
 void archerSelected(Character *character)
@@ -155,7 +156,7 @@ void archerSelected(Character *character)
     character->currentHp = character->maxHp;
 
     character->maxMp = 80;
-    character->currentHp = character->maxMp;
+    character->currentMp = character->maxMp;
 };
 
 void mageSelected(Character *character)
@@ -168,7 +169,7 @@ void mageSelected(Character *character)
     character->currentHp = character->maxHp;
 
     character->maxMp = 120;
-    character->currentHp = character->maxMp;
+    character->currentMp = character->maxMp;
 };
 
 void characterStat(Character *character){
@@ -178,9 +179,29 @@ void characterStat(Character *character){
     printf("Physical Power: %d\n", character->physicalPower);
     printf("Magic Power: %d\n", character->magicPower);
 
-    printf("HP: %d\n", character->currentHp);
-    printf("MP: %d\n", character->currentMp);
-
+    int currentHpBar = character->currentHp * BAR_LENGTH / character->maxHp;
+    int currentMpBar = character->currentMp * BAR_LENGTH / character->maxMp;
+    
+    printf("HP (%d/%d) : ", character->currentHp, character->maxHp);
+    printf("[");
+    for(int i = 0 ; i < currentHpBar ; i++){
+        printf("#");
+    }
+    for(int i = currentHpBar ; i < BAR_LENGTH ; i++){
+        printf(" ");
+    }
+    printf("]");
+    puts(" ");
+    printf("MP (%d/%d) : ", character->currentMp, character->maxMp);
+    printf("[");
+    for(int i = 0 ; i < currentHpBar ; i++){
+        printf("#");
+    }
+    for(int i = currentMpBar ; i < BAR_LENGTH ; i++){
+        printf(" ");
+    }
+    printf("]");
+    puts(" ");
     printf("Level: %d\n", character->level);
 
     printf("\n");
