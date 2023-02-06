@@ -49,6 +49,8 @@ int compability(Element *first_element, Element *second_element)
             }
         }
     }
+
+    return 0;
 }
 
 char * numberToElementName(int number){
@@ -61,4 +63,6 @@ char * numberToElementName(int number){
         case PLANT : 
             return "plant";
     }
+
+    return 0;
 }
