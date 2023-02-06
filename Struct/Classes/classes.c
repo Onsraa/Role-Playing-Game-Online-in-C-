@@ -174,10 +174,10 @@ void mageSelected(Character *character)
 
 void characterStat(Character *character){
     
-    printf("Name: %s\n", character->className);
+    printf("Name : %s\n", character->className);
 
-    printf("Physical Power: %d\n", character->physicalPower);
-    printf("Magic Power: %d\n", character->magicPower);
+    printf("Physical Power : %d\n", character->physicalPower);
+    printf("Magic Power : %d\n", character->magicPower);
 
     int currentHpBar = character->currentHp * BAR_LENGTH / character->maxHp;
     int currentMpBar = character->currentMp * BAR_LENGTH / character->maxMp;
@@ -202,7 +202,7 @@ void characterStat(Character *character){
     }
     printf("]");
     puts(" ");
-    printf("Level: %d\n", character->level);
+    printf("Level : %d\n", character->level);
 
     printf("\n");
 }

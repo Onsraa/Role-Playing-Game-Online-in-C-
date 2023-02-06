@@ -13,12 +13,10 @@ int main(){
         me->characters = NULL;
 
         initializeCharacter(me);
-        chooseClass(me);
         
         system("clear");
 
         characterStat(me->characters[0]);
-        characterStat(me->characters[1]);
 
         exit(EXIT_SUCCESS);
 }
