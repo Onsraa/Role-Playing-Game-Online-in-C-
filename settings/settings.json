@@ -1,0 +1,8 @@
+{
+  "settings": {
+    "color": "red",
+    "difficulty": "hard",
+    "combat_mode": "manual",
+    "dialogue": "yes"
+  }
+}

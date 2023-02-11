@@ -22,7 +22,7 @@ typedef struct Element Element;
 /* SPELLS */
 typedef struct Spell Spell;
 
-typedef struct Offensive Offensive;
+typedef struct Offensive O ffensive;
 typedef struct Defensive Defensive;
 typedef struct Heal Heal;
 
@@ -54,6 +54,7 @@ struct Character
     /*Faculties*/
     Element *element; // Define the element
     Spell *spells;    // Array of spell
+    int nb_spells;    // Number of spells
 
     /*Bag that contains equipments and items*/
     Bag *bag;
@@ -63,9 +64,9 @@ struct Character
 
 struct Bag
 {
-
+    int nb_items;
     Item **items;
-    Gears *gears;
+    Gears *gear;
 };
 
 struct Gears
