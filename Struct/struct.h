@@ -38,7 +38,7 @@ struct Character
 
     /*Basic stats*/
     int physicalPower;
-    int magicPower;
+    int magicalPower;
 
     int maxHp;     // Static heal point
     int currentHp; // Dynamic heal point
@@ -130,6 +130,8 @@ char *numberToElementName(int number);
 
 /* SPELLS */
 
+enum spellFactor {STATIC = 1, RATIO = 2};
+
 struct Spell
 {
 
@@ -140,7 +142,6 @@ struct Spell
     int value;
 
     int cost;
-    int type;
 
     Element *element;
 
@@ -178,13 +179,10 @@ struct Mob{
 
     /*Basic stats*/
     int physicalPower;
-    int magicPower;
+    int magicalPower;
 
     int maxHp;     // Static heal point
     int currentHp; // Dynamic heal point
-
-    int maxMp;     // Static heal point
-    int currentMp; // Dynamic mana point
 
     /*Progression*/
     int level;

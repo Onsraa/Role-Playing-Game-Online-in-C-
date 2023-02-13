@@ -1,7 +1,7 @@
 #include "../struct.h"
-#define NB_SPELLS 3
+#define NB_SPELLS 2
 
-enum spell = {DEFAULT = 1, OFFENSIVE = 2, HEAL = 3, PASSIVE = 4} // Passive spell is not implemented yet.
+enum spell = {OFFENSIVE = 1, HEAL = 2, PASSIVE = 3} // Passive spell is not implemented yet.
 
 void showSpells(Character *character){
 

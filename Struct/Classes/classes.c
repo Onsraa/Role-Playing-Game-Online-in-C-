@@ -130,7 +130,7 @@ void warriorSelected(Character *character)
 {
     character->className = "Warrior";
     character->physicalPower = 80;
-    character->magicPower = 0;
+    character->magicalPower = 0;
 
     character->maxHp = 350;
     character->currentHp = character->maxHp;
@@ -143,7 +143,7 @@ void rogueSelected(Character *character)
 {
     character->className = "Rogue";
     character->physicalPower = 200;
-    character->magicPower = 0;
+    character->magicalPower = 0;
 
     character->maxHp = 150;
     character->currentHp = character->maxHp;
@@ -156,7 +156,7 @@ void archerSelected(Character *character)
 {
     character->className = "Archer";
     character->physicalPower = 150;
-    character->magicPower = 60;
+    character->magicalPower = 60;
 
     character->maxHp = 120;
     character->currentHp = character->maxHp;
@@ -169,7 +169,7 @@ void mageSelected(Character *character)
 {
     character->className = "Mage";
     character->physicalPower = 0;
-    character->magicPower = 200;
+    character->magicalPower = 200;
 
     character->maxHp = 110;
     character->currentHp = character->maxHp;
@@ -183,7 +183,7 @@ void characterStat(Character *character){
     printf("Name : %s\n", character->className);
 
     printf("Physical Power : %d\n", character->physicalPower);
-    printf("Magic Power : %d\n", character->magicPower);
+    printf("Magic Power : %d\n", character->magicalPower);
 
     int currentHpBar = character->currentHp * BAR_LENGTH / character->maxHp;
     int currentMpBar = character->currentMp * BAR_LENGTH / character->maxMp;

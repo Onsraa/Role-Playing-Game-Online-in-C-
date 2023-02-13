@@ -14,7 +14,7 @@ void fight(Character *character, Mob *mob, int auto_mode){
     }
 }
 
-void player_hits(Character *character, Mob *mob, int dialogue){
+void players_turn(Character *character, Mob *mob, int dialogue){
 
     if(!character || !mob){
         system("clear");
@@ -46,28 +46,59 @@ void player_hits(Character *character, Mob *mob, int dialogue){
 
     switch(fightAlgorithm(character, mob)){
         case 1 : // BASIC ATTACK
+            mob->currentHp -= total_damage;
+
+            if(dialogue){
+                printf("You hit the %s for %d ! It has %d hp left.\n", mob->name, total_damage, mob->currentHp);
+            }
+
             break;
         case 2 : // OFFENSIVE ATTACK
 
-            if(character->spells->)
+            if(character->spells[0]->valueFactor = STATIC){
+                total_damage += character->spells[0]->value;
+            }else{
+                total_damage *= character->spells[0]->value;
+            }
+
+            mob->currentHp -= total_damage;
+            
+            if(dialogue){
+                printf("You hit the %s for %d ! It has %d hp left.\n", mob->name, total_damage, mob->currentHp);
+            }
+
             break : 
         case 3 : // HEALING 
+
+            if(character->spells[1]->valueFactor = STATIC){
+                total_damage += character->spells[0]->value;
+            }else{
+                total_damage *= character->spells[0]->value;
+            }
+
+            character->currentHp += total_damage;
+
+            if(dialogue){
+                printf("You healed yourself for %d !\nREMAINS HP : [%d/%d]\n", total_damage,character->currentHp, character->maxHp);
+            }
             break;
     }
-    
-    mob->currentHp -= total_damage;
+}
+
+void mobs_turn(Mob *mob, Character * character, int dialogue){
+
+    if(!character || !mob){
+        system("clear");
+        printf("Character or mob don't exist.");
+        exit(EXIT_FAILURE);
+    }
+
+    int total_damage = mob->physicalPower + mob->magicalPower;
 
     if(dialogue){
-        printf("You hit the %s for %d ! It has %d hp left.\n", mob->name, total_damage, mob->currentHp);
+        printf("The %s hits you for %d !\nREMAINS HP : [%d/%d]\n", mob->name, total_damage, character->currentHp, character->maxHp);
     }
-}
-
-void player_heals(Character *character){
-    
-}
-
-void mob_hits(Mob *mob, Character * character){
-
+    character->currentHp -= total_damage;
 }
 
 int fightAlgorithm(Character * character, Mob *mob){
