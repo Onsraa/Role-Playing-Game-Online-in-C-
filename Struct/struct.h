@@ -23,7 +23,6 @@ typedef struct Element Element;
 typedef struct Spell Spell;
 
 typedef struct Offensive Offensive;
-typedef struct Defensive Defensive;
 typedef struct Heal Heal;
 
 /* USERS */
@@ -55,17 +54,23 @@ struct Character
     Element *element; // Define the element
     Spell *spells;    // Array of spell
 
-    /*Bag that contains equipments and items*/
+    /*Bag that contains equipments, weapons and armors*/
     Bag *bag;
 
     /*Equipment*/
+    Gears *gears; // Define the gear equipped.
+
+    /*State*/
+    int isAlive;
 };
 
 struct Bag
 {
 
-    Item **items;
-    Gears *gears;
+    Weapon **weapons;
+    Armor **armors;
+
+    int nb_items;
 };
 
 struct Gears
@@ -75,6 +80,15 @@ struct Gears
     Armor *armor;
 };
 
+struct Weapon{
+
+    char * name;
+    int bonus_damage;
+    int status; // Equipped = 1, Stored = 0
+
+    Element * element;
+
+}
 void initializeCharacter(User *user);
 
 void chooseClass(User *user);
@@ -99,63 +113,33 @@ struct Element
     int type;
 };
 
-enum elements
-{
-    FIRE = 1,
-    WATER = 2,
-    PLANT = 3
-};
-
-enum compability
-{
-    EFFICIENT = 1,
-    INEFFECTIVE = 2,
-    NONE = 3
-};
-
 void initializeElement(Character *character, int element);
 
 int compability(Element *first_element, Element *second_element);
 
 char *numberToElementName(int number);
 
+/* SPELLS */
+
 struct Spell
 {
 
     char *spellName;
     char *description;
+    
     char *valueFactor;
-};
+    int value;
 
-struct Offensive
-{
+    int cost;
+    int type;
 
-    Spell *info;
     Element *element;
 
-    int *damageValue;
-    int cost;
 };
 
-struct Defensive
-{
+void showSpells(Character *character);
 
-    Spell *info;
-    Element *element;
-
-    int defenseValue;
-    int cost;
-};
-
-struct Heal
-{
-
-    Spell *info;
-    Element *element;
-
-    int healingValue;
-    int cost;
-};
+/* USERS */
 
 struct User
 {
@@ -182,6 +166,7 @@ typedef struct Mob Mob;
 struct Mob{
 
     char *name;
+
     /*Basic stats*/
     int physicalPower;
     int magicPower;
@@ -194,6 +179,15 @@ struct Mob{
 
     /*Progression*/
     int level;
+
+    /*State*/
+    int isAlive;
 };
+
+/* ACTIONS */
+
+void fight(Character *character, Mob *mob, int auto_mode);
+
+void hit(Character *character, Mob *mob);
 
 #endif

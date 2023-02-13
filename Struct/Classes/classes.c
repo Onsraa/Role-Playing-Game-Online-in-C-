@@ -96,11 +96,13 @@ void addClass(User *user, int selection)
         exit(EXIT_FAILURE);
     }
 
+    new_character->isAlive = 1;
+
     new_character->level = 0;
     new_character->experience = 0;
     new_character->experienceNeededToLevelUp = 100;
 
-    new_character->bag = NULL;
+    new_character->bag = malloc(sizeof(Bag));
 
     switch (selection)
     {

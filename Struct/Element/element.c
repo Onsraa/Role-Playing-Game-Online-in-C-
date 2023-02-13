@@ -1,5 +1,19 @@
 #include "../struct.h"
 
+enum elements
+{
+    FIRE = 1,
+    WATER = 2,
+    PLANT = 3
+};
+
+enum compability
+{
+    EFFICIENT = 1,
+    INEFFECTIVE = 2,
+    NONE = 3
+};
+
 void initializeElement(Character *character, int element)
 {
 
