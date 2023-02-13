@@ -43,6 +43,17 @@ void player_hits(Character *character, Mob *mob, int dialogue){
                 break;
         }
     }
+
+    switch(fightAlgorithm(character, mob)){
+        case 1 : // BASIC ATTACK
+            break;
+        case 2 : // OFFENSIVE ATTACK
+
+            if(character->spells->)
+            break : 
+        case 3 : // HEALING 
+            break;
+    }
     
     mob->currentHp -= total_damage;
 

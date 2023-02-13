@@ -136,7 +136,7 @@ struct Spell
     char *spellName;
     char *description;
     
-    char *valueFactor;
+    int valueFactor;
     int value;
 
     int cost;
