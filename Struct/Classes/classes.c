@@ -103,6 +103,10 @@ void addClass(User *user, int selection)
     new_character->experienceNeededToLevelUp = 100;
 
     new_character->bag = malloc(sizeof(Bag));
+    new_character->bag->nb_weapons = 0;
+    new_character->bag->nb_armors = 0;
+    
+    new_character->gears = malloc(sizeof(Gears));
 
     switch (selection)
     {

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 /* ------------------------------DECLARATIONS------------------------------*/
 
@@ -70,7 +71,8 @@ struct Bag
     Weapon **weapons;
     Armor **armors;
 
-    int nb_items;
+    int nb_weapons;
+    int nb_armors;
 };
 
 struct Gears
@@ -84,11 +86,18 @@ struct Weapon{
 
     char * name;
     int bonus_damage;
-    int status; // Equipped = 1, Stored = 0
+    
+    Element * element;
+};
+
+struct Armor{
+
+    char *name;
+    int bonus_resistance;
 
     Element * element;
-
 }
+
 void initializeCharacter(User *user);
 
 void chooseClass(User *user);
