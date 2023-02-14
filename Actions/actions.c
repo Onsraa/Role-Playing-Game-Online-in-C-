@@ -27,8 +27,8 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
     case 1:
         while (character->isAlive && mob->isAlive)
         {
-            printf("********************************\n");
-            printf("ROUND %d\n\n", rounds);
+            printf("-------------------------------\n");
+            printf("\tROUND N°%d\n\n", rounds);
             switch (rounds % 2)
             {
             case 0:
@@ -39,7 +39,7 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
                 break;
             }
             showFightStates(character, mob);
-            printf("********************************\n");
+            printf("-------------------------------\n");
             ++rounds;
         }
         break;
@@ -76,14 +76,14 @@ void players_turn(Character *character, Mob *mob, int dialogue)
         case 2: // Weapon's element is efficient against the character so it gives mallus.
             if (dialogue)
             {
-                printf("The character struggles to handle a weapon of the opposite element, mallus !\n");
+                printf("The character struggles to handle a weapon of the opposite element : mallus !\n");
             }
             total_damage += character->gears->weapon->bonus_damage * 0.7;
             break;
         case 3: // Same element weapon and character so bingo.
             if (dialogue)
             {
-                printf("Compability between weapon and character, bonus damage !\n");
+                printf("Compability between weapon and character : bonus damage !\n");
             }
             total_damage += character->gears->weapon->bonus_damage * 2;
             break;
@@ -100,7 +100,7 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You hit the %s for %d !\n", mob->name, total_damage);
+            printf("You hit the %s for %d with your basic attack !\n", mob->name, total_damage);
         }
 
         break;
@@ -125,7 +125,7 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You hit the %s for %d !\n", mob->name, total_damage);
+            printf("You used your offensive spell ! The %s, it hits for %d !\n", offensive_spell->spellName, total_damage);
         }
 
         break;
@@ -150,7 +150,7 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You healed yourself for %d !\n\n", total_damage);
+            printf("You healed yourself for %d with the %s!\n\n", total_damage, healing_spell->spellName);
         }
         break;
     }
