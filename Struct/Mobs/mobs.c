@@ -43,7 +43,7 @@ Mob * dragon(int difficulty){ // Boss mob
     mob->physicalPower = 200;
     mob->magicalPower = 200;
 
-    mob->maxHp = 500;
+    mob->maxHp = 4000;
     mob->currentHp = mob->maxHp;
 
     mob->level = difficulty;
@@ -61,7 +61,7 @@ Mob * goblin(int difficulty){
     mob->physicalPower = 50;
     mob->magicalPower = 20;
 
-    mob->maxHp = 100;
+    mob->maxHp = 600;
     mob->currentHp = mob->maxHp;
 
     mob->level = difficulty;
@@ -79,7 +79,7 @@ Mob * titan(int difficulty){
     mob->physicalPower = 110;
     mob->magicalPower = 50;
 
-    mob->maxHp = 200;
+    mob->maxHp = 1300;
     mob->currentHp = mob->maxHp;
 
     mob->level = difficulty;
@@ -97,7 +97,7 @@ Mob * ghost(int difficulty){
     mob->physicalPower = 50;
     mob->magicalPower = 80;
 
-    mob->maxHp = 130;
+    mob->maxHp = 900;
     mob->currentHp = mob->maxHp;
 
     mob->level = difficulty;

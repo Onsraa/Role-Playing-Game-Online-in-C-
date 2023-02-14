@@ -39,6 +39,7 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
                 break;
             }
             showFightStates(character, mob);
+            regenerateMana(character);
             printf("-------------------------------\n");
             ++rounds;
         }
@@ -242,6 +243,15 @@ void showFightStates(Character *character, Mob *mob){
     }
     printf("]");
     puts(" ");
+}
+
+void regenerateMana(Character * character){
+
+    character->currentMp *= MANA_REGEN_RATIO;
+
+    if(character->currentMp > character->maxMp){
+        character->currentMp = character->maxMp;
+    }
 }
 void dropStuff(Character *character, Mob *mob)
 {

@@ -20,6 +20,9 @@
 /*MOBS*/
 #define NB_MOBS 4
 #define BOSS_POSITION 0
+
+/*ACTION*/
+#define MANA_REGEN_RATIO 1.2
 /* ------------------------------DECLARATIONS------------------------------*/
 
 /* CHARACTERS */
@@ -251,4 +254,5 @@ int fightAlgorithm(Character *character, Mob *mob);
 void players_turn(Character *character, Mob *mob, int dialogue);
 void mobs_turn(Mob *mob, Character *character, int dialogue);
 
+void regenerateMana(Character * character);
 #endif
