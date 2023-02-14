@@ -16,6 +16,7 @@ enum gearState
 void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 {
 
+    system("clear");
     int rounds = 0;
 
     switch (auto_mode)
@@ -26,7 +27,8 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
     case 1:
         while (character->isAlive && mob->isAlive)
         {
-            printf("ROUND %d\n", rounds);
+            printf("********************************\n");
+            printf("ROUND %d\n\n", rounds);
             switch (rounds % 2)
             {
             case 0:
@@ -36,10 +38,19 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
                 mobs_turn(mob, character, dialogue);
                 break;
             }
+            showFightStates(character, mob);
+            printf("********************************\n");
             ++rounds;
         }
         break;
     }
+
+    if(character->isAlive){
+        printf("You won against the %s !", mob->name);
+    }else{
+        printf("You died against the %s.", mob->name);
+    }
+    puts(" ");
 }
 
 void players_turn(Character *character, Mob *mob, int dialogue)
@@ -89,11 +100,17 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You hit the %s for %d ! It has %d hp left.\n", mob->name, total_damage, mob->currentHp);
+            printf("You hit the %s for %d !\n", mob->name, total_damage);
         }
 
         break;
     case 2: // OFFENSIVE ATTACK
+
+        character->currentMp -= character->spells[0]->cost;
+
+        if(character->currentMp < 0){
+           character->currentMp = 0; 
+        }
 
         if (character->spells[0]->valueFactor = STATIC)
         {
@@ -108,11 +125,17 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You hit the %s for %d ! It has %d hp left.\n", mob->name, total_damage, mob->currentHp);
+            printf("You hit the %s for %d !\n", mob->name, total_damage);
         }
 
         break;
     case 3: // HEALING
+
+        character->currentMp -= character->spells[1]->cost;
+
+        if(character->currentMp < 0){
+           character->currentMp = 0; 
+        }
 
         if (character->spells[1]->valueFactor = STATIC)
         {
@@ -127,9 +150,13 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You healed yourself for %d !\nREMAINS HP : [%d/%d]\n", total_damage, character->currentHp, character->maxHp);
+            printf("You healed yourself for %d !\n\n", total_damage);
         }
         break;
+    }
+
+    if(mob->currentHp <= 0){
+        mob->isAlive = 0;
     }
 }
 
@@ -147,9 +174,13 @@ void mobs_turn(Mob *mob, Character *character, int dialogue)
 
     if (dialogue)
     {
-        printf("The %s hits you for %d !\nREMAINS HP : [%d/%d]\n", mob->name, total_damage, character->currentHp, character->maxHp);
+        printf("The %s hits you for %d !\n", mob->name, total_damage, character->currentHp, character->maxHp);
     }
     character->currentHp -= total_damage;
+
+    if(character->currentHp <= 0){
+        character->isAlive = 0;
+    }
 }
 
 int fightAlgorithm(Character *character, Mob *mob)
@@ -192,6 +223,26 @@ int fightAlgorithm(Character *character, Mob *mob)
     return BASIC_ATTACK;
 }
 
+void showFightStates(Character *character, Mob *mob){
+
+    printf("You :\n");
+    showBars(character);
+    puts(" ");
+    printf("The %s : \n", mob->name);
+
+    int currentHpBar = mob->currentHp * BAR_LENGTH / mob->maxHp;
+    
+    printf("HP (%d/%d) : ", mob->currentHp, mob->maxHp);
+    printf("[");
+    for(int i = 0 ; i < currentHpBar ; i++){
+        printf("#");
+    }
+    for(int i = currentHpBar ; i < BAR_LENGTH ; i++){
+        printf(" ");
+    }
+    printf("]");
+    puts(" ");
+}
 void dropStuff(Character *character, Mob *mob)
 {
 }

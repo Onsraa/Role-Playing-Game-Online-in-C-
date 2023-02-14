@@ -15,9 +15,11 @@ int main(){
 
         characterStats(me->characters[0]);
 
-        Mob * mob = NULL;
+        giveSpells(me->characters[0]);
 
-        mob = generateMob(1);
+        showSpells(me->characters[0]);
+
+        Mob * mob = generateMob(1);
 
         mobStats(mob);
 

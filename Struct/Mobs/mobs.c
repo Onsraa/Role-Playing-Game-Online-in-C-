@@ -1,7 +1,4 @@
 #include "../struct.h"
-#define BAR_LENGTH 40
-#define NB_MOBS 4
-#define BOSS_POSITION 0
 
 enum mobs {DRAGON = 0, GOBLIN = 1, TITAN = 2, GHOST = 3};
 enum difficulty {EASY = 1, NORMAL = 2, HARD = 3};

@@ -6,6 +6,20 @@
 #include <string.h>
 #include <time.h>
 
+/* ------------------------------GLOBAL VALUES------------------------------*/
+
+/*CLASSES-CHARACTERS*/
+#define NB_CLASSES 4
+
+/*INTERFACES*/
+#define BAR_LENGTH 40
+
+/*SPELLS*/
+#define NB_SPELLS 2
+
+/*MOBS*/
+#define NB_MOBS 4
+#define BOSS_POSITION 0
 /* ------------------------------DECLARATIONS------------------------------*/
 
 /* CHARACTERS */
@@ -62,8 +76,8 @@ struct Character
     int experienceNeededToLevelUp;
 
     /*Faculties*/
-    Element *element; // Define the element
-    Spell **spells;    // Array of spell
+    Element * element; // Define the element
+    Spell ** spells;    // Array of spells
 
     /*Bag that contains equipments, weapons and armors*/
     Bag *bag;
@@ -124,6 +138,8 @@ void mageSelected(Character *character);
 
 void characterStats(Character *character);
 
+void showBars(Character *character);
+
 /* ELEMENT */
 
 enum elements
@@ -164,7 +180,15 @@ struct Spell
 
 };
 
+void giveSpells(Character *character);
 void showSpells(Character *character);
+
+Spell * generateSpell(char * spellName, char * description, int valueFactor, int value, int cost, int element);
+
+void warriorSpells(Character *character);
+void rogueSpells(Character *character);
+void archerSpells(Character *character);
+void mageSpells(Character *character);
 
 /* USERS */
 
@@ -220,6 +244,7 @@ void mobStats(Mob * mob);
 /* ACTIONS */
 
 void fight(Character *character, Mob *mob, int auto_mode, int dialogue);
+void showFightStates(Character *character, Mob *mob);
 
 int fightAlgorithm(Character *character, Mob *mob);
 

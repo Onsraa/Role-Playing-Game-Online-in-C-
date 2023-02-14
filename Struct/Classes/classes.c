@@ -1,8 +1,5 @@
 #include "../struct.h"
 
-#define NB_CLASSES 4
-#define BAR_LENGTH 40
-
 void initializeCharacter(User *user){
     
     user->characters = malloc(sizeof(Character *));
@@ -185,6 +182,15 @@ void characterStats(Character *character){
     printf("Physical Power : %d\n", character->physicalPower);
     printf("Magic Power : %d\n", character->magicalPower);
 
+    showBars(character);
+    
+    printf("Level : %d\n", character->level);
+
+    printf("\n");
+}
+
+void showBars(Character *character){
+
     int currentHpBar = character->currentHp * BAR_LENGTH / character->maxHp;
     int currentMpBar = character->currentMp * BAR_LENGTH / character->maxMp;
     
@@ -194,21 +200,18 @@ void characterStats(Character *character){
         printf("#");
     }
     for(int i = currentHpBar ; i < BAR_LENGTH ; i++){
-        printf(" ");
+        printf(".");
     }
     printf("]");
     puts(" ");
     printf("MP (%d/%d) : ", character->currentMp, character->maxMp);
     printf("[");
-    for(int i = 0 ; i < currentHpBar ; i++){
+    for(int i = 0 ; i < currentMpBar ; i++){
         printf("#");
     }
     for(int i = currentMpBar ; i < BAR_LENGTH ; i++){
-        printf(" ");
+        printf(".");
     }
     printf("]");
     puts(" ");
-    printf("Level : %d\n", character->level);
-
-    printf("\n");
 }
