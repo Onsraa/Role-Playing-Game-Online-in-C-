@@ -3,14 +3,6 @@
 #define NB_CLASSES 4
 #define BAR_LENGTH 40
 
-enum classes
-{
-    WARRIOR = 1,
-    ROGUE = 2,
-    ARCHER = 3,
-    MAGE = 4
-};
-
 void initializeCharacter(User *user){
     
     user->characters = malloc(sizeof(Character *));

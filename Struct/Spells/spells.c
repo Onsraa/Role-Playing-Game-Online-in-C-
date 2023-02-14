@@ -17,5 +17,60 @@ void showSpells(Character *character){
 
 void giveSpells(char *character){
 
+    if(!character){
+        system("clear");
+        printf("Error, character is not allocated.");
+        exit(EXIT_FAILURE);
+    }
+
+    if(!character->spells){
+        character->spells = malloc(sizeof(Spells *) * 2); // Allocate memory for offensive and heal spells.
+    }
+
+    switch(character->classId){
+        case WARRIOR :
+            break;
+        case ROGUE :
+            break;
+        case ARCHER :
+            break;
+        case MAGE :
+            break;
+    }
+}
+
+Spell * generateSpell(char * spellName, char * description, int valueFactor, int value, int cost, int element){
+    
+    Spell * spell = malloc(sizeof(Spell));
+
+    spell->spellName = spellName;
+    spell->description = description;
+    spell->valueFactor = valueFactor;
+    spell->value = value;
+    spell->cost = cost;
+
+    spell->element = malloc(sizeof(Element));
+    spell->element->type = element;
+}
+
+void warriorSpells(Character *character){ // OFFENSIVE and HEAL for WARRIOR
+    
+    character->spells[0] = generateSpell("Swing of Heaven", "Powerful swing.", STATIC, 70, 25);
+    character->spells[1] = generateSpell("Painless recovery", "Recover health slowly.", RATIO, 15, 40);
+}
+void rogueSpells(Character *character){ // OFFENSIVE and HEAL for ROGUE
+
+    character->spells[0] = generateSpell("Sneaky stap of the snake", "Shhhh.", RATIO, 40, 30);
+    character->spells[1] = generateSpell("Bandages of the poor guy", "Doesn't heal that much but it will do the job.", STATIC, 50, 10);
+}
+void archerSpells(Character *character){ // OFFENSIVE and HEAL for ARCHER
+
+    character->spells[0] = generateSpell("Rain of arrows", "Too much arrows.", STATIC, 110, 50);
+    character->spells[1] = generateSpell("Second life", "Like a cat, he has many lives", RATIO, 70, 100);
+}
+void mageSpells(Character *character){ // OFFENSIVE and HEAL for MAGE
+
+    character->spells[0] = generateSpell("Mega giga extra fireball", "Strongest fireball in the world.", STATIC, 200, 70);
+    character->spells[1] = generateSpell("Pact with the devil", "Devil gives you more time to live so he can takes your soul later.", STATIC, 140, 50);
 }
 

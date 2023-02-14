@@ -31,6 +31,14 @@ typedef struct User User;
 
 /* -------------------------------------------------------------------------*/
 
+enum classes
+{
+    WARRIOR = 1,
+    ROGUE = 2,
+    ARCHER = 3,
+    MAGE = 4
+};
+
 struct Character
 {
 
@@ -117,6 +125,13 @@ void mageSelected(Character *character);
 void characterStats(Character *character);
 
 /* ELEMENT */
+
+enum elements
+{
+    FIRE = 1,
+    WATER = 2,
+    PLANT = 3
+};
 
 struct Element
 {

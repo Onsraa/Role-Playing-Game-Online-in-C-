@@ -1,12 +1,5 @@
 #include "../struct.h"
 
-enum elements
-{
-    FIRE = 1,
-    WATER = 2,
-    PLANT = 3
-};
-
 enum compability
 {
     EFFICIENT = 1,
