@@ -112,7 +112,10 @@ struct Gears
 struct Weapon{
 
     char * name;
+    
     int bonus_damage;
+
+    int rarity;
     
     Element * element;
 };

@@ -253,6 +253,3 @@ void regenerateMana(Character * character){
         character->currentMp = character->maxMp;
     }
 }
-void dropStuff(Character *character, Mob *mob)
-{
-}
