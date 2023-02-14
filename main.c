@@ -21,7 +21,7 @@ int main(){
 
         mobStats(mob);
 
-        //fight(me->characters[0], mob, 1, 1);
+        fight(me->characters[0], mob, 1, 1);
 
         exit(EXIT_SUCCESS);
 }

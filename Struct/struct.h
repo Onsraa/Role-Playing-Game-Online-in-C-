@@ -34,6 +34,8 @@ typedef struct User User;
 struct Character
 {
 
+    int classId; // Determine the class number.
+
     char *className;
 
     /*Basic stats*/

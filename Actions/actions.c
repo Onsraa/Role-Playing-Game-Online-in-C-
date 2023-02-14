@@ -52,9 +52,6 @@ void players_turn(Character *character, Mob *mob, int dialogue)
         exit(EXIT_FAILURE);
     }
 
-    printf("\nFLAG\n");
-    exit(EXIT_SUCCESS);
-
     int total_damage = character->physicalPower + character->magicalPower;
 
     if (character->gears && character->gears->weapon)

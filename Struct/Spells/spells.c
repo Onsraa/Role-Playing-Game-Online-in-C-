@@ -14,3 +14,8 @@ void showSpells(Character *character){
         printf("%d : %s [%d]\n", i+1, character->spells[i]->spellName, character->spells[i]->cost);
     }
 }
+
+void giveSpells(char *character){
+
+}
+

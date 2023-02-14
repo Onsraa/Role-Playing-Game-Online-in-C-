@@ -128,6 +128,8 @@ void addClass(User *user, int selection)
 
 void warriorSelected(Character *character)
 {
+    character->classId = WARRIOR;
+
     character->className = "Warrior";
     character->physicalPower = 80;
     character->magicalPower = 0;
@@ -141,6 +143,8 @@ void warriorSelected(Character *character)
 
 void rogueSelected(Character *character)
 {
+    character->classId = ROGUE;
+
     character->className = "Rogue";
     character->physicalPower = 200;
     character->magicalPower = 0;
@@ -154,6 +158,8 @@ void rogueSelected(Character *character)
 
 void archerSelected(Character *character)
 {
+    character->classId = ARCHER;
+
     character->className = "Archer";
     character->physicalPower = 150;
     character->magicalPower = 60;
@@ -167,6 +173,8 @@ void archerSelected(Character *character)
 
 void mageSelected(Character *character)
 {
+    character->classId = MAGE;
+
     character->className = "Mage";
     character->physicalPower = 0;
     character->magicalPower = 200;
