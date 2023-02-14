@@ -200,9 +200,8 @@ Mob * ghost(int difficulty);
 
 /* ACTIONS */
 
-void fight(Character *character, Mob *mob, int auto_mode);
+void fight(Character *character, Mob *mob, int auto_mode, int dialogue);
 
-void hit(Character *character, Mob *mob);
 int fightAlgorithm(Character *character, Mob *mob);
 
 #endif

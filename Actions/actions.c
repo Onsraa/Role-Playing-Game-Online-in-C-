@@ -13,7 +13,7 @@ enum gearState
     STORED = 0
 };
 
-void fight(Character *character, Mob *mob, int auto_mode)
+void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 {
 
     int rounds = 0;
