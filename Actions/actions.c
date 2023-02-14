@@ -18,10 +18,27 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 
     int rounds = 0;
 
-    while (character->isAlive && mob->isAlive)
+    switch (auto_mode)
     {
+    case 0:
 
-        ++rounds;
+        break;
+    case 1:
+        while (character->isAlive && mob->isAlive)
+        {
+            printf("ROUND %d\n", rounds);
+            switch (rounds % 2)
+            {
+            case 0:
+                players_turn(character, mob, dialogue);
+                break;
+            case 1:
+                mobs_turn(mob, character, dialogue);
+                break;
+            }
+            ++rounds;
+        }
+        break;
     }
 }
 
@@ -35,12 +52,16 @@ void players_turn(Character *character, Mob *mob, int dialogue)
         exit(EXIT_FAILURE);
     }
 
+    printf("\nFLAG\n");
+    exit(EXIT_SUCCESS);
+
     int total_damage = character->physicalPower + character->magicalPower;
 
     if (character->gears && character->gears->weapon)
     { // Check if a weapon is equipped.
-        switch (compability(character->element, character->gears->weapon->element)){// Check element compability between weapon and character.
-        
+        switch (compability(character->element, character->gears->weapon->element))
+        { // Check element compability between weapon and character.
+
         case 1: // Character's element is efficient against the weapon so it changes nothing.
             total_damage += character->gears->weapon->bonus_damage;
             break;
@@ -155,17 +176,20 @@ int fightAlgorithm(Character *character, Mob *mob)
     Spell *offensive_spell = character->spells[0];
     Spell *healing_spell = character->spells[1];
 
-    switch(isLow){
-        case 0 :
-            if(character->currentMp >= offensive_spell->cost){ // Check if we have enough mana to cast an offensive.
-                return OFFENSIVE;
-            }
-            break;
-        case 1 :
-            if(character->currentMp >= healing_spell->cost){// Check if we have enough mana to cast a heal.
-                return HEAL;
-            }
-            break;
+    switch (isLow)
+    {
+    case 0:
+        if (character->currentMp >= offensive_spell->cost)
+        { // Check if we have enough mana to cast an offensive.
+            return OFFENSIVE;
+        }
+        break;
+    case 1:
+        if (character->currentMp >= healing_spell->cost)
+        { // Check if we have enough mana to cast a heal.
+            return HEAL;
+        }
+        break;
     }
 
     return BASIC_ATTACK;

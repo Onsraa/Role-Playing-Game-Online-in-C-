@@ -1,8 +1,9 @@
 #include "../struct.h"
-
+#define BAR_LENGTH 40
 #define NB_MOBS 4
+#define BOSS_POSITION 0
 
-enum mobs {DRAGON = 1, GOBLIN = 2, TITAN = 3, GHOST = 4};
+enum mobs {DRAGON = 0, GOBLIN = 1, TITAN = 2, GHOST = 3};
 enum difficulty {EASY = 1, NORMAL = 2, HARD = 3};
 
 Mob * generateMob(int difficulty){
@@ -11,8 +12,18 @@ Mob * generateMob(int difficulty){
 
     srand(time(NULL));
 
-    switch((int)(rand() % NB_MOBS + 1)){
+    int random;
+    
+    do{
+        random = (int)(rand() % NB_MOBS);
+    }while(random == BOSS_POSITION);
 
+
+    switch(random){
+
+        case DRAGON:
+            generatedMob = dragon(difficulty);
+            break;
         case GOBLIN:
             generatedMob = goblin(difficulty);
             break;
@@ -97,4 +108,29 @@ Mob * ghost(int difficulty){
     mob->isAlive = 1;
 
     return mob;
+}
+
+void mobStats(Mob * mob){
+
+    printf("Name : %s\n", mob->name);
+
+    printf("Physical Power : %d\n", mob->physicalPower);
+    printf("Magic Power : %d\n", mob->magicalPower);
+
+    int currentHpBar = mob->currentHp * BAR_LENGTH / mob->maxHp;
+    
+    printf("HP (%d/%d) : ", mob->currentHp, mob->maxHp);
+    printf("[");
+    for(int i = 0 ; i < currentHpBar ; i++){
+        printf("#");
+    }
+    for(int i = currentHpBar ; i < BAR_LENGTH ; i++){
+        printf(" ");
+    }
+    printf("]");
+    puts(" ");
+
+    printf("Level : %d\n", mob->level);
+
+    printf("\n");
 }

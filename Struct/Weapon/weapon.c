@@ -9,9 +9,3 @@ int generateWeapon(){
     srand(time(NULL));
     return (int)(rand() % NB_WEAPONS + 1);
 }
-
-int main(){
-
-    printf("%d", generateWeapon());
-    exit(1);
-}

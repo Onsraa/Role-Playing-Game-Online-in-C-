@@ -112,7 +112,7 @@ void archerSelected(Character *character);
 
 void mageSelected(Character *character);
 
-void characterStat(Character *character);
+void characterStats(Character *character);
 
 /* ELEMENT */
 
@@ -198,10 +198,15 @@ Mob * goblin(int difficulty);
 Mob * titan(int difficulty);
 Mob * ghost(int difficulty);
 
+void mobStats(Mob * mob);
+
 /* ACTIONS */
 
 void fight(Character *character, Mob *mob, int auto_mode, int dialogue);
 
 int fightAlgorithm(Character *character, Mob *mob);
+
+void players_turn(Character *character, Mob *mob, int dialogue);
+void mobs_turn(Mob *mob, Character *character, int dialogue);
 
 #endif

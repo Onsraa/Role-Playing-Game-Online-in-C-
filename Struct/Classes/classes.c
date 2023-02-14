@@ -178,7 +178,7 @@ void mageSelected(Character *character)
     character->currentMp = character->maxMp;
 };
 
-void characterStat(Character *character){
+void characterStats(Character *character){
     
     printf("Name : %s\n", character->className);
 

@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "./Struct/struct.h"
 
 int main(){
@@ -16,7 +13,15 @@ int main(){
         
         system("clear");
 
-        characterStat(me->characters[0]);
+        characterStats(me->characters[0]);
+
+        Mob * mob = NULL;
+
+        mob = generateMob(1);
+
+        mobStats(mob);
+
+        //fight(me->characters[0], mob, 1, 1);
 
         exit(EXIT_SUCCESS);
 }
