@@ -5,27 +5,29 @@
 enum mobs {DRAGON = 1, GOBLIN = 2, TITAN = 3, GHOST = 4};
 enum difficulty {EASY = 1, NORMAL = 2, HARD = 3};
 
-Mob * generateMob(){
+Mob * generateMob(int difficulty){
 
-    Mob * generatedMob;
+    Mob * generatedMob = NULL;
 
     srand(time(NULL));
+
     switch((int)(rand() % NB_MOBS + 1)){
+
         case GOBLIN:
-            generatedMob = goblin();
+            generatedMob = goblin(difficulty);
             break;
         case TITAN:
-            generatedMob = titan();
+            generatedMob = titan(difficulty);
             break;
         case GHOST:
-            generatedMob = ghost();
+            generatedMob = ghost(difficulty);
             break;
     };
 
     return generatedMob;
 }
 
-Mob * dragon(int difficulty){
+Mob * dragon(int difficulty){ // Boss mob
 
     Mob * mob = malloc(sizeof(Mob));
 

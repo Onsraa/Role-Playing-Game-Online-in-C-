@@ -53,7 +53,7 @@ struct Character
 
     /*Faculties*/
     Element *element; // Define the element
-    Spell *spells;    // Array of spell
+    Spell **spells;    // Array of spell
 
     /*Bag that contains equipments, weapons and armors*/
     Bag *bag;
@@ -96,7 +96,7 @@ struct Armor{
     int bonus_resistance;
 
     Element * element;
-}
+};
 
 void initializeCharacter(User *user);
 
@@ -191,10 +191,18 @@ struct Mob{
     int isAlive;
 };
 
+Mob * generateMob(int difficulty);
+
+Mob * dragon(int difficulty);
+Mob * goblin(int difficulty);
+Mob * titan(int difficulty);
+Mob * ghost(int difficulty);
+
 /* ACTIONS */
 
 void fight(Character *character, Mob *mob, int auto_mode);
 
 void hit(Character *character, Mob *mob);
+int fightAlgorithm(Character *character, Mob *mob);
 
 #endif
