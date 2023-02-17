@@ -8,11 +8,6 @@
 
 /* ------------------------------GLOBAL VALUES------------------------------*/
 
-/*COLORS*/
-#define COLOR_RESET "\x1b[0m"
-#define COLOR_RED "\x1b[31m"
-#define COLOR_GREEN "\x1b[32m"
-
 /*INTERFACES*/
 #define BAR_LENGTH 40
 
@@ -76,7 +71,6 @@ enum rarity
 #define STARTING_ZONE 5
 
 enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6};
-
 /* ------------------------------DECLARATIONS------------------------------*/
 
 /* CHARACTERS */
@@ -155,6 +149,27 @@ struct Gears
     Armor *armor;
 };
 
+struct Weapon
+{
+
+    char *name;
+
+    int bonus_damage;
+
+    int rarity;
+
+    Element *element;
+};
+
+struct Armor
+{
+
+    char *name;
+    int bonus_resistance;
+
+    Element *element;
+};
+
 void initializeCharacter(User *user);
 
 void chooseClass(User *user);
@@ -172,37 +187,6 @@ void mageSelected(Character *character);
 void characterStats(Character *character);
 
 void showBars(Character *character);
-
-/*WEAPON*/
-struct Weapon
-{
-
-    int id;
-
-    char *name;
-
-    int bonus_damage;
-
-    int rarity;
-
-    Element *element;
-};
-
-char * printRarity(int rarity);
-
-/*ARMOR*/
-struct Armor
-{
-    int id;
-
-    char *name;
-
-    int bonus_resistance;
-
-    int rarity;
-
-    Element *element;
-};
 
 /* ELEMENT */
 
