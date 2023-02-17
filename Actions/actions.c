@@ -253,3 +253,51 @@ void regenerateMana(Character * character){
         character->currentMp = character->maxMp;
     }
 }
+
+int generateRarity()
+{
+
+    srand(time(NULL));
+
+    int drop_rate = rand() % 100;
+
+    if (drop_rate <= DIVINE_DROP_RATE)
+    {
+        return DIVINE;
+    }
+    else if (drop_rate <= LEGENDARY_DROP_RATE)
+    {
+
+        return LEGENDARY;
+    }
+    else if (drop_rate <= EPIC_DROP_RATE)
+    {
+
+        return EPIC;
+    }
+    else if (drop_rate <= RARE_DROP_RATE)
+    {
+
+        return RARE;
+    }
+    else
+    {
+        
+        return COMMON;
+    }
+}
+
+void dropStuff(Character *character, Mob *mob)
+{
+    printf("Nice ! You just dropped an item from the %s", mob->name);
+    printf("Do you want to add it to your bag ?");
+
+    int weapon_or_armor = (int)rand() % 2;
+
+    switch(weapon_or_armor){
+        case WEAPON:
+            break;
+        case ARMOR:
+            break;
+    }
+}

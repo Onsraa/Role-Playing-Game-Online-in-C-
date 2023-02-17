@@ -1,10 +1,5 @@
 #include "../struct.h"
 
-#define REGENERATION_ZONE 6
-#define STARTING_ZONE 5
-
-enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6}
-
 void generateRandomZone(){
 
 

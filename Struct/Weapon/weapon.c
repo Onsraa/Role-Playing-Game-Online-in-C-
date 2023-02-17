@@ -1,46 +1,64 @@
-#include "../struct.h"
+Weapon * chooseWeapon(Character * character){
 
-Weapon *generateWeapon(char *name, int bonus_damage, int rarity, int element)
-{
+    system("clear");
+    puts("\n");
 
-    Weapon *weapon = malloc(sizeof(Weapon));
+    int nb_weapons = character->bag->nb_weapons;
 
-    weapon->name = name;
-    weapon->bonus_damage = bonus_damage;
-    weapon->rarity = rarity;
+    int answer;
 
-    weapon->element = malloc(sizeof(Element));
-    weapon->element->type = element;
+    if(nb_weapons > 0){
 
-    return weapon;
-};
+        do{
+            printf("Your weapons :");
 
-Weapon *divine(Character *character)
-{
+            Weapon * current_weapon;
 
-    return generateWeapon("God's thunder", 999, DIVINE, FIRE);
+            Weapon * equipped_weapon = character->gears->weapon;
+
+            for (int i = 0 ; i < nb_weapons ; i++){
+
+                current_weapon = character->bag->weapons[i];
+
+                if(current_weapon->id == equipped_weapon->id){
+                    printf(COLOR_GREEN);
+                }
+                printf("%d : %s | %s\n" COLOR_RESET, i + 1, current_weapon->name, printRarity(current_weapon->rarity));
+            }
+
+            printf(COLOR_GREEN "\n* equipped weapon\n\n" COLOR_RESET);
+            printf("0 - exit");
+
+
+        }while(answer < 0 || answer > nb_weapons);
+
+        if(answer == 0){
+            //Leave
+        }else{
+
+            Weapon * choosed_weapon = character->bag->weapons[answer - 1];
+            character->gears->weapon = choosed_weapon;
+        }
+
+
+    }else{
+        printf(COLOR_RED "You have no weapon.\n" COLOR_RESET);
+    }
 }
 
-Weapon *legendary(Character *character)
-{
+char * printRarity(int rarity){
 
-    return generateWeapon("Wukong's staff", 120, LEGENDARY, PLANT);
-}
-
-Weapon *epic(Character *character)
-{
-
-    return generateWeapon("Axe of death", 80, EPIC, WATER);
-}
-
-Weapon *rare(Character *character)
-{
-
-    return generateWeapon("Wand of Potter", 40, RARE, FIRE);
-}
-
-Weapon *common()
-{
-
-    return generateWeapon("Wood stick", 10, COMMON, PLANT);
+    switch(rarity){
+        case DIVINE:
+            return "Divine";
+        case LEGENDARY:
+            return "Legendary";
+        case EPIC:
+            return "Epic";
+        case RARE:
+            return "Rare";
+        case COMMON:
+            return "Common";
+        
+    }
 }

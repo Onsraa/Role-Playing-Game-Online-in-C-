@@ -1,294 +1,217 @@
-#ifndef STRUCT_H_
-#define STRUCT_H_
+#include "../struct.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-
-/* ------------------------------GLOBAL VALUES------------------------------*/
-
-/*INTERFACES*/
-#define BAR_LENGTH 40
-
-/*CLASSES-CHARACTERS*/
-#define NB_CLASSES 4
-
-enum classes
-{
-    WARRIOR = 1,
-    ROGUE = 2,
-    ARCHER = 3,
-    MAGE = 4
-};
-
-/*ELEMENTS*/
-
-enum elements
-{
-    FIRE = 1,
-    WATER = 2,
-    PLANT = 3
-};
-
-/*SPELLS*/
-#define NB_SPELLS 2
-
-/*MOBS*/
-#define NB_MOBS 4
-#define BOSS_POSITION 0
-
-/*ACTION*/
-#define MANA_REGEN_RATIO 1.2
-
-/*BAGS, STUFFS, DROPS, GEARS*/
-#define NB_WEAPONS 5
-
-#define COMMON_DROP_RATE 44    // %
-#define RARE_DROP_RATE 25      // %
-#define EPIC_DROP_RATE 20      // %
-#define LEGENDARY_DROP_RATE 10 // %
-#define DIVINE_DROP_RATE 1     // %
-
-enum weapon_or_armor
-{
-    WEAPON = 0,
-    ARMOR = 1
+void initializeCharacter(User *user){
+    
+    user->characters = malloc(sizeof(Character *));
+    chooseClass(user);
 }
 
-enum rarity
+void chooseClass(User *user)
 {
-    COMMON = 1,
-    RARE = 2,
-    EPIC = 3,
-    LEGENDARY = 4,
-    DIVINE = 5
+    if(!user->characters){
+        system("clear");
+        printf("An error occurred while initializing the character.");
+        exit(EXIT_FAILURE);
+    }
+
+    char **classes = malloc(sizeof(char *) * 4);
+
+    classes[0] = "Warrior";
+    classes[1] = "Rogue";
+    classes[2] = "Archer";
+    classes[3] = "Mage";
+
+    int answer;
+
+    do
+    {
+        system("clear");
+        printf("What class do you choose ?");
+        puts("\n");
+        for (int i = 0; i < NB_CLASSES; i++)
+        {
+            printf("%d - %s\n", i + 1, classes[i]);
+        }
+        puts(" ");
+        printf("Your choice: ");
+        scanf("%d", &answer);
+    } while (answer < 1 || answer > NB_CLASSES);
+
+    switch (answer)
+    {
+    case WARRIOR:
+        addClass(user, WARRIOR);
+        break;
+
+    case ROGUE:
+        addClass(user, ROGUE);
+        break;
+
+    case ARCHER:
+        addClass(user, ARCHER);
+        break;
+
+    case MAGE:
+        addClass(user, MAGE);
+        break;
+    }
 };
 
-/* ------------------------------DECLARATIONS------------------------------*/
-
-/* CHARACTERS */
-typedef struct Character Character;
-typedef struct Bag Bag;
-typedef struct Item Item;
-
-typedef struct Gears Gears;
-typedef struct Weapon Weapon;
-typedef struct Armor Armor;
-
-/* ELEMENT */
-typedef struct Element Element;
-
-/* SPELLS */
-typedef struct Spell Spell;
-
-typedef struct Offensive Offensive;
-typedef struct Heal Heal;
-
-/* USERS */
-typedef struct User User;
-
-/* -------------------------------------------------------------------------*/
-
-struct Character
+void addClass(User *user, int selection)
 {
 
-    int classId; // Determine the class number.
+    if(!user->characters){
+            system("clear");
+            printf("An error occurred, the pointer to your characters doesn't exist.");
+            exit(EXIT_FAILURE);
+    }
 
-    char *className;
+    /* Update the size of the array of characters */
+    user->nb_characters += 1;
 
-    /*Basic stats*/
-    int physicalPower;
-    int magicalPower;
+    user->characters = realloc(user->characters, sizeof(Character*) * user->nb_characters);
 
-    int maxHp;     // Static heal point
-    int currentHp; // Dynamic heal point
+    if(!user->characters){
+            system("clear");
+            printf("An error occurred while reallocating your characters array.");
+            exit(EXIT_FAILURE);
+    }
 
-    int maxMp;     // Static heal point
-    int currentMp; // Dynamic mana point
+    Character *new_character = malloc(sizeof(Character));
 
-    /*Progression*/
-    int level;
-    int experience;
-    int experienceNeededToLevelUp;
+    if(!new_character){
+        system("clear");
+        printf("An error occurred while allocating the character.");
+        exit(EXIT_FAILURE);
+    }
 
-    /*Faculties*/
-    Element *element; // Define the element
-    Spell **spells;   // Array of spells
+    new_character->isAlive = 1;
 
-    /*Bag that contains equipments, weapons and armors*/
-    Bag *bag;
+    new_character->level = 0;
+    new_character->experience = 0;
+    new_character->experienceNeededToLevelUp = 100;
 
-    /*Equipment*/
-    Gears *gears; // Define the gear equipped.
+    new_character->bag = malloc(sizeof(Bag));
+    new_character->bag->nb_weapons = 0;
+    new_character->bag->nb_armors = 0;
+    
+    new_character->gears = malloc(sizeof(Gears));
 
-    /*State*/
-    int isAlive;
+    switch (selection)
+    {
+    case WARRIOR:
+        warriorSelected(new_character);
+        break;
+    case ROGUE:
+        rogueSelected(new_character);
+        break;
+    case ARCHER:
+        archerSelected(new_character);
+        break;
+    case MAGE:
+        mageSelected(new_character);
+        break;
+    }   
+    user->characters[user->nb_characters - 1] = new_character;
 };
 
-struct Bag
+void warriorSelected(Character *character)
 {
+    character->classId = WARRIOR;
 
-    Weapon **weapons;
-    Armor **armors;
+    character->className = "Warrior";
+    character->physicalPower = 80;
+    character->magicalPower = 0;
 
-    int nb_weapons;
-    int nb_armors;
+    character->maxHp = 350;
+    character->currentHp = character->maxHp;
+
+    character->maxMp = 40;
+    character->currentMp = character->maxMp;
 };
 
-struct Gears
+void rogueSelected(Character *character)
 {
+    character->classId = ROGUE;
 
-    Weapon *weapon;
-    Armor *armor;
+    character->className = "Rogue";
+    character->physicalPower = 200;
+    character->magicalPower = 0;
+
+    character->maxHp = 150;
+    character->currentHp = character->maxHp;
+
+    character->maxMp = 30;
+    character->currentMp = character->maxMp;
 };
 
-struct Weapon
+void archerSelected(Character *character)
 {
+    character->classId = ARCHER;
 
-    char *name;
+    character->className = "Archer";
+    character->physicalPower = 150;
+    character->magicalPower = 60;
 
-    int bonus_damage;
+    character->maxHp = 120;
+    character->currentHp = character->maxHp;
 
-    int rarity;
-
-    Element *element;
+    character->maxMp = 80;
+    character->currentMp = character->maxMp;
 };
 
-struct Armor
+void mageSelected(Character *character)
 {
+    character->classId = MAGE;
 
-    char *name;
-    int bonus_resistance;
+    character->className = "Mage";
+    character->physicalPower = 0;
+    character->magicalPower = 200;
 
-    Element *element;
+    character->maxHp = 110;
+    character->currentHp = character->maxHp;
+
+    character->maxMp = 120;
+    character->currentMp = character->maxMp;
 };
 
-void initializeCharacter(User *user);
+void characterStats(Character *character){
+    
+    printf("Name : %s\n", character->className);
 
-void chooseClass(User *user);
+    printf("Physical Power : %d\n", character->physicalPower);
+    printf("Magic Power : %d\n", character->magicalPower);
 
-void addClass(User *user, int selection);
+    showBars(character);
+    
+    printf("Level : %d\n", character->level);
 
-void warriorSelected(Character *character);
+    printf("\n");
+}
 
-void rogueSelected(Character *character);
+void showBars(Character *character){
 
-void archerSelected(Character *character);
-
-void mageSelected(Character *character);
-
-void characterStats(Character *character);
-
-void showBars(Character *character);
-
-/* ELEMENT */
-
-struct Element
-{
-
-    int type;
-};
-
-void initializeElement(Character *character, int element);
-
-int compability(Element *first_element, Element *second_element);
-
-char *numberToElementName(int number);
-
-/* SPELLS */
-
-enum spellFactor
-{
-    STATIC = 1,
-    RATIO = 2
-};
-
-struct Spell
-{
-
-    char *spellName;
-    char *description;
-
-    int valueFactor;
-    int value;
-
-    int cost;
-
-    Element *element;
-};
-
-void giveSpells(Character *character);
-void showSpells(Character *character);
-
-Spell *generateSpell(char *spellName, char *description, int valueFactor, int value, int cost, int element);
-
-void warriorSpells(Character *character);
-void rogueSpells(Character *character);
-void archerSpells(Character *character);
-void mageSpells(Character *character);
-
-/* USERS */
-
-struct User
-{
-
-    char *id;
-    char *nickname;
-    char *password;
-
-    Character **characters; // Array of characters
-    int nb_characters;
-};
-
-int createUser(char *nickname, char *password);  // Returns success or failure
-int connectUser(char *nickname, char *password); // Returns success or failure
-
-void changePassword(char id, char *password);
-
-void userInfo(User *currentUser);
-
-/* MOB */
-
-typedef struct Mob Mob;
-
-struct Mob
-{
-
-    char *name;
-
-    /*Basic stats*/
-    int physicalPower;
-    int magicalPower;
-
-    int maxHp;     // Static heal point
-    int currentHp; // Dynamic heal point
-
-    /*Progression*/
-    int level;
-
-    /*State*/
-    int isAlive;
-};
-
-Mob *generateMob(int difficulty);
-
-Mob *dragon(int difficulty);
-Mob *goblin(int difficulty);
-Mob *titan(int difficulty);
-Mob *ghost(int difficulty);
-
-void mobStats(Mob *mob);
-
-/* ACTIONS */
-
-void fight(Character *character, Mob *mob, int auto_mode, int dialogue);
-void showFightStates(Character *character, Mob *mob);
-
-int fightAlgorithm(Character *character, Mob *mob);
-
-void players_turn(Character *character, Mob *mob, int dialogue);
-void mobs_turn(Mob *mob, Character *character, int dialogue);
-
-void regenerateMana(Character *character);
-#endif
+    int currentHpBar = character->currentHp * BAR_LENGTH / character->maxHp;
+    int currentMpBar = character->currentMp * BAR_LENGTH / character->maxMp;
+    
+    printf("HP (%d/%d) : ", character->currentHp, character->maxHp);
+    printf("[");
+    for(int i = 0 ; i < currentHpBar ; i++){
+        printf("#");
+    }
+    for(int i = currentHpBar ; i < BAR_LENGTH ; i++){
+        printf(".");
+    }
+    printf("]");
+    puts(" ");
+    printf("MP (%d/%d) : ", character->currentMp, character->maxMp);
+    printf("[");
+    for(int i = 0 ; i < currentMpBar ; i++){
+        printf("#");
+    }
+    for(int i = currentMpBar ; i < BAR_LENGTH ; i++){
+        printf(".");
+    }
+    printf("]");
+    puts(" ");
+}

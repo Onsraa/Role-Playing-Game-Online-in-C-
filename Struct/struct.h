@@ -8,6 +8,11 @@
 
 /* ------------------------------GLOBAL VALUES------------------------------*/
 
+/*COLORS*/
+#define COLOR_RESET "\x1b[0m"
+#define COLOR_RED "\x1b[31m"
+#define COLOR_GREEN "\x1b[32m"
+
 /*CLASSES-CHARACTERS*/
 #define NB_CLASSES 4
 
@@ -37,7 +42,6 @@ enum elements
 
 /*ACTION*/
 #define MANA_REGEN_RATIO 1.2
-<<<<<<< HEAD
 
 /*BAGS, STUFFS, DROPS, GEARS*/
 #define NB_WEAPONS 5
@@ -70,8 +74,6 @@ enum rarity
 
 enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6};
 
-=======
->>>>>>> parent of 5c2a680 (weapons)
 /* ------------------------------DECLARATIONS------------------------------*/
 
 /* CHARACTERS */
@@ -150,8 +152,9 @@ struct Gears
     Armor *armor;
 };
 
-<<<<<<< HEAD
-=======
+char * printRarity(int rarity);
+
+/*WEAPONS*/
 struct Weapon{
 
     char *name;
@@ -163,6 +166,9 @@ struct Weapon{
     Element *element;
 };
 
+Weapon * chooseWeapon(Character * character);
+
+/*ARMORS*/
 struct Armor
 {
 
