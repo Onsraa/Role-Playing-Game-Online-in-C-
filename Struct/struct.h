@@ -13,6 +13,9 @@
 #define COLOR_RED "\x1b[31m"
 #define COLOR_GREEN "\x1b[32m"
 
+/*INTERFACES*/
+#define BAR_LENGTH 40
+
 /*CLASSES-CHARACTERS*/
 #define NB_CLASSES 4
 
@@ -157,6 +160,8 @@ char * printRarity(int rarity);
 /*WEAPONS*/
 struct Weapon{
 
+    int id;
+    
     char *name;
 
     int bonus_damage;

@@ -1,3 +1,5 @@
+#include "../struct.h"
+
 Weapon * chooseWeapon(Character * character){
 
     system("clear");
