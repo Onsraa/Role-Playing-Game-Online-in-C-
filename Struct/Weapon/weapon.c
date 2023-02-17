@@ -1,53 +1,48 @@
 #include "../struct.h"
 
-#define NB_WEAPONS 5
-
-#define COMMON_DROP_RATE 44 // %
-#define RARE_DROP_RATE  25// %
-#define EPIC_DROP_RATE 20 // %
-#define LEGENDARY_DROP_RATE 10 // %
-#define DIVINE_DROP_RATE 1 // %
-
-enum weapons {COMMON = 1, RARE = 2, EPIC = 3, LEGENDARY = 4, DIVINE = 5};
-
-Weapon * generateWeapon(){
-
-    srand(time(NULL));
-
-    int drop_rate = rand() % 100;
-
-    if(drop_rate <= DIVINE_DROP_RATE){
-    
-    }else if(drop_rate <= LEGENDARY_DROP_RATE){
-
-    }else if(drop_rate <= EPIC_DROP_RATE){
-
-    }else if(drop_rate <= RARE_DROP_RATE){
-
-    }else{
-
-    }
-}
-
-void dropStuff(Character *character, Mob *mob)
+Weapon *generateWeapon(char *name, int bonus_damage, int rarity, int element)
 {
-    
+
+    Weapon *weapon = malloc(sizeof(Weapon));
+
+    weapon->name = name;
+    weapon->bonus_damage = bonus_damage;
+    weapon->rarity = rarity;
+
+    weapon->element = malloc(sizeof(Element));
+    weapon->element->type = element;
+
+    return weapon;
+};
+
+Weapon *divine(Character *character)
+{
+
+    return generateWeapon("God's thunder", 999, DIVINE, FIRE);
 }
 
-Weapon * divine(){
-    
-}
-Weapon * legendary(){
-    
-}
-Weapon * epic(){
+Weapon *legendary(Character *character)
+{
 
+    return generateWeapon("Wukong's staff", 120, LEGENDARY, PLANT);
 }
-Weapon * rare(){
-    
+
+Weapon *epic(Character *character)
+{
+
+    return generateWeapon("Axe of death", 80, EPIC, WATER);
 }
-Weapon * commun(){
-    
+
+Weapon *rare(Character *character)
+{
+
+    return generateWeapon("Wand of Potter", 40, RARE, FIRE);
+}
+
+Weapon *common()
+{
+
+    return generateWeapon("Wood stick", 10, COMMON, PLANT);
 }
 
 Weapon * chooseWeapon(Character * character){

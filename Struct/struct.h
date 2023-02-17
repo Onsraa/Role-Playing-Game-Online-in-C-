@@ -8,7 +8,6 @@
 
 /* ------------------------------GLOBAL VALUES------------------------------*/
 
-<<<<<<< HEAD
 /*COLORS*/
 #define COLOR_RESET "\x1b[0m"
 #define COLOR_RED "\x1b[31m"
@@ -17,13 +16,25 @@
 /*INTERFACES*/
 #define BAR_LENGTH 40
 
-=======
->>>>>>> parent of 5c2a680 (weapons)
 /*CLASSES-CHARACTERS*/
 #define NB_CLASSES 4
 
-/*INTERFACES*/
-#define BAR_LENGTH 40
+enum classes
+{
+    WARRIOR = 1,
+    ROGUE = 2,
+    ARCHER = 3,
+    MAGE = 4
+};
+
+/*ELEMENTS*/
+
+enum elements
+{
+    FIRE = 1,
+    WATER = 2,
+    PLANT = 3
+};
 
 /*SPELLS*/
 #define NB_SPELLS 2
@@ -34,7 +45,6 @@
 
 /*ACTION*/
 #define MANA_REGEN_RATIO 1.2
-<<<<<<< HEAD
 
 /*BAGS, STUFFS, DROPS, GEARS*/
 #define NB_WEAPONS 5
@@ -67,8 +77,6 @@ enum rarity
 
 enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6};
 
-=======
->>>>>>> parent of 5c2a680 (weapons)
 /* ------------------------------DECLARATIONS------------------------------*/
 
 /* CHARACTERS */
@@ -94,14 +102,6 @@ typedef struct User User;
 
 /* -------------------------------------------------------------------------*/
 
-enum classes
-{
-    WARRIOR = 1,
-    ROGUE = 2,
-    ARCHER = 3,
-    MAGE = 4
-};
-
 struct Character
 {
 
@@ -125,8 +125,8 @@ struct Character
     int experienceNeededToLevelUp;
 
     /*Faculties*/
-    Element * element; // Define the element
-    Spell ** spells;    // Array of spells
+    Element *element; // Define the element
+    Spell **spells;   // Array of spells
 
     /*Bag that contains equipments, weapons and armors*/
     Bag *bag;
@@ -155,28 +155,34 @@ struct Gears
     Armor *armor;
 };
 
-<<<<<<< HEAD
-=======
-struct Weapon{
+struct Weapon
+{
 
-    char * name;
-    
+    int id
+
+    char *name;
+
     int bonus_damage;
 
     int rarity;
-    
-    Element * element;
+
+    Element *element;
 };
 
-struct Armor{
+struct Armor
+{
+
+    int id;
 
     char *name;
+    
     int bonus_resistance;
 
-    Element * element;
+    int rarity;
+
+    Element *element;
 };
 
->>>>>>> parent of 5c2a680 (weapons)
 void initializeCharacter(User *user);
 
 void chooseClass(User *user);
@@ -195,45 +201,7 @@ void characterStats(Character *character);
 
 void showBars(Character *character);
 
-/*WEAPON*/
-struct Weapon
-{
-
-    int id;
-
-    char *name;
-
-    int bonus_damage;
-
-    int rarity;
-
-    Element *element;
-};
-
-char * printRarity(int rarity);
-
-/*ARMOR*/
-struct Armor
-{
-    int id;
-
-    char *name;
-
-    int bonus_resistance;
-
-    int rarity;
-
-    Element *element;
-};
-
 /* ELEMENT */
-
-enum elements
-{
-    FIRE = 1,
-    WATER = 2,
-    PLANT = 3
-};
 
 struct Element
 {
@@ -249,27 +217,30 @@ char *numberToElementName(int number);
 
 /* SPELLS */
 
-enum spellFactor {STATIC = 1, RATIO = 2};
+enum spellFactor
+{
+    STATIC = 1,
+    RATIO = 2
+};
 
 struct Spell
 {
 
     char *spellName;
     char *description;
-    
+
     int valueFactor;
     int value;
 
     int cost;
 
     Element *element;
-
 };
 
 void giveSpells(Character *character);
 void showSpells(Character *character);
 
-Spell * generateSpell(char * spellName, char * description, int valueFactor, int value, int cost, int element);
+Spell *generateSpell(char *spellName, char *description, int valueFactor, int value, int cost, int element);
 
 void warriorSpells(Character *character);
 void rogueSpells(Character *character);
@@ -300,7 +271,8 @@ void userInfo(User *currentUser);
 
 typedef struct Mob Mob;
 
-struct Mob{
+struct Mob
+{
 
     char *name;
 
@@ -318,14 +290,14 @@ struct Mob{
     int isAlive;
 };
 
-Mob * generateMob(int difficulty);
+Mob *generateMob(int difficulty);
 
-Mob * dragon(int difficulty);
-Mob * goblin(int difficulty);
-Mob * titan(int difficulty);
-Mob * ghost(int difficulty);
+Mob *dragon(int difficulty);
+Mob *goblin(int difficulty);
+Mob *titan(int difficulty);
+Mob *ghost(int difficulty);
 
-void mobStats(Mob * mob);
+void mobStats(Mob *mob);
 
 /* ACTIONS */
 
@@ -337,5 +309,5 @@ int fightAlgorithm(Character *character, Mob *mob);
 void players_turn(Character *character, Mob *mob, int dialogue);
 void mobs_turn(Mob *mob, Character *character, int dialogue);
 
-void regenerateMana(Character * character);
+void regenerateMana(Character *character);
 #endif
