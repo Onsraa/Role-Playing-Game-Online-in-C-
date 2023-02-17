@@ -8,28 +8,11 @@
 
 /* ------------------------------GLOBAL VALUES------------------------------*/
 
-/*INTERFACES*/
-#define BAR_LENGTH 40
-
 /*CLASSES-CHARACTERS*/
 #define NB_CLASSES 4
 
-enum classes
-{
-    WARRIOR = 1,
-    ROGUE = 2,
-    ARCHER = 3,
-    MAGE = 4
-};
-
-/*ELEMENTS*/
-
-enum elements
-{
-    FIRE = 1,
-    WATER = 2,
-    PLANT = 3
-};
+/*INTERFACES*/
+#define BAR_LENGTH 40
 
 /*SPELLS*/
 #define NB_SPELLS 2
@@ -40,31 +23,6 @@ enum elements
 
 /*ACTION*/
 #define MANA_REGEN_RATIO 1.2
-
-/*BAGS, STUFFS, DROPS, GEARS*/
-#define NB_WEAPONS 5
-
-#define COMMON_DROP_RATE 44    // %
-#define RARE_DROP_RATE 25      // %
-#define EPIC_DROP_RATE 20      // %
-#define LEGENDARY_DROP_RATE 10 // %
-#define DIVINE_DROP_RATE 1     // %
-
-enum weapon_or_armor
-{
-    WEAPON = 0,
-    ARMOR = 1
-}
-
-enum rarity
-{
-    COMMON = 1,
-    RARE = 2,
-    EPIC = 3,
-    LEGENDARY = 4,
-    DIVINE = 5
-};
-
 /* ------------------------------DECLARATIONS------------------------------*/
 
 /* CHARACTERS */
@@ -90,6 +48,14 @@ typedef struct User User;
 
 /* -------------------------------------------------------------------------*/
 
+enum classes
+{
+    WARRIOR = 1,
+    ROGUE = 2,
+    ARCHER = 3,
+    MAGE = 4
+};
+
 struct Character
 {
 
@@ -113,8 +79,8 @@ struct Character
     int experienceNeededToLevelUp;
 
     /*Faculties*/
-    Element *element; // Define the element
-    Spell **spells;   // Array of spells
+    Element * element; // Define the element
+    Spell ** spells;    // Array of spells
 
     /*Bag that contains equipments, weapons and armors*/
     Bag *bag;
@@ -143,25 +109,23 @@ struct Gears
     Armor *armor;
 };
 
-struct Weapon
-{
+struct Weapon{
 
-    char *name;
-
+    char * name;
+    
     int bonus_damage;
 
     int rarity;
-
-    Element *element;
+    
+    Element * element;
 };
 
-struct Armor
-{
+struct Armor{
 
     char *name;
     int bonus_resistance;
 
-    Element *element;
+    Element * element;
 };
 
 void initializeCharacter(User *user);
@@ -184,6 +148,13 @@ void showBars(Character *character);
 
 /* ELEMENT */
 
+enum elements
+{
+    FIRE = 1,
+    WATER = 2,
+    PLANT = 3
+};
+
 struct Element
 {
 
@@ -198,30 +169,27 @@ char *numberToElementName(int number);
 
 /* SPELLS */
 
-enum spellFactor
-{
-    STATIC = 1,
-    RATIO = 2
-};
+enum spellFactor {STATIC = 1, RATIO = 2};
 
 struct Spell
 {
 
     char *spellName;
     char *description;
-
+    
     int valueFactor;
     int value;
 
     int cost;
 
     Element *element;
+
 };
 
 void giveSpells(Character *character);
 void showSpells(Character *character);
 
-Spell *generateSpell(char *spellName, char *description, int valueFactor, int value, int cost, int element);
+Spell * generateSpell(char * spellName, char * description, int valueFactor, int value, int cost, int element);
 
 void warriorSpells(Character *character);
 void rogueSpells(Character *character);
@@ -252,8 +220,7 @@ void userInfo(User *currentUser);
 
 typedef struct Mob Mob;
 
-struct Mob
-{
+struct Mob{
 
     char *name;
 
@@ -271,14 +238,14 @@ struct Mob
     int isAlive;
 };
 
-Mob *generateMob(int difficulty);
+Mob * generateMob(int difficulty);
 
-Mob *dragon(int difficulty);
-Mob *goblin(int difficulty);
-Mob *titan(int difficulty);
-Mob *ghost(int difficulty);
+Mob * dragon(int difficulty);
+Mob * goblin(int difficulty);
+Mob * titan(int difficulty);
+Mob * ghost(int difficulty);
 
-void mobStats(Mob *mob);
+void mobStats(Mob * mob);
 
 /* ACTIONS */
 
@@ -290,5 +257,5 @@ int fightAlgorithm(Character *character, Mob *mob);
 void players_turn(Character *character, Mob *mob, int dialogue);
 void mobs_turn(Mob *mob, Character *character, int dialogue);
 
-void regenerateMana(Character *character);
+void regenerateMana(Character * character);
 #endif
