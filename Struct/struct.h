@@ -4,6 +4,78 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
+/* ------------------------------GLOBAL VALUES------------------------------*/
+
+/*COLORS*/
+#define COLOR_RESET "\x1b[0m"
+#define COLOR_RED "\x1b[31m"
+#define COLOR_GREEN "\x1b[32m"
+
+/*INTERFACES*/
+#define BAR_LENGTH 40
+
+/*CLASSES-CHARACTERS*/
+#define NB_CLASSES 4
+
+enum classes
+{
+    WARRIOR = 1,
+    ROGUE = 2,
+    ARCHER = 3,
+    MAGE = 4
+};
+
+/*ELEMENTS*/
+
+enum elements
+{
+    FIRE = 1,
+    WATER = 2,
+    PLANT = 3
+};
+
+/*SPELLS*/
+#define NB_SPELLS 2
+
+/*MOBS*/
+#define NB_MOBS 4
+#define BOSS_POSITION 0
+
+/*ACTION*/
+#define MANA_REGEN_RATIO 1.2
+
+/*BAGS, STUFFS, DROPS, GEARS*/
+#define NB_WEAPONS 5
+
+#define COMMON_DROP_RATE 44    // %
+#define RARE_DROP_RATE 25      // %
+#define EPIC_DROP_RATE 20      // %
+#define LEGENDARY_DROP_RATE 10 // %
+#define DIVINE_DROP_RATE 1     // %
+
+enum weapon_or_armor
+{
+    WEAPON = 0,
+    ARMOR = 1
+};
+
+enum rarity
+{
+    COMMON = 1,
+    RARE = 2,
+    EPIC = 3,
+    LEGENDARY = 4,
+    DIVINE = 5
+};
+
+/*ZONES*/
+
+#define REGENERATION_ZONE 6
+#define STARTING_ZONE 5
+
+enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6};
 
 /* ------------------------------DECLARATIONS------------------------------*/
 
@@ -22,8 +94,7 @@ typedef struct Element Element;
 /* SPELLS */
 typedef struct Spell Spell;
 
-typedef struct Offensive O ffensive;
-typedef struct Defensive Defensive;
+typedef struct Offensive Offensive;
 typedef struct Heal Heal;
 
 /* USERS */
@@ -34,11 +105,13 @@ typedef struct User User;
 struct Character
 {
 
+    int classId; // Determine the class number.
+
     char *className;
 
     /*Basic stats*/
     int physicalPower;
-    int magicPower;
+    int magicalPower;
 
     int maxHp;     // Static heal point
     int currentHp; // Dynamic heal point
@@ -53,20 +126,26 @@ struct Character
 
     /*Faculties*/
     Element *element; // Define the element
-    Spell *spells;    // Array of spell
-    int nb_spells;    // Number of spells
+    Spell **spells;   // Array of spells
 
-    /*Bag that contains equipments and items*/
+    /*Bag that contains equipments, weapons and armors*/
     Bag *bag;
 
     /*Equipment*/
+    Gears *gears; // Define the gear equipped.
+
+    /*State*/
+    int isAlive;
 };
 
 struct Bag
 {
-    int nb_items;
-    Item **items;
-    Gears *gear;
+
+    Weapon **weapons;
+    Armor **armors;
+
+    int nb_weapons;
+    int nb_armors;
 };
 
 struct Gears
@@ -90,7 +169,40 @@ void archerSelected(Character *character);
 
 void mageSelected(Character *character);
 
-void characterStat(Character *character);
+void characterStats(Character *character);
+
+void showBars(Character *character);
+
+/*WEAPON*/
+struct Weapon
+{
+
+    int id;
+
+    char *name;
+
+    int bonus_damage;
+
+    int rarity;
+
+    Element *element;
+};
+
+char * printRarity(int rarity);
+
+/*ARMOR*/
+struct Armor
+{
+    int id;
+
+    char *name;
+
+    int bonus_resistance;
+
+    int rarity;
+
+    Element *element;
+};
 
 /* ELEMENT */
 
@@ -100,63 +212,45 @@ struct Element
     int type;
 };
 
-enum elements
-{
-    FIRE = 1,
-    WATER = 2,
-    PLANT = 3
-};
-
-enum compability
-{
-    EFFICIENT = 1,
-    INEFFECTIVE = 2,
-    NONE = 3
-};
-
 void initializeElement(Character *character, int element);
 
 int compability(Element *first_element, Element *second_element);
 
 char *numberToElementName(int number);
 
+/* SPELLS */
+
+enum spellFactor
+{
+    STATIC = 1,
+    RATIO = 2
+};
+
 struct Spell
 {
 
     char *spellName;
     char *description;
-    char *valueFactor;
-};
 
-struct Offensive
-{
+    int valueFactor;
+    int value;
 
-    Spell *info;
-    Element *element;
-
-    int *damageValue;
     int cost;
-};
 
-struct Defensive
-{
-
-    Spell *info;
     Element *element;
-
-    int defenseValue;
-    int cost;
 };
 
-struct Heal
-{
+void giveSpells(Character *character);
+void showSpells(Character *character);
 
-    Spell *info;
-    Element *element;
+Spell *generateSpell(char *spellName, char *description, int valueFactor, int value, int cost, int element);
 
-    int healingValue;
-    int cost;
-};
+void warriorSpells(Character *character);
+void rogueSpells(Character *character);
+void archerSpells(Character *character);
+void mageSpells(Character *character);
+
+/* USERS */
 
 struct User
 {
@@ -180,21 +274,43 @@ void userInfo(User *currentUser);
 
 typedef struct Mob Mob;
 
-struct Mob{
+struct Mob
+{
 
     char *name;
+
     /*Basic stats*/
     int physicalPower;
-    int magicPower;
+    int magicalPower;
 
     int maxHp;     // Static heal point
     int currentHp; // Dynamic heal point
 
-    int maxMp;     // Static heal point
-    int currentMp; // Dynamic mana point
-
     /*Progression*/
     int level;
+
+    /*State*/
+    int isAlive;
 };
 
+Mob *generateMob(int difficulty);
+
+Mob *dragon(int difficulty);
+Mob *goblin(int difficulty);
+Mob *titan(int difficulty);
+Mob *ghost(int difficulty);
+
+void mobStats(Mob *mob);
+
+/* ACTIONS */
+
+void fight(Character *character, Mob *mob, int auto_mode, int dialogue);
+void showFightStates(Character *character, Mob *mob);
+
+int fightAlgorithm(Character *character, Mob *mob);
+
+void players_turn(Character *character, Mob *mob, int dialogue);
+void mobs_turn(Mob *mob, Character *character, int dialogue);
+
+void regenerateMana(Character *character);
 #endif

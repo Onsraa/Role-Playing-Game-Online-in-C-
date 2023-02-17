@@ -1,5 +1,12 @@
 #include "../struct.h"
 
+enum compability
+{
+    EFFICIENT = 1,
+    INEFFECTIVE = 2,
+    NONE = 3
+};
+
 void initializeElement(Character *character, int element)
 {
 

@@ -1,16 +1,5 @@
 #include "../struct.h"
 
-#define NB_CLASSES 4
-#define BAR_LENGTH 40
-
-enum classes
-{
-    WARRIOR = 1,
-    ROGUE = 2,
-    ARCHER = 3,
-    MAGE = 4
-};
-
 void initializeCharacter(User *user){
     
     user->characters = malloc(sizeof(Character *));
@@ -96,11 +85,17 @@ void addClass(User *user, int selection)
         exit(EXIT_FAILURE);
     }
 
+    new_character->isAlive = 1;
+
     new_character->level = 0;
     new_character->experience = 0;
     new_character->experienceNeededToLevelUp = 100;
 
-    new_character->bag = NULL;
+    new_character->bag = malloc(sizeof(Bag));
+    new_character->bag->nb_weapons = 0;
+    new_character->bag->nb_armors = 0;
+    
+    new_character->gears = malloc(sizeof(Gears));
 
     switch (selection)
     {
@@ -122,9 +117,11 @@ void addClass(User *user, int selection)
 
 void warriorSelected(Character *character)
 {
+    character->classId = WARRIOR;
+
     character->className = "Warrior";
     character->physicalPower = 80;
-    character->magicPower = 0;
+    character->magicalPower = 0;
 
     character->maxHp = 350;
     character->currentHp = character->maxHp;
@@ -135,9 +132,11 @@ void warriorSelected(Character *character)
 
 void rogueSelected(Character *character)
 {
+    character->classId = ROGUE;
+
     character->className = "Rogue";
     character->physicalPower = 200;
-    character->magicPower = 0;
+    character->magicalPower = 0;
 
     character->maxHp = 150;
     character->currentHp = character->maxHp;
@@ -148,9 +147,11 @@ void rogueSelected(Character *character)
 
 void archerSelected(Character *character)
 {
+    character->classId = ARCHER;
+
     character->className = "Archer";
     character->physicalPower = 150;
-    character->magicPower = 60;
+    character->magicalPower = 60;
 
     character->maxHp = 120;
     character->currentHp = character->maxHp;
@@ -161,9 +162,11 @@ void archerSelected(Character *character)
 
 void mageSelected(Character *character)
 {
+    character->classId = MAGE;
+
     character->className = "Mage";
     character->physicalPower = 0;
-    character->magicPower = 200;
+    character->magicalPower = 200;
 
     character->maxHp = 110;
     character->currentHp = character->maxHp;
@@ -172,12 +175,21 @@ void mageSelected(Character *character)
     character->currentMp = character->maxMp;
 };
 
-void characterStat(Character *character){
+void characterStats(Character *character){
     
     printf("Name : %s\n", character->className);
 
     printf("Physical Power : %d\n", character->physicalPower);
-    printf("Magic Power : %d\n", character->magicPower);
+    printf("Magic Power : %d\n", character->magicalPower);
+
+    showBars(character);
+    
+    printf("Level : %d\n", character->level);
+
+    printf("\n");
+}
+
+void showBars(Character *character){
 
     int currentHpBar = character->currentHp * BAR_LENGTH / character->maxHp;
     int currentMpBar = character->currentMp * BAR_LENGTH / character->maxMp;
@@ -188,21 +200,18 @@ void characterStat(Character *character){
         printf("#");
     }
     for(int i = currentHpBar ; i < BAR_LENGTH ; i++){
-        printf(" ");
+        printf(".");
     }
     printf("]");
     puts(" ");
     printf("MP (%d/%d) : ", character->currentMp, character->maxMp);
     printf("[");
-    for(int i = 0 ; i < currentHpBar ; i++){
+    for(int i = 0 ; i < currentMpBar ; i++){
         printf("#");
     }
     for(int i = currentMpBar ; i < BAR_LENGTH ; i++){
-        printf(" ");
+        printf(".");
     }
     printf("]");
     puts(" ");
-    printf("Level : %d\n", character->level);
-
-    printf("\n");
 }
