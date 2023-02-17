@@ -253,7 +253,6 @@ void regenerateMana(Character * character){
         character->currentMp = character->maxMp;
     }
 }
-<<<<<<< HEAD
 
 int generateRarity()
 {
@@ -302,5 +301,3 @@ void dropStuff(Character *character, Mob *mob)
             break;
     }
 }
-=======
->>>>>>> parent of 5c2a680 (weapons)
