@@ -54,7 +54,7 @@ enum weapon_or_armor
 {
     WEAPON = 0,
     ARMOR = 1
-};
+}
 
 enum rarity
 {
@@ -65,12 +65,6 @@ enum rarity
     DIVINE = 5
 };
 
-/*ZONES*/
-
-#define REGENERATION_ZONE 6
-#define STARTING_ZONE 5
-
-enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6};
 /* ------------------------------DECLARATIONS------------------------------*/
 
 /* CHARACTERS */
