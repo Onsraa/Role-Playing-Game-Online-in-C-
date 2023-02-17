@@ -292,12 +292,22 @@ void dropStuff(Character *character, Mob *mob)
     printf("Nice ! You just dropped an item from the %s", mob->name);
     printf("Do you want to add it to your bag ?");
 
-    int weapon_or_armor = (int)rand() % 2;
+    int weapon_or_armor = (int)rand() % 3;
+    int rarity = generateRarity();
 
     switch(weapon_or_armor){
         case WEAPON:
+            printf("You drop a weapon !");
             break;
         case ARMOR:
+            printf("You drop an armor !");
+            break;
+        case BOTH:
+            printf("You dropped both !");
             break;
     }
 }
+
+void dropBoth(Character * character, int weapon_rarity, int armor_rarity);
+void dropWeapon(Character * character, int weapon_rarity);
+void dropArmor(Character * character, int armor_rarity);

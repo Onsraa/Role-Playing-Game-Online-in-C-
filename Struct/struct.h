@@ -58,7 +58,8 @@ enum elements
 enum weapon_or_armor
 {
     WEAPON = 0,
-    ARMOR = 1
+    ARMOR = 1,
+    BOTH = 2
 };
 
 enum rarity
@@ -99,6 +100,9 @@ typedef struct Heal Heal;
 
 /* USERS */
 typedef struct User User;
+
+/* MOBS */
+typedef struct Mob Mob;
 
 /* -------------------------------------------------------------------------*/
 
@@ -156,12 +160,13 @@ struct Gears
 };
 
 char * printRarity(int rarity);
+void dropStuff(Character *character, Mob *mob);
 
 /*WEAPONS*/
 struct Weapon{
 
     int id;
-    
+
     char *name;
 
     int bonus_damage;
@@ -187,6 +192,10 @@ struct Armor
 
     Element *element;
 };
+
+void dropBoth(Character * character, int weapon_rarity, int armor_rarity);
+void dropWeapon(Character * character, int weapon_rarity);
+void dropArmor(Character * character, int armor_rarity);
 
 void initializeCharacter(User *user);
 
@@ -273,8 +282,6 @@ void changePassword(char id, char *password);
 void userInfo(User *currentUser);
 
 /* MOB */
-
-typedef struct Mob Mob;
 
 struct Mob
 {
