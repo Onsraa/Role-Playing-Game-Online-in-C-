@@ -257,8 +257,6 @@ void regenerateMana(Character * character){
 int generateRarity()
 {
 
-    srand(time(NULL));
-
     int drop_rate = rand() % 100;
 
     if (drop_rate <= DIVINE_DROP_RATE)
@@ -292,23 +290,18 @@ void dropStuff(Character *character, Mob *mob)
     printf("Nice ! You just dropped an item from the %s\n", mob->name);
 
     int weapon_or_armor = (int)rand() % 3;
-    int weapon_rarity;
-    int armor_rarity;
+    int weapon_rarity = generateRarity();
+    int armor_rarity = generateRarity();
 
     switch(weapon_or_armor){
         case WEAPON:
-            weapon_rarity = generateRarity();
             dropWeapon(character, weapon_rarity);
             break;
         case ARMOR:
-            armor_rarity = generateRarity();
             dropArmor(character, armor_rarity);
             break;
         case BOTH:
-            weapon_rarity = generateRarity();
-            armor_rarity = generateRarity();
-          
-            dropBoth(character, weapon_rarity, weapon_rarity);
+            dropBoth(character, weapon_rarity, armor_rarity);
             break;
     }
 }
@@ -329,5 +322,5 @@ void dropWeapon(Character *character, int weapon_rarity){
 
 void dropArmor(Character *character, int armor_rarity){
     Armor * dropped_armor = generateArmor(armor_rarity);
-    printf("You dropped a armor! The %s, [%d] | %s\n", dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
+    printf("You dropped a, armor! The %s, [%d] | %s\n", dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
 };
