@@ -11,7 +11,7 @@ void finish_with_error(MYSQL *con)
     exit(1);
 }
 
-void connectToDataBase(){
+int connectUserToDataBase(){
     MYSQL *conn;
     MYSQL_RES *res;
     MYSQL_ROW row;
@@ -67,18 +67,20 @@ void connectToDataBase(){
             exit(1);
         }else{
             printf("User created successfully\n");
+            return 2;                                         /// 2 = user created
         }
     }else{
         /* Check if the entered password match the one in the database */
         while ((row = mysql_fetch_row(res)) != NULL){
             if(strcmp(row[2], userpassword) == 0){
                 printf("User is authenticated\n");
+                return 1;                                     /// 1 = user authenticated
             }else{
                 printf("Incorrect password\n");
+                return 0;                                     /// 0 = user not authenticated password incorrect
             }
         }
     }
-
 
     mysql_free_result(res);
     mysql_close(conn);
