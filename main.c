@@ -2,6 +2,8 @@
 
 int main(){
 
+        srand(time(NULL));
+        
         User * me = malloc(sizeof(User));
         me->id = "m87KqduzxS";
         me->nickname = "Onsra";
