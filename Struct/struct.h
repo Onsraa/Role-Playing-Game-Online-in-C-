@@ -188,11 +188,11 @@ struct Weapon
 Weapon *generateWeapon(int rarity);
 Weapon *chooseWeapon(Character *character);
 
-Weapon *divine();
-Weapon *legendary();
-Weapon *epic();
-Weapon *rare();
-Weapon *common();
+Weapon *divineWeapon();
+Weapon *legendaryWeapon();
+Weapon *epicWeapon();
+Weapon *rareWeapon();
+Weapon *commonWeapon();
 
 /*ARMORS*/
 struct Armor
@@ -208,6 +208,15 @@ struct Armor
 
     Element *element;
 };
+
+Armor *generateArmor(int rarity);
+Armor *chooseArmor(Character *character);
+
+Armor *divineArmor();
+Armor *legendaryArmor();
+Armor *epicArmor();
+Armor *rareArmor();
+Armor *commonArmor();
 
 void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
 void dropWeapon(Character *character, int weapon_rarity);

@@ -1,5 +1,81 @@
 #include "../struct.h"
 
+Weapon *generateWeapon(int rarity){
+
+    switch(rarity){
+        case DIVINE:
+            return divineWeapon();
+            break;
+        case LEGENDARY:
+            return legendaryWeapon();
+            break;
+        case EPIC:
+            return epicWeapon();
+            break;
+        case RARE:
+            return rareWeapon();
+            break;
+        case COMMON:
+            return commonWeapon();
+            break;
+    }
+}
+
+Weapon *createWeapon(char *name, int bonus_damage, int rarity, int element)
+{
+    Weapon *weapon = malloc(sizeof(Weapon));
+    weapon->name = name;
+    weapon->bonus_damage = bonus_damage;
+    weapon->rarity = rarity;
+    weapon->element = malloc(sizeof(Element));
+    weapon->element->type = element;
+    return weapon;
+}
+
+Weapon *divineWeapon()
+{
+    return createWeapon("God's thunder", 999, DIVINE, FIRE);
+}
+
+Weapon *legendaryWeapon()
+{
+    return createWeapon("Wukong's staff", 120, LEGENDARY, PLANT);
+}
+
+Weapon *epicWeapon()
+{
+    return createWeapon("Axe of death", 80, EPIC, WATER);
+}
+
+Weapon *rareWeapon()
+{
+    return createWeapon("Wand of Potter", 40, RARE, FIRE);
+}
+
+Weapon *commonWeapon()
+{
+
+    return createWeapon("Wood stick", 10, COMMON, PLANT);
+}
+
+char *printRarity(int rarity)
+{
+
+    switch (rarity)
+    {
+    case DIVINE:
+        return "Divine";
+    case LEGENDARY:
+        return "Legendary";
+    case EPIC:
+        return "Epic";
+    case RARE:
+        return "Rare";
+    case COMMON:
+        return "Common";
+    }
+}
+
 Weapon *chooseWeapon(Character *character)
 {
 
@@ -52,81 +128,5 @@ Weapon *chooseWeapon(Character *character)
     else
     {
         printf(COLOR_RED "You have no weapon.\n" COLOR_RESET);
-    }
-}
-
-Weapon *generateWeapon(int rarity){
-
-    switch(rarity){
-        case DIVINE:
-            return divine();
-            break;
-        case LEGENDARY:
-            return legendary();
-            break;
-        case EPIC:
-            return epic();
-            break;
-        case RARE:
-            return rare();
-            break;
-        case COMMON:
-            return common();
-            break;
-    }
-}
-
-Weapon *createWeapon(char *name, int bonus_damage, int rarity, int element)
-{
-    Weapon *weapon = malloc(sizeof(Weapon));
-    weapon->name = name;
-    weapon->bonus_damage = bonus_damage;
-    weapon->rarity = rarity;
-    weapon->element = malloc(sizeof(Element));
-    weapon->element->type = element;
-    return weapon;
-}
-
-Weapon *divine()
-{
-    return createWeapon("God's thunder", 999, DIVINE, FIRE);
-}
-
-Weapon *legendary()
-{
-    return createWeapon("Wukong's staff", 120, LEGENDARY, PLANT);
-}
-
-Weapon *epic()
-{
-    return createWeapon("Axe of death", 80, EPIC, WATER);
-}
-
-Weapon *rare()
-{
-    return createWeapon("Wand of Potter", 40, RARE, FIRE);
-}
-
-Weapon *common()
-{
-
-    return createWeapon("Wood stick", 10, COMMON, PLANT);
-}
-
-char *printRarity(int rarity)
-{
-
-    switch (rarity)
-    {
-    case DIVINE:
-        return "Divine";
-    case LEGENDARY:
-        return "Legendary";
-    case EPIC:
-        return "Epic";
-    case RARE:
-        return "Rare";
-    case COMMON:
-        return "Common";
     }
 }

@@ -292,32 +292,42 @@ void dropStuff(Character *character, Mob *mob)
     printf("Nice ! You just dropped an item from the %s\n", mob->name);
 
     int weapon_or_armor = (int)rand() % 3;
-  
+    int weapon_rarity;
+    int armor_rarity;
 
     switch(weapon_or_armor){
         case WEAPON:
-            dropArmor(character, generateRarity())
+            weapon_rarity = generateRarity();
+            dropWeapon(character, weapon_rarity);
             break;
         case ARMOR:
-            dropWeapon(character, generateRarity());
+            armor_rarity = generateRarity();
+            dropArmor(character, armor_rarity);
             break;
         case BOTH:
-            dropBoth(character, generateRarity(), generateRarity())
+            weapon_rarity = generateRarity();
+            armor_rarity = generateRarity();
+          
+            dropBoth(character, weapon_rarity, weapon_rarity);
             break;
     }
 }
 
-void dropBoth(Character * character, int weapon_rarity, int armor_rarity){
+void dropBoth(Character *character, int weapon_rarity, int armor_rarity){
     printf("You dropped a weapon AND an armor, lucky you !");
+    
+    dropWeapon(character, weapon_rarity);
+    dropArmor(character, armor_rarity);
 
 };
 
-void dropWeapon(Character * character, int weapon_rarity){
+void dropWeapon(Character *character, int weapon_rarity){
     
     Weapon * dropped_weapon = generateWeapon(weapon_rarity);
-    printf("You dropped a weapon! The %s, %s | %s\n",);
+    printf("You dropped a weapon! The %s, [%d] | %s\n", dropped_weapon->name, dropped_weapon->bonus_damage, printRarity(dropped_weapon->rarity));
 };
 
-void dropArmor(Character * character, int armor_rarity){
-
+void dropArmor(Character *character, int armor_rarity){
+    Armor * dropped_armor = generateArmor(armor_rarity);
+    printf("You dropped a armor! The %s, [%d] | %s\n", dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
 };
