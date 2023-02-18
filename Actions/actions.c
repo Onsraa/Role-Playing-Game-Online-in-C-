@@ -13,6 +13,28 @@ enum gearState
     STORED = 0
 };
 
+void gainXp(Character *character, Mob *mob){
+
+    int xp_gained = XP_GAINED * mob->level;
+
+    printf("You gained %d XP\n\n", xp_gained);
+
+    character->experience += xp_gained;
+
+    if(character->experience >= character->experienceNeededToLevelUp){
+        levelUp(character);
+    }
+}
+
+void levelUp(Character *character){
+
+    character->experience = 0;
+    character->experienceNeededToLevelUp *= 1.5;
+    character->level++;
+
+    printf("You leveled up ! You are now level %d\n\n", character->level);
+}
+
 void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 {
 
@@ -55,6 +77,7 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 
     if(character->isAlive){
         printf("You won against the %s !", mob->name);
+        gainXp(character, mob);
         dropStuff(character, mob);
     }else{
         printf("You died against the %s.", mob->name);
@@ -375,9 +398,3 @@ void dropArmor(Character *character, int armor_rarity){
             break;
     }
 };
-
-void gainXp(Character *character, Mob *mon){
-}
-
-void levelUp(Character *character){
-}

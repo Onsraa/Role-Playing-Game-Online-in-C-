@@ -72,7 +72,6 @@ enum rarity
 };
 
 /*ZONES*/
-
 #define REGENERATION_ZONE 6
 #define STARTING_ZONE 5
 
@@ -85,6 +84,10 @@ enum zones
     HOSTS = 5,
     FOUNTAIN = 6
 };
+
+/*XP*/
+#define XP_GAINED 50
+#define XP_NEEDED 50
 
 /* ------------------------------DECLARATIONS------------------------------*/
 
@@ -349,4 +352,8 @@ void players_turn(Character *character, Mob *mob, int dialogue);
 void mobs_turn(Mob *mob, Character *character, int dialogue);
 
 void regenerateMana(Character *character);
+
+void levelUp(Character *character);
+void gainXp(Character *character, Mob *mob);
+
 #endif
