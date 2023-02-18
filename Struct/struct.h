@@ -76,7 +76,15 @@ enum rarity
 #define REGENERATION_ZONE 6
 #define STARTING_ZONE 5
 
-enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6};
+enum zones
+{
+    VOLCANO = 1,
+    FOREST = 2,
+    DUNGEON = 3,
+    FALL = 4,
+    HOSTS = 5,
+    FOUNTAIN = 6
+};
 
 /* ------------------------------DECLARATIONS------------------------------*/
 
@@ -159,11 +167,12 @@ struct Gears
     Armor *armor;
 };
 
-char * printRarity(int rarity);
+char *printRarity(int rarity);
 void dropStuff(Character *character, Mob *mob);
 
 /*WEAPONS*/
-struct Weapon{
+struct Weapon
+{
 
     int id;
 
@@ -176,7 +185,14 @@ struct Weapon{
     Element *element;
 };
 
-Weapon * chooseWeapon(Character * character);
+Weapon *generateWeapon(int rarity);
+Weapon *chooseWeapon(Character *character);
+
+Weapon *divine();
+Weapon *legendary();
+Weapon *epic();
+Weapon *rare();
+Weapon *common();
 
 /*ARMORS*/
 struct Armor
@@ -185,7 +201,7 @@ struct Armor
     int id;
 
     char *name;
-    
+
     int bonus_resistance;
 
     int rarity;
@@ -193,9 +209,9 @@ struct Armor
     Element *element;
 };
 
-void dropBoth(Character * character, int weapon_rarity, int armor_rarity);
-void dropWeapon(Character * character, int weapon_rarity);
-void dropArmor(Character * character, int armor_rarity);
+void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
+void dropWeapon(Character *character, int weapon_rarity);
+void dropArmor(Character *character, int armor_rarity);
 
 void initializeCharacter(User *user);
 
