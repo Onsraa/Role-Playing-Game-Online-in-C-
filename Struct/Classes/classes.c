@@ -33,7 +33,7 @@ void chooseClass(User *user)
             printf("%d - %s\n", i + 1, classes[i]);
         }
         puts(" ");
-        printf("Your choice: ");
+        printf("Your choice : ");
         scanf("%d", &answer);
     } while (answer < 1 || answer > NB_CLASSES);
 
@@ -128,7 +128,7 @@ void warriorSelected(Character *character)
     character->maxHp = 350;
     character->currentHp = character->maxHp;
 
-    character->maxMp = 40;
+    character->maxMp = 300;
     character->currentMp = character->maxMp;
 };
 
@@ -143,7 +143,7 @@ void rogueSelected(Character *character)
     character->maxHp = 150;
     character->currentHp = character->maxHp;
 
-    character->maxMp = 30;
+    character->maxMp = 300;
     character->currentMp = character->maxMp;
 };
 
@@ -158,7 +158,7 @@ void archerSelected(Character *character)
     character->maxHp = 120;
     character->currentHp = character->maxHp;
 
-    character->maxMp = 80;
+    character->maxMp = 300;
     character->currentMp = character->maxMp;
 };
 
@@ -173,7 +173,7 @@ void mageSelected(Character *character)
     character->maxHp = 110;
     character->currentHp = character->maxHp;
 
-    character->maxMp = 120;
+    character->maxMp = 300;
     character->currentMp = character->maxMp;
 };
 

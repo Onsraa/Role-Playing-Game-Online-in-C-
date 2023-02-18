@@ -24,21 +24,9 @@ int main(){
         
         Mob * mob = generateMob(1);
 
-        /*
         mobStats(mob);
 
         fight(me->characters[0], mob, 1, 1);
-
-        */
-
-        dropStuff(me->characters[0], mob);
-
-        chooseWeapon(me->characters[0]);
-        chooseArmor(me->characters[0]);
-        chooseWeapon(me->characters[0]);
-        chooseArmor(me->characters[0]); 
-        chooseWeapon(me->characters[0]);
-        chooseArmor(me->characters[0]);
         
         exit(EXIT_SUCCESS);
 }

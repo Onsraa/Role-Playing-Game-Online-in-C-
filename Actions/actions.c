@@ -18,7 +18,14 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 
     system("clear");
     int rounds = 0;
+    puts(" ");
+    printf("##########################################");
+    puts(" ");
+    printf("\tFight: %s VS %s", character->className, mob->name);
+    puts(" ");
+    printf("##########################################");
 
+    puts(" ");
     switch (auto_mode)
     {
     case 0:
@@ -26,8 +33,8 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
         break;
     case 1:
         while (character->isAlive && mob->isAlive)
-        {
-            printf("-------------------------------\n");
+        {   
+            puts(" ");
             printf("\tROUND N°%d\n\n", rounds);
             switch (rounds % 2)
             {
@@ -40,7 +47,7 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
             }
             showFightStates(character, mob);
             regenerateMana(character);
-            printf("-------------------------------\n");
+            printf("--------------------------------------------------------------\n");
             ++rounds;
         }
         break;
@@ -48,6 +55,7 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 
     if(character->isAlive){
         printf("You won against the %s !", mob->name);
+        dropStuff(character, mob);
     }else{
         printf("You died against the %s.", mob->name);
     }
@@ -151,7 +159,7 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You healed yourself for %d with the %s!\n\n", total_damage, healing_spell->spellName);
+            printf("You healed yourself for %d with the %s !\n\n", total_damage, healing_spell->spellName);
         }
         break;
     }
@@ -287,7 +295,7 @@ int generateRarity()
 
 void dropStuff(Character *character, Mob *mob)
 {
-    printf("Nice ! You just dropped an item from the %s\n", mob->name);
+    puts("\n");
 
     int weapon_or_armor = (int)rand() % 3;
     int weapon_rarity = generateRarity();
@@ -308,6 +316,7 @@ void dropStuff(Character *character, Mob *mob)
 
 void dropBoth(Character *character, int weapon_rarity, int armor_rarity){
     
+    printf("You just dropped both armor and weapon !\n\n");
     dropWeapon(character, weapon_rarity);
     dropArmor(character, armor_rarity);
 };
@@ -320,7 +329,6 @@ void dropWeapon(Character *character, int weapon_rarity){
 
     do{
 
-        system("clear");
         printf("You dropped a weapon !\n\n" COLOR_GREEN "The %s, [%d] | %s\n\n" COLOR_RESET, dropped_weapon->name, dropped_weapon->bonus_damage, printRarity(dropped_weapon->rarity));
         printf("Do you want to add it in your bag ? (y)es - (n)o \n\n");
 
@@ -348,7 +356,7 @@ void dropArmor(Character *character, int armor_rarity){
     Armor * dropped_armor = generateArmor(armor_rarity);
 
     do{
-        system("clear");
+
         printf("You dropped an armor !\n\n" COLOR_GREEN "The %s, [%d] | %s\n\n" COLOR_RESET, dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
         printf("Do you want to add it in your bag ? (y)es - (n)o \n\n");
         
@@ -367,3 +375,9 @@ void dropArmor(Character *character, int armor_rarity){
             break;
     }
 };
+
+void gainXp(Character *character, Mob *mon){
+}
+
+void levelUp(Character *character){
+}
