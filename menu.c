@@ -105,3 +105,35 @@ void startingMenu()
 
     endwin();
 }
+
+void character_menu(User *user){
+
+        int choice;
+        
+        do{
+
+
+            printf("What do you want to do ?\n\n");
+            printf("1 - Choose a character\n");
+            printf("2 - Add a new character\n");
+            printf("3 - Delete a character\n");
+            printf("4 - Delete all characters\n");
+            printf("5 - Exit\n\n");
+            scanf("%d", &choice);
+        }while(choice < 1 || choice > (4));
+       
+        switch(choice){
+            case 1:
+                chooseCharacter(user);
+                break;
+            case 2:
+                chooseNewClass(user);
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+        }
+}

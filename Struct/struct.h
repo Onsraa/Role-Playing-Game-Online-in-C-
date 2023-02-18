@@ -91,6 +91,9 @@ enum zones
 
 /* ------------------------------DECLARATIONS------------------------------*/
 
+/* USERS */
+typedef struct User User;
+
 /* CHARACTERS */
 typedef struct Character Character;
 typedef struct Bag Bag;
@@ -109,14 +112,34 @@ typedef struct Spell Spell;
 typedef struct Offensive Offensive;
 typedef struct Heal Heal;
 
-/* USERS */
-typedef struct User User;
-
 /* MOBS */
 typedef struct Mob Mob;
 
 /* -------------------------------------------------------------------------*/
 
+/* USERS */
+
+struct User
+{
+
+    char *id;
+    char *nickname;
+    char *password;
+
+    Character **characters; // Array of characters
+    int nb_characters;
+
+    int used_character;
+};
+
+int createUser(char *nickname, char *password);  // Returns success or failure
+int connectUser(char *nickname, char *password); // Returns success or failure
+
+void changePassword(char id, char *password);
+
+void userInfo(User *currentUser);
+
+/* CHARACTERS */
 struct Character
 {
 
@@ -152,6 +175,9 @@ struct Character
     /*State*/
     int isAlive;
 };
+
+void showAllCharacters(User *user);
+void chooseCharacter(User * user);
 
 struct Bag
 {
@@ -227,9 +253,9 @@ void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
 void dropWeapon(Character *character, int weapon_rarity);
 void dropArmor(Character *character, int armor_rarity);
 
-void initializeCharacter(User *user);
+void initializeNewCharacter(User *user);
 
-void chooseClass(User *user);
+void chooseNewClass(User *user);
 
 void addClass(User *user, int selection);
 
@@ -291,26 +317,6 @@ void rogueSpells(Character *character);
 void archerSpells(Character *character);
 void mageSpells(Character *character);
 
-/* USERS */
-
-struct User
-{
-
-    char *id;
-    char *nickname;
-    char *password;
-
-    Character **characters; // Array of characters
-    int nb_characters;
-};
-
-int createUser(char *nickname, char *password);  // Returns success or failure
-int connectUser(char *nickname, char *password); // Returns success or failure
-
-void changePassword(char id, char *password);
-
-void userInfo(User *currentUser);
-
 /* MOB */
 
 struct Mob
@@ -356,6 +362,17 @@ void regenerateMana(Character *character);
 void levelUp(Character *character);
 void gainXp(Character *character, Mob *mob);
 
+/* GEARS */
+
+void dropStuff(Character *character, Mob *mob);
+void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
+void dropWeapon(Character *character, int weapon_rarity);
+void dropArmor(Character *character, int armor_rarity);
+
+void showBag(Character *character);
+
 /* MENU */
 void startingMenu();
+
+
 #endif

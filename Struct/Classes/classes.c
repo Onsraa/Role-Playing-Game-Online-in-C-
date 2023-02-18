@@ -1,12 +1,97 @@
 #include "../struct.h"
 
-void initializeCharacter(User *user){
+void showAllCharacters(User *user){
     
-    user->characters = malloc(sizeof(Character *));
-    chooseClass(user);
+    if(!user){
+        system("clear");
+        printf("No user\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if(!user->characters){
+        system("clear");
+        printf("Characters array is not allocated\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if(user->nb_characters > 0){
+        printf("Your characters : \n\n");
+        for(int i = 0; i < user->nb_characters; i++){
+
+            if(user->characters[i]->classId == user->used_character){
+                printf(COLOR_GREEN_TERMINAL);
+            }
+
+            printf("%d : %s [%d]\n" COLOR_RESET_TERMINAL, i + 1, user->characters[i]->className, user->characters[i]->level);
+        }puts("\n");
+        printf(COLOR_GREEN_TERMINAL "*current character used" COLOR_RESET_TERMINAL);
+
+    }else{
+        printf(COLOR_RED_TERMINAL "You have no character.\n\n" COLOR_RESET_TERMINAL);
+        printf("Would you like to create a character ? (y)es - (n)o\n\n");
+    }
+}
+void chooseCharacter(User * user){
+
+    int choice;
+
+    do{
+        showAllCharacters(user);
+        puts("\n");
+        printf("Choose a character : ");
+        scanf("%d", &choice);
+    }while(choice < 1 || choice > user->nb_characters);
+
+    user->used_character = choice;
 }
 
-void chooseClass(User *user)
+void deleteCharacter(User * user){
+
+    int choice;
+    char verification;
+
+    showAllCharacters(user);
+
+    puts(" ");
+    do{
+        printf("What character do you want to " COLOR_RED_TERMINAL "delete ?\n\n" COLOR_RESET_TERMINAL);
+    }while(choice < 1 || choice > user->nb_characters);
+
+    system("clear");
+
+    do{
+        characterStats(user->characters[choice - 1]);
+        printf("Are you sure you want to delete this character ? (y)es - (n)o\n\n");
+        scanf("%c", &verification);
+    }while(verification != 'y' && verification!= 'n');
+
+    switch (verification){
+    case 'y':
+
+        user->nb_characters--;
+        user->characters->[choice - 1];
+        break;
+    case 'n':
+        deleteCharacter(user);
+        break;
+    }
+}
+
+void cleanCharacter(User * user, Character * character){
+
+    int classId = character->classId;
+
+    user->characters[classId - 1] = NULL;
+    
+}
+
+void initializeNewCharacter(User *user){
+    
+    user->characters = malloc(sizeof(Character *));
+    chooseNewClass(user);
+}
+
+void chooseNewClass(User *user)
 {
     if(!user->characters){
         system("clear");
@@ -113,8 +198,11 @@ void addClass(User *user, int selection)
     case MAGE:
         mageSelected(new_character);
         break;
-    }   
+    }
+
     user->characters[user->nb_characters - 1] = new_character;
+
+    giveSpells(new_character);
 };
 
 void warriorSelected(Character *character)
@@ -187,6 +275,10 @@ void characterStats(Character *character){
     showBars(character);
     
     printf("Level : %d\n", character->level);
+
+    showSpells(character);
+
+    showBag(character);
 
     printf("\n");
 }

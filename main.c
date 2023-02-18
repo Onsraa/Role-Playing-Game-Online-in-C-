@@ -1,10 +1,15 @@
 #include "./Struct/struct.h"
+#include "./sql.h"
 
 int main(){
 
         srand(time(NULL));
 
-        startingMenu();
+        //startingMenu();
+
+        //Connexion
+
+        //connectUserToDataBase();
 
         User * me = malloc(sizeof(User));
         me->id = "m87KqduzxS";
@@ -13,19 +18,14 @@ int main(){
         me->nb_characters = 0;
         me->characters = NULL;
 
-        initializeCharacter(me);
-        
-        system("clear");
+        initializeNewCharacter(me);
+        chooseNewClass(me);
 
-        characterStats(me->characters[0]);
+        showAllCharacters(me);
 
-        giveSpells(me->characters[0]);
-
-        showSpells(me->characters[0]);
+        exit(1);
 
         Mob * mob = generateMob(1);
-
-        mobStats(mob);
 
         fight(me->characters[0], mob, 1, 1);
         
