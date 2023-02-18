@@ -307,20 +307,63 @@ void dropStuff(Character *character, Mob *mob)
 }
 
 void dropBoth(Character *character, int weapon_rarity, int armor_rarity){
-    printf("You dropped a weapon AND an armor, lucky you !");
     
     dropWeapon(character, weapon_rarity);
     dropArmor(character, armor_rarity);
-
 };
 
 void dropWeapon(Character *character, int weapon_rarity){
-    
+
+    char answer;
+
     Weapon * dropped_weapon = generateWeapon(weapon_rarity);
-    printf("You dropped a weapon! The %s, [%d] | %s\n", dropped_weapon->name, dropped_weapon->bonus_damage, printRarity(dropped_weapon->rarity));
+
+    do{
+
+        system("clear");
+        printf("You dropped a weapon !\n\n" COLOR_GREEN "The %s, [%d] | %s\n\n" COLOR_RESET, dropped_weapon->name, dropped_weapon->bonus_damage, printRarity(dropped_weapon->rarity));
+        printf("Do you want to add it in your bag ? (y)es - (n)o \n\n");
+
+        if (scanf("%c", &answer) != 1)
+		{
+			while (fgetc(stdin) != '\n');
+		};
+    }while(answer != 'y' && answer != 'n');
+
+    switch(answer){
+        case 'y':
+            addWeapon(character, dropped_weapon);
+            break;
+        case 'n':
+            free(dropped_weapon);
+            break;
+    }
+
 };
 
 void dropArmor(Character *character, int armor_rarity){
+
+    char answer;
+
     Armor * dropped_armor = generateArmor(armor_rarity);
-    printf("You dropped a, armor! The %s, [%d] | %s\n", dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
+
+    do{
+        system("clear");
+        printf("You dropped an armor !\n\n" COLOR_GREEN "The %s, [%d] | %s\n\n" COLOR_RESET, dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
+        printf("Do you want to add it in your bag ? (y)es - (n)o \n\n");
+        
+        if (scanf("%c", &answer) != 1)
+		{
+			while (fgetc(stdin) != '\n');
+		};
+    }while(answer != 'y' && answer != 'n');
+
+    switch(answer){
+        case 'y':
+            addArmor(character, dropped_armor);
+            break;
+        case 'n':
+            free(dropped_armor);
+            break;
+    }
 };

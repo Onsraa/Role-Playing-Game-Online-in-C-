@@ -1,23 +1,25 @@
 #include "../struct.h"
 
-Weapon *generateWeapon(int rarity){
+Weapon *generateWeapon(int rarity)
+{
 
-    switch(rarity){
-        case DIVINE:
-            return divineWeapon();
-            break;
-        case LEGENDARY:
-            return legendaryWeapon();
-            break;
-        case EPIC:
-            return epicWeapon();
-            break;
-        case RARE:
-            return rareWeapon();
-            break;
-        case COMMON:
-            return commonWeapon();
-            break;
+    switch (rarity)
+    {
+    case DIVINE:
+        return divineWeapon();
+        break;
+    case LEGENDARY:
+        return legendaryWeapon();
+        break;
+    case EPIC:
+        return epicWeapon();
+        break;
+    case RARE:
+        return rareWeapon();
+        break;
+    case COMMON:
+        return commonWeapon();
+        break;
     }
 }
 
@@ -30,6 +32,32 @@ Weapon *createWeapon(char *name, int bonus_damage, int rarity, int element)
     weapon->element = malloc(sizeof(Element));
     weapon->element->type = element;
     return weapon;
+}
+
+void addWeapon(Character *character, Weapon *weapon)
+{
+
+    if (!character || !weapon)
+    {
+        system("clear");
+        printf("Character or Weapon is NULL\n");
+        exit(EXIT_FAILURE);
+    }
+
+    character->bag->nb_weapons++;
+
+    weapon->id = character->bag->nb_weapons;
+
+    if (!character->bag->weapons)
+    {
+        character->bag->weapons = malloc(sizeof(Weapon *));
+    }
+    else
+    {
+        character->bag->weapons = realloc(character->bag->weapons, sizeof(Weapon *) * character->bag->nb_weapons);
+    }
+
+    character->bag->weapons[character->bag->nb_weapons - 1] = weapon;
 }
 
 Weapon *divineWeapon()
@@ -82,51 +110,65 @@ Weapon *chooseWeapon(Character *character)
     system("clear");
     puts("\n");
 
+    int answer;
     int nb_weapons = character->bag->nb_weapons;
 
-    int answer;
+    Weapon *current_weapon = malloc(sizeof(Weapon));
+    Weapon *equipped_weapon = NULL;
 
     if (nb_weapons > 0)
     {
 
         do
         {
-            printf("Your weapons :");
+            printf("Your weapons : \n\n");
+            printf(COLOR_RED "(To equip, enter the number | To unequip, enter the number of the current gear equipped)\n\n" COLOR_RESET);
 
-            Weapon *current_weapon;
-
-            Weapon *equipped_weapon = character->gears->weapon;
+            if (character->gears->weapon)
+            {
+                equipped_weapon = character->gears->weapon;
+            }
 
             for (int i = 0; i < nb_weapons; i++)
             {
 
                 current_weapon = character->bag->weapons[i];
 
-                if (current_weapon->id == equipped_weapon->id)
+                if (equipped_weapon)
                 {
-                    printf(COLOR_GREEN);
+                    if (current_weapon->id == equipped_weapon->id)
+                        ;
+                    {
+                        printf(COLOR_GREEN);
+                    }
                 }
+
                 printf("%d : %s | %s\n" COLOR_RESET, i + 1, current_weapon->name, printRarity(current_weapon->rarity));
             }
 
             printf(COLOR_GREEN "\n* equipped weapon\n\n" COLOR_RESET);
-            printf("0 - exit");
+            printf("0 - exit\n\n");
+
+            scanf("%d", &answer);
 
         } while (answer < 0 || answer > nb_weapons);
 
         if (answer == 0)
         {
             // Leave
-        }
-        else
-        {
-
-            Weapon *choosed_weapon = character->bag->weapons[answer - 1];
+        }else if(equipped_weapon){
+            if(character->bag->weapons[answer - 1]->id == equipped_weapon->id){
+                character->gears->weapon = NULL;
+            }else{
+                Weapon *choosed_weapon = character->bag->weapons[answer - 1];
+                character->gears->weapon = choosed_weapon;
+            }
+        }else{
+             Weapon *choosed_weapon = character->bag->weapons[answer - 1];
             character->gears->weapon = choosed_weapon;
         }
     }
-    else
-    {
+    else{
         printf(COLOR_RED "You have no weapon.\n" COLOR_RESET);
     }
 }

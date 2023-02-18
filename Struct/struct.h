@@ -186,6 +186,7 @@ struct Weapon
 };
 
 Weapon *generateWeapon(int rarity);
+void addWeapon(Character *character, Weapon *weapon);
 Weapon *chooseWeapon(Character *character);
 
 Weapon *divineWeapon();
@@ -210,6 +211,7 @@ struct Armor
 };
 
 Armor *generateArmor(int rarity);
+void addArmor(Character *character, Armor *armor);
 Armor *chooseArmor(Character *character);
 
 Armor *divineArmor();

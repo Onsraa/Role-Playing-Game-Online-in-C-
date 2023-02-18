@@ -1,23 +1,25 @@
 #include "../struct.h"
 
-Armor *generateArmor(int rarity){
+Armor *generateArmor(int rarity)
+{
 
-    switch(rarity){
-        case DIVINE:
-            return divineArmor();
-            break;
-        case LEGENDARY:
-            return legendaryArmor();
-            break;
-        case EPIC:
-            return epicArmor();
-            break;
-        case RARE:
-            return rareArmor();
-            break;
-        case COMMON:
-            return commonArmor();
-            break;
+    switch (rarity)
+    {
+    case DIVINE:
+        return divineArmor();
+        break;
+    case LEGENDARY:
+        return legendaryArmor();
+        break;
+    case EPIC:
+        return epicArmor();
+        break;
+    case RARE:
+        return rareArmor();
+        break;
+    case COMMON:
+        return commonArmor();
+        break;
     }
 }
 
@@ -30,6 +32,31 @@ Armor *createArmor(char *name, int bonus_resistance, int rarity, int element)
     armor->element = malloc(sizeof(Element));
     armor->element->type = element;
     return armor;
+}
+
+void addArmor(Character *character, Armor *armor)
+{
+
+    if (!character || !armor)
+    {
+        system("clear");
+        printf("Character or Armor is NULL\n");
+        exit(EXIT_FAILURE);
+    }
+
+    character->bag->nb_armors++;
+    armor->id = character->bag->nb_armors;
+
+    if (!character->bag->armors)
+    {
+        character->bag->armors = malloc(sizeof(Armor *));
+    }
+    else
+    {
+        character->bag->armors = realloc(character->bag->armors, sizeof(Armor *) * character->bag->nb_armors);
+    }
+
+    character->bag->armors[character->bag->nb_armors - 1] = armor;
 }
 
 Armor *divineArmor()
@@ -64,51 +91,65 @@ Armor *chooseArmor(Character *character)
     system("clear");
     puts("\n");
 
+    int answer;
     int nb_armors = character->bag->nb_armors;
 
-    int answer;
+    Armor *current_armor = malloc(sizeof(Armor));
+    Armor *equipped_armor = NULL;
 
     if (nb_armors > 0)
     {
 
         do
         {
-            printf("Your Armors :");
+            printf("Your armors : \n\n");
 
-            Armor *current_armor;
-
-            Armor *equipped_armor = character->gears->armor;
+            if (character->gears->armor)
+            {
+                equipped_armor = character->gears->armor;
+            }
 
             for (int i = 0; i < nb_armors; i++)
             {
 
                 current_armor = character->bag->armors[i];
 
-                if (current_armor->id == equipped_armor->id)
+                if (equipped_armor)
                 {
-                    printf(COLOR_GREEN);
+                    if (current_armor->id == equipped_armor->id)
+                        ;
+                    {
+                        printf(COLOR_GREEN);
+                    }
                 }
+
                 printf("%d : %s | %s\n" COLOR_RESET, i + 1, current_armor->name, printRarity(current_armor->rarity));
             }
 
             printf(COLOR_GREEN "\n* equipped Armor\n\n" COLOR_RESET);
-            printf("0 - exit");
+            printf("0 - exit\n\n");
+
+            scanf("%d", &answer);
 
         } while (answer < 0 || answer > nb_armors);
 
         if (answer == 0)
         {
             // Leave
-        }
-        else
-        {
-
+        }else if(equipped_armor){
+            if(character->bag->armors[answer - 1]->id == equipped_armor->id){
+                character->gears->armor = NULL;
+            }else{
+                Armor *choosed_armor = character->bag->armors[answer - 1];
+                character->gears->armor = choosed_armor;
+            }
+        }else{
             Armor *choosed_armor = character->bag->armors[answer - 1];
             character->gears->armor = choosed_armor;
         }
     }
     else
     {
-        printf(COLOR_RED "You have no Armor.\n" COLOR_RESET);
+        printf(COLOR_RED "You have no armor.\n" COLOR_RESET);
     }
 }

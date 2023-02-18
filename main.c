@@ -3,7 +3,7 @@
 int main(){
 
         srand(time(NULL));
-        
+
         User * me = malloc(sizeof(User));
         me->id = "m87KqduzxS";
         me->nickname = "Onsra";
@@ -31,9 +31,14 @@ int main(){
 
         */
 
-        chooseWeapon(me->characters[0]);
-
         dropStuff(me->characters[0], mob);
+
+        chooseWeapon(me->characters[0]);
+        chooseArmor(me->characters[0]);
+        chooseWeapon(me->characters[0]);
+        chooseArmor(me->characters[0]); 
+        chooseWeapon(me->characters[0]);
+        chooseArmor(me->characters[0]);
         
         exit(EXIT_SUCCESS);
 }

@@ -96,6 +96,8 @@ void addClass(User *user, int selection)
     new_character->bag->nb_armors = 0;
     
     new_character->gears = malloc(sizeof(Gears));
+    new_character->gears->weapon = NULL;
+    new_character->gears->armor = NULL;
 
     switch (selection)
     {
