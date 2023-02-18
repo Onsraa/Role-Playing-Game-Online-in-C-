@@ -285,34 +285,3 @@ void regenerateMana(Character * character){
     }
 }
 
-int generateRarity()
-{
-
-    int drop_rate = rand() % 100;
-
-    if (drop_rate <= DIVINE_DROP_RATE)
-    {
-        return DIVINE;
-    }
-    else if (drop_rate <= LEGENDARY_DROP_RATE)
-    {
-
-        return LEGENDARY;
-    }
-    else if (drop_rate <= EPIC_DROP_RATE)
-    {
-
-        return EPIC;
-    }
-    else if (drop_rate <= RARE_DROP_RATE)
-    {
-
-        return RARE;
-    }
-    else
-    {
-        
-        return COMMON;
-    }
-}
-

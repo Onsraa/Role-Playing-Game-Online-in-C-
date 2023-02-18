@@ -1,5 +1,35 @@
 #include "../struct.h"
 
+int generateRarity()
+{
+
+    int drop_rate = rand() % 100;
+
+    if (drop_rate <= DIVINE_DROP_RATE)
+    {
+        return DIVINE;
+    }
+    else if (drop_rate <= LEGENDARY_DROP_RATE)
+    {
+
+        return LEGENDARY;
+    }
+    else if (drop_rate <= EPIC_DROP_RATE)
+    {
+
+        return EPIC;
+    }
+    else if (drop_rate <= RARE_DROP_RATE)
+    {
+
+        return RARE;
+    }
+    else
+    {
+        
+        return COMMON;
+    }
+}
 
 void dropStuff(Character *character, Mob *mob)
 {
@@ -139,10 +169,12 @@ void cleanBag(Character *character){
         free(character->bag->armors[i]->element);
         free(character->bag->armors[i]);
     }
-}
 
+    character->bag->nb_weapons = 0;
+    character->bag->nb_armors = 0;
+}
 void cleanGear(Character *character){
 
-    free(character->gear->weapon);
-    free(character->gear->armor);
+    free(character->gears->weapon);
+    free(character->gears->armor);
 }

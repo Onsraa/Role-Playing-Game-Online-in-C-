@@ -69,7 +69,8 @@ void deleteCharacter(User * user){
     case 'y':
 
         user->nb_characters--;
-        user->characters->[choice - 1];
+        
+
         break;
     case 'n':
         deleteCharacter(user);
@@ -81,8 +82,27 @@ void cleanCharacter(User * user, Character * character){
 
     int classId = character->classId;
 
-    user->characters[classId - 1] = NULL;
-    
+    free(user->characters[classId - 1]->element);
+
+    cleanBag(character);
+    cleanGear(character);
+    cleanSpells(character);
+
+    free(user->characters[classId - 1]);
+    user->nb_characters--;
+
+    if(user->used_character == classId){
+        user->used_character = 0;
+    }
+
+    if(user->nb_characters != 0){
+        for(int i = classId; i < user->nb_characters; i++){
+            user->characters[i]->classId --;
+            user->characters[i] = user->characters[i - 1];
+        }
+    }
+
+    user->characters = realloc(user->characters, sizeof(Character *) * user->nb_characters);
 }
 
 void initializeNewCharacter(User *user){

@@ -317,6 +317,7 @@ void rogueSpells(Character *character);
 void archerSpells(Character *character);
 void mageSpells(Character *character);
 
+void cleanSpells(Character *character);
 /* MOB */
 
 struct Mob
@@ -364,12 +365,17 @@ void gainXp(Character *character, Mob *mob);
 
 /* GEARS */
 
+int generateRarity();
+
 void dropStuff(Character *character, Mob *mob);
 void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
 void dropWeapon(Character *character, int weapon_rarity);
 void dropArmor(Character *character, int armor_rarity);
 
 void showBag(Character *character);
+
+void cleanBag(Character *character);
+void cleanGear(Character *character);
 
 /* MENU */
 void startingMenu();

@@ -99,3 +99,13 @@ void mageSpells(Character *character)
     character->spells[0] = generateSpell("Mega giga extra fireball", "Strongest fireball in the world.", STATIC, 200, 70, FIRE);
     character->spells[1] = generateSpell("Pact with the devil", "Devil gives you more time to live so he can take your soul later.", STATIC, 140, 50, FIRE);
 }
+
+void cleanSpells(Character *character){
+
+    for(int i = 0; i < NB_SPELLS; i++){
+        free(character->spells[i]->spellName);
+        free(character->spells[i]->description);
+        free(character->spells[i]->element);
+        free(character->spells[i]);
+    }
+}
