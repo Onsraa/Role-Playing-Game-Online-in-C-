@@ -119,14 +119,14 @@ Armor *chooseArmor(Character *character)
                     if (current_armor->id == equipped_armor->id)
                         ;
                     {
-                        printf(COLOR_GREEN);
+                        printf(COLOR_GREEN_TERMINAL);
                     }
                 }
 
-                printf("%d : %s | %s\n" COLOR_RESET, i + 1, current_armor->name, printRarity(current_armor->rarity));
+                printf("%d : %s | %s\n" COLOR_RESET_TERMINAL , i + 1, current_armor->name, printRarity(current_armor->rarity));
             }
 
-            printf(COLOR_GREEN "\n* equipped Armor\n\n" COLOR_RESET);
+            printf(COLOR_GREEN_TERMINAL "\n* equipped Armor\n\n" COLOR_RESET_TERMINAL);
             printf("0 - exit\n\n");
 
             scanf("%d", &answer);
@@ -150,6 +150,6 @@ Armor *chooseArmor(Character *character)
     }
     else
     {
-        printf(COLOR_RED "You have no armor.\n" COLOR_RESET);
+        printf(COLOR_RED_TERMINAL "You have no armor.\n" COLOR_RESET_TERMINAL);
     }
 }

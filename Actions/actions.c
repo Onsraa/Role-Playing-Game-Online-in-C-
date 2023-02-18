@@ -352,7 +352,7 @@ void dropWeapon(Character *character, int weapon_rarity){
 
     do{
 
-        printf("You dropped a weapon !\n\n" COLOR_GREEN "The %s, [%d] | %s\n\n" COLOR_RESET, dropped_weapon->name, dropped_weapon->bonus_damage, printRarity(dropped_weapon->rarity));
+        printf("You dropped a weapon !\n\n" COLOR_GREEN_TERMINAL  "The %s, [%d] | %s\n\n" COLOR_RESET_TERMINAL , dropped_weapon->name, dropped_weapon->bonus_damage, printRarity(dropped_weapon->rarity));
         printf("Do you want to add it in your bag ? (y)es - (n)o \n\n");
 
         if (scanf("%c", &answer) != 1)
@@ -380,7 +380,7 @@ void dropArmor(Character *character, int armor_rarity){
 
     do{
 
-        printf("You dropped an armor !\n\n" COLOR_GREEN "The %s, [%d] | %s\n\n" COLOR_RESET, dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
+        printf("You dropped an armor !\n\n" COLOR_GREEN_TERMINAL  "The %s, [%d] | %s\n\n" COLOR_RESET_TERMINAL , dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
         printf("Do you want to add it in your bag ? (y)es - (n)o \n\n");
         
         if (scanf("%c", &answer) != 1)

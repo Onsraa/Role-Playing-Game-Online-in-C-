@@ -9,9 +9,9 @@
 /* ------------------------------GLOBAL VALUES------------------------------*/
 
 /*COLORS*/
-#define COLOR_RESET "\x1b[0m"
-#define COLOR_RED "\x1b[31m"
-#define COLOR_GREEN "\x1b[32m"
+#define COLOR_RESET_TERMINAL "\x1b[0m"
+#define COLOR_RED_TERMINAL  "\x1b[31m"
+#define COLOR_GREEN_TERMINAL  "\x1b[32m"
 
 /*INTERFACES*/
 #define BAR_LENGTH 40
@@ -356,4 +356,6 @@ void regenerateMana(Character *character);
 void levelUp(Character *character);
 void gainXp(Character *character, Mob *mob);
 
+/* MENU */
+void startingMenu();
 #endif
