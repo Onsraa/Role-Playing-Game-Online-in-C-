@@ -20,7 +20,7 @@ On y compte un guerrier, un assassin, un archer et un mage.
 
 Vous pourrez créer plusieurs classes de personnages ou même les supprimer. Les choisir à volonter pour les lancer dans les donjons.
 
-Les donjons se font d'une traite, vous mourrez et c'est le point de départ qui vous attend mais pas d'inquiétude, vous gardez tout le stuff droppé et les niveaux accumulés pendant ce run dans le donjon. Dans ce donjon on peut tomber contre des mobs mais aussi attérir dans des zones calmes comme l'auberge qui vous permet de passer un stage (Le donjon se joue en plusieurs étapes, à chaque étape on peut choisir entre 2 voies qui se sont générées pendant la création du donjon, c'est notre arbre binaire) ou la fontaine qui vous régénère vos barres de vies et de mana.
+Les donjons se font d'une traite. Mourrez et c'est le point de départ qui vous attend, mais pas d'inquiétude, vous gardez tout le stuff droppé et les niveaux accumulés pendant ce run dans le donjon. Dans ce donjon on peut tomber contre des mobs mais aussi attérir dans des zones calmes comme l'auberge qui vous permet de passer un stage (Le donjon se joue en plusieurs étapes, à chaque étape on peut choisir entre 2 voies qui se sont générées pendant la création du donjon, c'est notre arbre binaire) ou la fontaine qui vous régénère vos barres de vies et de mana.
 
 On peut drop du stuff sur les mobs et les équipper. Plusieurs niveaux de raretés (Divine c'est 1% de chance de drop)
 
