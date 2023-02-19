@@ -1,4 +1,4 @@
-Bien sûr, voici une explication détaillée de chaque étape pour afficher un jeu RPG programmé en C avec SDL :
+Voici une explication détaillée de chaque étape pour afficher un jeu RPG programmé en C avec SDL :
 
 1-Initialisez la SDL en appelant la fonction SDL_Init(). Cette fonction est utilisée pour initialiser la bibliothèque SDL. Vous pouvez spécifier les fonctionnalités que vous voulez utiliser en passant des indicateurs à la fonction SDL_Init(). Par exemple, si vous voulez utiliser la vidéo et l'audio, vous pouvez appeler la fonction SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO). Vous pouvez également utiliser la valeur 0 pour activer toutes les fonctionnalités.
 
