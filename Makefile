@@ -1,15 +1,17 @@
-CC=gcc
+CC = gcc
+CFLAGS = $(mysql_config --cflags)
+LDFLAGS = $(mysql_config --libs)
+TARGET = main
 
-DEPS := main.h Struct/struct.h
-OBJ = main.o Struct/Users/users.o Struct/Spells/spells.o Struct/Classes/classes.o
+OBJS = main.o Struct/struct.o Struct/Classes/classes.o Struct/Element/element.o Struct/Spells/spells.o Struct/Users/users.o
 
-%.o: %.c $(DEPS)
-	$(CC) -c -o $@ $< $(CFLAGS)
+all: $(TARGET)
 
-program: $(OBJ)
-	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS)
 
-.PHONY: clean
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f *.o Struct/*/*.o program
+	rm -f $(TARGET) $(OBJS)

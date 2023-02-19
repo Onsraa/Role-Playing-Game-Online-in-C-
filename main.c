@@ -1,24 +1,16 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "./Struct/struct.h"
+#include "./sql.h"
+#include "./Settings/settings.h"
 
 int main(){
 
+        srand(time(NULL));
+
         User * me = malloc(sizeof(User));
-        me->id = "m87KqduzxS";
-        me->nickname = "Onsra";
-        me->password = "Teddy123";
-        me->nb_characters = 0;
-        me->characters = NULL;
 
-        initializeCharacter(me);
-        chooseClass(me);
+        introduction(me);
+
+        free(me);
         
-        system("clear");
-
-        characterStat(me->characters[0]);
-        characterStat(me->characters[1]);
-
         exit(EXIT_SUCCESS);
 }

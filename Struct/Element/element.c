@@ -1,5 +1,12 @@
 #include "../struct.h"
 
+enum compability
+{
+    EFFICIENT = 1,
+    INEFFECTIVE = 2,
+    NONE = 3
+};
+
 void initializeElement(Character *character, int element)
 {
 
@@ -49,6 +56,8 @@ int compability(Element *first_element, Element *second_element)
             }
         }
     }
+
+    return 0;
 }
 
 char * numberToElementName(int number){
@@ -61,4 +70,6 @@ char * numberToElementName(int number){
         case PLANT : 
             return "plant";
     }
+
+    return 0;
 }
