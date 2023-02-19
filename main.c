@@ -3,6 +3,14 @@
 
 int main(){
 
+        srand(time(NULL));
+
+        //startingMenu();
+
+        //Connexion
+
+        //connectUserToDataBase();
+
         User * me = malloc(sizeof(User));
 
         //Conected user to the database
@@ -12,17 +20,21 @@ int main(){
         
         system("clear");
 
-        characterStats(me->characters[0]);
+        /*
+        initializeNewCharacter(me);
+        chooseNewClass(me);
 
-        giveSpells(me->characters[0]);
+        showAllCharacters(me);
 
-        showSpells(me->characters[0]);
+        exit(1);
 
         Mob * mob = generateMob(1);
 
-        mobStats(mob);
-
         fight(me->characters[0], mob, 1, 1);
+
+        chooseWeapon(me->characters[0]);
+        chooseWeapon(me->characters[0]);
+        */
 
         exit(EXIT_SUCCESS);
 }

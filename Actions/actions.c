@@ -13,12 +13,41 @@ enum gearState
     STORED = 0
 };
 
+void gainXp(Character *character, Mob *mob){
+
+    int xp_gained = XP_GAINED * mob->level;
+
+    printf("You gained %d XP\n\n", xp_gained);
+
+    character->experience += xp_gained;
+
+    if(character->experience >= character->experienceNeededToLevelUp){
+        levelUp(character);
+    }
+}
+
+void levelUp(Character *character){
+
+    character->experience = 0;
+    character->experienceNeededToLevelUp *= 1.5;
+    character->level++;
+
+    printf("You leveled up ! You are now level %d\n\n", character->level);
+}
+
 void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 {
 
     system("clear");
     int rounds = 0;
+    puts(" ");
+    printf("##########################################");
+    puts(" ");
+    printf("\tFight: %s VS %s", character->className, mob->name);
+    puts(" ");
+    printf("##########################################");
 
+    puts(" ");
     switch (auto_mode)
     {
     case 0:
@@ -26,8 +55,8 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
         break;
     case 1:
         while (character->isAlive && mob->isAlive)
-        {
-            printf("-------------------------------\n");
+        {   
+            puts(" ");
             printf("\tROUND N°%d\n\n", rounds);
             switch (rounds % 2)
             {
@@ -40,7 +69,7 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
             }
             showFightStates(character, mob);
             regenerateMana(character);
-            printf("-------------------------------\n");
+            printf("--------------------------------------------------------------\n");
             ++rounds;
         }
         break;
@@ -48,6 +77,8 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 
     if(character->isAlive){
         printf("You won against the %s !", mob->name);
+        gainXp(character, mob);
+        dropStuff(character, mob);
     }else{
         printf("You died against the %s.", mob->name);
     }
@@ -151,7 +182,7 @@ void players_turn(Character *character, Mob *mob, int dialogue)
 
         if (dialogue)
         {
-            printf("You healed yourself for %d with the %s!\n\n", total_damage, healing_spell->spellName);
+            printf("You healed yourself for %d with the %s !\n\n", total_damage, healing_spell->spellName);
         }
         break;
     }
@@ -254,50 +285,3 @@ void regenerateMana(Character * character){
     }
 }
 
-int generateRarity()
-{
-
-    srand(time(NULL));
-
-    int drop_rate = rand() % 100;
-
-    if (drop_rate <= DIVINE_DROP_RATE)
-    {
-        return DIVINE;
-    }
-    else if (drop_rate <= LEGENDARY_DROP_RATE)
-    {
-
-        return LEGENDARY;
-    }
-    else if (drop_rate <= EPIC_DROP_RATE)
-    {
-
-        return EPIC;
-    }
-    else if (drop_rate <= RARE_DROP_RATE)
-    {
-
-        return RARE;
-    }
-    else
-    {
-        
-        return COMMON;
-    }
-}
-
-void dropStuff(Character *character, Mob *mob)
-{
-    printf("Nice ! You just dropped an item from the %s", mob->name);
-    printf("Do you want to add it to your bag ?");
-
-    int weapon_or_armor = (int)rand() % 2;
-
-    switch(weapon_or_armor){
-        case WEAPON :
-            break;
-        case ARMOR :
-            break;
-    }
-}

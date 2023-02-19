@@ -9,9 +9,9 @@
 /* ------------------------------GLOBAL VALUES------------------------------*/
 
 /*COLORS*/
-#define COLOR_RESET "\x1b[0m"
-#define COLOR_RED "\x1b[31m"
-#define COLOR_GREEN "\x1b[32m"
+#define COLOR_RESET_TERMINAL "\x1b[0m"
+#define COLOR_RED_TERMINAL "\x1b[31m"
+#define COLOR_GREEN_TERMINAL "\x1b[32m"
 
 /*INTERFACES*/
 #define BAR_LENGTH 40
@@ -58,7 +58,8 @@ enum elements
 enum weapon_or_armor
 {
     WEAPON = 0,
-    ARMOR = 1
+    ARMOR = 1,
+    BOTH = 2
 };
 
 enum rarity
@@ -71,13 +72,27 @@ enum rarity
 };
 
 /*ZONES*/
-
 #define REGENERATION_ZONE 6
 #define STARTING_ZONE 5
 
-enum zones {VOLCANO = 1, FOREST = 2, DUNGEON = 3, FALL = 4, HOSTS = 5, FOUNTAIN = 6};
+enum zones
+{
+    VOLCANO = 1,
+    FOREST = 2,
+    DUNGEON = 3,
+    FALL = 4,
+    HOSTS = 5,
+    FOUNTAIN = 6
+};
+
+/*XP*/
+#define XP_GAINED 50
+#define XP_NEEDED 50
 
 /* ------------------------------DECLARATIONS------------------------------*/
+
+/* USERS */
+typedef struct User User;
 
 /* CHARACTERS */
 typedef struct Character Character;
@@ -97,11 +112,34 @@ typedef struct Spell Spell;
 typedef struct Offensive Offensive;
 typedef struct Heal Heal;
 
-/* USERS */
-typedef struct User User;
+/* MOBS */
+typedef struct Mob Mob;
 
 /* -------------------------------------------------------------------------*/
 
+/* USERS */
+
+struct User
+{
+
+    int id;
+    char *nickname;
+    char *password;
+
+    Character **characters; // Array of characters
+    int nb_characters;
+
+    int used_character;
+};
+
+int createUser(char *nickname, char *password);  // Returns success or failure
+int connectUser(char *nickname, char *password); // Returns success or failure
+
+void changePassword(char id, char *password);
+
+void userInfo(User *currentUser);
+
+/* CHARACTERS */
 struct Character
 {
 
@@ -138,6 +176,13 @@ struct Character
     int isAlive;
 };
 
+void showAllCharacters(User *user);
+void chooseCharacter(User *user);
+
+void cleanCharacter(User *user, Character *character);
+void deleteCharacter(User *user);
+void deleteAllCharacters(User *user);
+
 struct Bag
 {
 
@@ -155,25 +200,9 @@ struct Gears
     Armor *armor;
 };
 
-void initializeCharacter(User *user);
 
-void chooseClass(User *user);
 
-void addClass(User *user, int selection);
-
-void warriorSelected(Character *character);
-
-void rogueSelected(Character *character);
-
-void archerSelected(Character *character);
-
-void mageSelected(Character *character);
-
-void characterStats(Character *character);
-
-void showBars(Character *character);
-
-/*WEAPON*/
+/*WEAPONS*/
 struct Weapon
 {
 
@@ -188,9 +217,17 @@ struct Weapon
     Element *element;
 };
 
-char * printRarity(int rarity);
+Weapon *generateWeapon(int rarity);
+void addWeapon(Character *character, Weapon *weapon);
+Weapon *chooseWeapon(Character *character);
 
-/*ARMOR*/
+Weapon *divineWeapon();
+Weapon *legendaryWeapon();
+Weapon *epicWeapon();
+Weapon *rareWeapon();
+Weapon *commonWeapon();
+
+/*ARMORS*/
 struct Armor
 {
     int id;
@@ -204,10 +241,43 @@ struct Armor
     Element *element;
 };
 
+Armor *generateArmor(int rarity);
+void addArmor(Character *character, Armor *armor);
+Armor *chooseArmor(Character *character);
+
+Armor *divineArmor();
+Armor *legendaryArmor();
+Armor *epicArmor();
+Armor *rareArmor();
+Armor *commonArmor();
+
+void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
+void dropWeapon(Character *character, int weapon_rarity);
+void dropArmor(Character *character, int armor_rarity);
+
+void initializeNewCharacter(User *user);
+
+void chooseNewClass(User *user);
+
+void addClass(User *user, int selection);
+
+void warriorSelected(Character *character);
+
+void rogueSelected(Character *character);
+
+void archerSelected(Character *character);
+
+void mageSelected(Character *character);
+
+void characterStats(User *user, Character *character);
+
+void showBars(Character *character);
+
 /* ELEMENT */
 
 struct Element
 {
+
     int type;
 };
 
@@ -249,29 +319,8 @@ void rogueSpells(Character *character);
 void archerSpells(Character *character);
 void mageSpells(Character *character);
 
-/* USERS */
-
-struct User
-{
-
-    int  id;
-    char *nickname;
-    char *password;
-
-    Character **characters; // Array of characters
-    int nb_characters;
-};
-
-int createUser(char *nickname, char *password);  // Returns success or failure
-int connectUser(char *nickname, char *password); // Returns success or failure
-
-void changePassword(char id, char *password);
-
-void userInfo(User *currentUser);
-
+void cleanSpells(Character *character);
 /* MOB */
-
-typedef struct Mob Mob;
 
 struct Mob
 {
@@ -312,4 +361,31 @@ void players_turn(Character *character, Mob *mob, int dialogue);
 void mobs_turn(Mob *mob, Character *character, int dialogue);
 
 void regenerateMana(Character *character);
+
+void levelUp(Character *character);
+void gainXp(Character *character, Mob *mob);
+
+/* GEARS */
+
+int generateRarity();
+
+char *printRarity(int rarity);
+
+void dropStuff(Character *character, Mob *mob);
+void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
+void dropWeapon(Character *character, int weapon_rarity);
+void dropArmor(Character *character, int armor_rarity);
+
+void showBag(User *user, Character *character);
+
+void cleanBag(Character *character);
+void cleanGear(Character *character);
+
+/* MENU */
+
+void startingMenu();
+
+void start(User *user);
+void character_menu(User *user);
+
 #endif
