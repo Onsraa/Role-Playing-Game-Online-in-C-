@@ -68,7 +68,7 @@ void dropWeapon(Character *character, int weapon_rarity)
 
     Weapon *dropped_weapon = generateWeapon(weapon_rarity);
 
-    do
+    while (answer != 'y' && answer != 'n')
     {
 
         printf("You dropped a weapon !\n\n" COLOR_GREEN_TERMINAL "The %s, [%d] | %s\n\n" COLOR_RESET_TERMINAL, dropped_weapon->name, dropped_weapon->bonus_damage, printRarity(dropped_weapon->rarity));
@@ -79,7 +79,7 @@ void dropWeapon(Character *character, int weapon_rarity)
             while (fgetc(stdin) != '\n')
                 ;
         };
-    } while (answer != 'y' && answer != 'n');
+    };
 
     switch (answer)
     {
@@ -99,7 +99,7 @@ void dropArmor(Character *character, int armor_rarity)
 
     Armor *dropped_armor = generateArmor(armor_rarity);
 
-    do
+    while (answer != 'y' && answer != 'n')
     {
 
         printf("You dropped an armor !\n\n" COLOR_GREEN_TERMINAL "The %s, [%d] | %s\n\n" COLOR_RESET_TERMINAL, dropped_armor->name, dropped_armor->bonus_resistance, printRarity(dropped_armor->rarity));
@@ -110,7 +110,7 @@ void dropArmor(Character *character, int armor_rarity)
             while (fgetc(stdin) != '\n')
                 ;
         };
-    } while (answer != 'y' && answer != 'n');
+    };
 
     switch (answer)
     {
@@ -190,12 +190,13 @@ void showBag(User *user, Character *character)
         {
             do
             {
+                system("clear");
                 if (!character->bag->nb_weapons == 0)
-                {
-                    printf("[");
+                {   
+                    printf("WEAPONS : [");
                     for (int i = 0; i < character->bag->nb_weapons; i++)
                     {
-                        printf("%s ", character->bag->weapons[i]->name);
+                        printf("%s", character->bag->weapons[i]->name);
                         if (i < character->bag->nb_weapons - 1)
                         {
                             printf(", ");
@@ -209,10 +210,10 @@ void showBag(User *user, Character *character)
                 }
                 if (!character->bag->nb_armors == 0)
                 {
-                    printf("[");
+                    printf("ARMORS  : [");
                     for (int i = 0; i < character->bag->nb_armors; i++)
                     {
-                        printf("%s ", character->bag->armors[i]->name);
+                        printf("%s", character->bag->armors[i]->name);
                         if (i < character->bag->nb_armors - 1)
                         {
                             printf(", ");
@@ -240,10 +241,10 @@ void showBag(User *user, Character *character)
             switch (answer)
             {
             case 1:
-                chooseWeapon(character);
+                chooseWeapon(user, character);
                 break;
             case 2:
-                chooseArmor(character);
+                chooseArmor(user, character);
                 break;
             case 3:
                 character_menu(user);
@@ -257,7 +258,7 @@ void cleanBag(Character *character)
 {
 
     for (int i = 0; i < character->bag->nb_weapons; i++)
-    {   
+    {
         free(character->bag->weapons[i]->element);
         character->bag->weapons[i]->element = NULL;
         free(character->bag->weapons[i]);
@@ -269,23 +270,25 @@ void cleanBag(Character *character)
         free(character->bag->armors[i]->element);
         character->bag->armors[i]->element = NULL;
         free(character->bag->armors[i]);
-        character->bag->armors[i]= NULL;
+        character->bag->armors[i] = NULL;
     }
 
     free(character->bag);
     character->bag = NULL;
-
 }
 void cleanGear(Character *character)
 {
 
-    if(character->gears->weapon){
+    if (character->gears->weapon)
+    {
         free(character->gears->weapon);
     }
-    if(character->gears->armor){
+    if (character->gears->armor)
+    {
         free(character->gears->armor);
     }
-    if(character->gears){
+    if (character->gears)
+    {
         free(character->gears);
     }
 

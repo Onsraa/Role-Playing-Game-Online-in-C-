@@ -78,10 +78,19 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
         printf("You won against the %s !", mob->name);
         gainXp(character, mob);
         dropStuff(character, mob);
+        printf("\n\n1 - Continue\n\n");
     }else{
-        printf("You died against the %s.", mob->name);
+        printf("You died against the %s.\n\n", mob->name);
+        printf("\n\n1 - Go back to menu\n\n");
     }
     puts(" ");
+
+    int choice;
+
+    do{
+        scanf("%d", &choice);
+    }while(choice != 1);
+
 }
 
 void players_turn(Character *character, Mob *mob, int dialogue)

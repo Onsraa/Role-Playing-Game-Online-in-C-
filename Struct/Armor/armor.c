@@ -85,7 +85,7 @@ Armor *commonArmor()
     return createArmor("Silver chestplate", 10, COMMON, PLANT);
 }
 
-Armor *chooseArmor(Character *character)
+Armor *chooseArmor(User *user, Character *character)
 {
 
     system("clear");
@@ -135,7 +135,7 @@ Armor *chooseArmor(Character *character)
 
         if (answer == 0)
         {
-            // Leave
+            character_menu(user);
         }else if(equipped_armor){
             if(character->bag->armors[answer - 1]->id == equipped_armor->id){
                 character->gears->armor = NULL;
@@ -147,6 +147,8 @@ Armor *chooseArmor(Character *character)
             Armor *choosed_armor = character->bag->armors[answer - 1];
             character->gears->armor = choosed_armor;
         }
+        chooseArmor(user, character);
+
     }
     else
     {

@@ -16,7 +16,7 @@ void showSpells(Character *character)
         exit(EXIT_FAILURE);
     }
     
-    printf("SPELLS : \n\n");
+    printf("**********************SPELLS**********************\n\n");
 
     for (int i = 0; i < NB_SPELLS; i++)
     {   

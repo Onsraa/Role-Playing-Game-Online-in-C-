@@ -104,7 +104,7 @@ char *printRarity(int rarity)
     }
 }
 
-Weapon *chooseWeapon(Character *character)
+Weapon *chooseWeapon(User *user, Character *character)
 {
 
     system("clear");
@@ -136,8 +136,7 @@ Weapon *chooseWeapon(Character *character)
 
                 if (equipped_weapon)
                 {
-                    if (current_weapon->id == equipped_weapon->id)
-                        ;
+                    if (current_weapon->id == equipped_weapon->id);
                     {
                         printf(COLOR_GREEN_TERMINAL);
                     }
@@ -155,7 +154,7 @@ Weapon *chooseWeapon(Character *character)
 
         if (answer == 0)
         {
-            // Leave
+            character_menu(user);
         }
         else if (equipped_weapon)
         {
@@ -174,6 +173,7 @@ Weapon *chooseWeapon(Character *character)
             Weapon *choosed_weapon = character->bag->weapons[answer - 1];
             character->gears->weapon = choosed_weapon;
         }
+        chooseWeapon(user, character);
     }
     else
     {

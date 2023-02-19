@@ -195,7 +195,7 @@ void deleteCharacter(User *user);
 void deleteAllCharacters(User *user);
 
 Character * returnCurrentCharacter(User * user);
-
+void resetCharacter(Character * character);
 struct Bag
 {
 
@@ -232,7 +232,7 @@ struct Weapon
 
 Weapon *generateWeapon(int rarity);
 void addWeapon(Character *character, Weapon *weapon);
-Weapon *chooseWeapon(Character *character);
+Weapon *chooseWeapon(User *user, Character *character);
 
 Weapon *divineWeapon();
 Weapon *legendaryWeapon();
@@ -257,7 +257,7 @@ struct Armor
 
 Armor *generateArmor(int rarity);
 void addArmor(Character *character, Armor *armor);
-Armor *chooseArmor(Character *character);
+Armor *chooseArmor(User *user, Character *character);
 
 Armor *divineArmor();
 Armor *legendaryArmor();

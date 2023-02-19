@@ -35,15 +35,21 @@ void chooseCharacter(User * user){
             system("clear");
             showAllCharacters(user);
             puts("\n");
+            printf("0 - Leave\n\n");
             printf("Choose a character : ");
 
             if (scanf("%d", &choice) != 1)
             {
                 while (fgetc(stdin) != '\n');
             };
-        }while(choice < 1 || choice > user->nb_characters);
+        }while(choice < 0 || choice > user->nb_characters);
 
-        user->used_character = choice;
+        if(choice == 0){
+            main_menu(user);
+        }else{
+            user->used_character = choice;
+            chooseCharacter(user);
+        }
     }else{
         do{
             system("clear");
@@ -380,7 +386,7 @@ void characterStats(Character *character){
 
     showBars(character);
     
-    printf("Level : %d\n", character->level);
+    printf("Level : %d\n\n", character->level);
 
     showSpells(character);
 
@@ -441,4 +447,12 @@ Character * returnCurrentCharacter(User * user){
           }  
         }
     }
+}
+
+void resetCharacter(Character * character){
+
+    character->isAlive = 1;
+
+    character->currentHp = character->maxHp;
+    character->currentMp = character->maxMp;
 }
