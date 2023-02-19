@@ -148,19 +148,18 @@ void cleanCharacter(User * user, Character * character){
     cleanBag(character);
     cleanGear(character);
     cleanSpells(character);
-
-    user->nb_characters--;
     
     free(character);
     character = NULL;
 
     if(classId != user->nb_characters && user->nb_characters > 0){
-        for(int i = classId; i < user->nb_characters + 1; i++){
+        for(int i = classId; i < user->nb_characters; i++){
             user->characters[i]->classId--; // Decrease the classId of all the characters after the one deleted.
-            user->characters[i] = user->characters[i - 1]; // Decrease the position of all the characters after the one deleted.
+            user->characters[i - 1] = user->characters[i]; // Decrease the position of all the characters after the one deleted.
         }
     }
- 
+
+
     if(user->nb_characters == 0){
         user->used_character = 0;
     }else{
@@ -173,6 +172,7 @@ void cleanCharacter(User * user, Character * character){
     }
 
     user->characters = realloc(user->characters, sizeof(Character *) * user->nb_characters);
+    user->nb_characters--;
 }
 
 void initializeNewCharacter(User *user){
