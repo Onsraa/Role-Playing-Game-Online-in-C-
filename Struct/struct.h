@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <math.h>
 
 /* ------------------------------GLOBAL VALUES------------------------------*/
 
@@ -72,17 +73,21 @@ enum rarity
 };
 
 /*ZONES*/
-#define REGENERATION_ZONE 6
-#define STARTING_ZONE 5
+
+#define STARTING_ZONE 1
+#define REGENERATION_ZONE 2
+#define NB_STAGES 10
+#define NB_WAYS 3
+#define NB_ZONES 6
 
 enum zones
 {
-    VOLCANO = 1,
-    FOREST = 2,
+    HOSTS = 1,
+    FOUNTAIN = 2,
     DUNGEON = 3,
     FALL = 4,
-    HOSTS = 5,
-    FOUNTAIN = 6
+    VOLCANO = 5,
+    FOREST = 6
 };
 
 /*XP*/
@@ -115,6 +120,11 @@ typedef struct Heal Heal;
 /* MOBS */
 typedef struct Mob Mob;
 
+/* ZONE */
+typedef struct StartZone StartZone;
+typedef struct Zone Zone;
+
+
 /* -------------------------------------------------------------------------*/
 
 /* USERS */
@@ -143,8 +153,9 @@ void userInfo(User *currentUser);
 struct Character
 {
 
-    int classId; // Determine the class number.
+    int number;
 
+    int classId; // Determine the class number.
     char *className;
 
     /*Basic stats*/
@@ -183,6 +194,8 @@ void cleanCharacter(User *user, Character *character);
 void deleteCharacter(User *user);
 void deleteAllCharacters(User *user);
 
+Character * returnCurrentCharacter(User * user);
+void resetCharacter(Character * character);
 struct Bag
 {
 
@@ -219,7 +232,7 @@ struct Weapon
 
 Weapon *generateWeapon(int rarity);
 void addWeapon(Character *character, Weapon *weapon);
-Weapon *chooseWeapon(Character *character);
+Weapon *chooseWeapon(User *user, Character *character);
 
 Weapon *divineWeapon();
 Weapon *legendaryWeapon();
@@ -243,7 +256,7 @@ struct Armor
 
 Armor *generateArmor(int rarity);
 void addArmor(Character *character, Armor *armor);
-Armor *chooseArmor(Character *character);
+Armor *chooseArmor(User *user, Character *character);
 
 Armor *divineArmor();
 Armor *legendaryArmor();
@@ -269,7 +282,7 @@ void archerSelected(Character *character);
 
 void mageSelected(Character *character);
 
-void characterStats(User *user, Character *character);
+void characterStats(Character *character);
 
 void showBars(Character *character);
 
@@ -320,8 +333,9 @@ void archerSpells(Character *character);
 void mageSpells(Character *character);
 
 void cleanSpells(Character *character);
-/* MOB */
 
+void updateSpells(Character *character);
+/* MOB */
 struct Mob
 {
 
@@ -342,6 +356,7 @@ struct Mob
 };
 
 Mob *generateMob(int difficulty);
+Mob * createMob(char * mobName, int phyisicalPower, int magicalPower, int hp, int difficulty);
 
 Mob *dragon(int difficulty);
 Mob *goblin(int difficulty);
@@ -385,7 +400,38 @@ void cleanGear(Character *character);
 
 void startingMenu();
 
+void introduction(User *user);
 void start(User *user);
+void main_menu(User *user);
 void character_menu(User *user);
+void checkStatus(User *user); //test 
 
+/* ZONE */
+
+struct StartZone{
+
+    Zone * first;
+    int nb_stages;
+};
+
+struct Zone{
+
+    int zoneName;
+
+    int difficulty;
+    
+    Mob *mob;
+
+    Zone *left_way;
+    Zone *right_way;
+};
+
+StartZone * initializeFirstZone();
+void generateMap(User *user, Character * character, int difficulty, int auto_mode, int dialogue);
+Zone * generateRandomZone(int difficulty);
+Zone * createZone(int zoneName, int difficulty);
+char * printZoneName(Zone * zone);
+void actionZone(User *user, Character * character, Zone * zone, int auto_mode, int dialogue);
+void hosts(User *user, Character * character);
+void fountain(Character * character);
 #endif

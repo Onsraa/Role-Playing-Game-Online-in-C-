@@ -32,26 +32,34 @@ void levelUp(Character *character){
     character->experienceNeededToLevelUp *= 1.5;
     character->level++;
 
+    character->physicalPower *= 1.5;
+    character->magicalPower *= 1.5;
+    
+    character->maxHp *= 1.3;
+    character->maxMp *= 1.3;
+
+    updateSpells(character);
+    resetCharacter(character);
+
     printf("You leveled up ! You are now level %d\n\n", character->level);
 }
 
 void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 {
+    int rounds = 0;
 
     system("clear");
-    int rounds = 0;
     puts(" ");
     printf("##########################################");
     puts(" ");
     printf("\tFight: %s VS %s", character->className, mob->name);
     puts(" ");
     printf("##########################################");
-
     puts(" ");
+
     switch (auto_mode)
     {
     case 0:
-
         break;
     case 1:
         while (character->isAlive && mob->isAlive)
@@ -79,10 +87,19 @@ void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
         printf("You won against the %s !", mob->name);
         gainXp(character, mob);
         dropStuff(character, mob);
+        printf("\n\n1 - Continue\n\n");
     }else{
-        printf("You died against the %s.", mob->name);
+        printf("You died against the %s.\n\n", mob->name);
+        printf("\n\n1 - Go back to menu\n\n");
     }
     puts(" ");
+
+    int choice;
+
+    do{
+        scanf("%d", &choice);
+    }while(choice != 1);
+
 }
 
 void players_turn(Character *character, Mob *mob, int dialogue)

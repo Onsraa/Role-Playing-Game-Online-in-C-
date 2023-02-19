@@ -83,8 +83,10 @@ int connectUserToDataBase(User * currentUser){
                 res = mysql_use_result(conn);
                 row = mysql_fetch_row(res);
                 currentUser->id = atoi(row[0]);
-                currentUser->password = row[1];
-                currentUser->nb_characters = atoi(row[2]);
+                currentUser->nickname = (char*)malloc(strlen(row[1])+1);
+                strcpy(currentUser->nickname, row[1]);
+                currentUser->password = row[2];
+                currentUser->nb_characters = atoi(row[3]);
                 mysql_free_result(res);
                 return 1;                                     /// 1 = user authenticated
             }else{

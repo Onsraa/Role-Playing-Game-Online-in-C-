@@ -16,7 +16,7 @@ void showSpells(Character *character)
         exit(EXIT_FAILURE);
     }
     
-    printf("SPELLS : \n\n");
+    printf("**********************SPELLS**********************\n\n");
 
     for (int i = 0; i < NB_SPELLS; i++)
     {   
@@ -106,4 +106,10 @@ void cleanSpells(Character *character){
         free(character->spells[i-1]->element);
         free(character->spells[i-1]);
     }  
+}
+
+void updateSpells(Character *character){
+
+    character->spells[0]->value += 0.2 * (character->physicalPower + character->magicalPower);
+    character->spells[1]->value += 0.2 * (character->physicalPower + character->magicalPower);
 }

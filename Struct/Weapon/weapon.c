@@ -104,7 +104,7 @@ char *printRarity(int rarity)
     }
 }
 
-Weapon *chooseWeapon(Character *character)
+Weapon *chooseWeapon(User *user, Character *character)
 {
 
     system("clear");
@@ -121,6 +121,8 @@ Weapon *chooseWeapon(Character *character)
 
         do
         {
+            
+            system("clear");
             printf("Your weapons : \n\n");
             printf(COLOR_RED_TERMINAL "(To equip, enter the number | To unequip, enter the number of the current gear equipped)\n\n" COLOR_RESET_TERMINAL);
 
@@ -137,15 +139,17 @@ Weapon *chooseWeapon(Character *character)
                 if (equipped_weapon)
                 {
                     if (current_weapon->id == equipped_weapon->id)
-                        ;
                     {
                         printf(COLOR_GREEN_TERMINAL);
                     }
                 }
 
-                printf("%d : %s | %s\n" COLOR_RESET_TERMINAL, i + 1, current_weapon->name, printRarity(current_weapon->rarity));
+                printf("%d : %s | %s | %s\n" COLOR_RESET_TERMINAL, i + 1, current_weapon->name, printRarity(current_weapon->rarity), numberToElementName(current_weapon->element->type));
             }
-
+             if (character->gears->weapon)
+            {
+                equipped_weapon = character->gears->weapon;
+            }
             printf(COLOR_GREEN_TERMINAL "\n* equipped weapon\n\n" COLOR_RESET_TERMINAL);
             printf("0 - exit\n\n");
 
@@ -155,7 +159,7 @@ Weapon *chooseWeapon(Character *character)
 
         if (answer == 0)
         {
-            // Leave
+            character_menu(user);
         }
         else if (equipped_weapon)
         {
@@ -174,6 +178,7 @@ Weapon *chooseWeapon(Character *character)
             Weapon *choosed_weapon = character->bag->weapons[answer - 1];
             character->gears->weapon = choosed_weapon;
         }
+        chooseWeapon(user, character);
     }
     else
     {
