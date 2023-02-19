@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <json-c/json.h>
 #include <string.h>
+#include "../Struct/struct.h"
 
 void readSettings(){
     FILE *fp;
@@ -84,6 +85,7 @@ void updateDifficulty(int newDifficulty){
 
 
 int getCombatMode(){
+
     FILE *fp;
     char buffer[1024];
     struct json_object *parsed_json;
@@ -103,7 +105,6 @@ int getCombatMode(){
     json_object_object_get_ex(settings, "dialogue", &dialogue);
 
     return json_object_get_int(combat_mode);
-
 }
 
 
@@ -277,6 +278,7 @@ void printSettings(){
     printf("0 -- Retour\n");
     printf("***********************\n");
 }
+
 int printDifficulty(){
     FILE *fp;
     char buffer[1024];
@@ -319,6 +321,7 @@ int printDifficulty(){
     printf("*************************\n");
     return json_object_get_int(difficulty);
 }
+
 void difficultyMenu(){
     int actualDifficulty;
     actualDifficulty = printDifficulty();
@@ -384,16 +387,17 @@ void difficultyMenu(){
     free(confirm2);
 }
 
-void menuSettings(){
+void menuSettings(User * user){
     int choice;
     char *confirm = malloc(sizeof(char) * 5);
     int difficulty;
 
-
+    system("clear");
     printSettings();
     scanf("%d", &choice);
     switch(choice){
         case 0:
+            main_menu(user);
             break;
         case 1:
             if (getCombatMode() == 1){
@@ -419,7 +423,7 @@ void menuSettings(){
                     printf("Le mode de combat est maintenant actif !\n");
                 }
             }
-            menuSettings();
+            menuSettings(user);
             break;
         case 2:
             if (getDialogueMode() == 1){
@@ -445,15 +449,15 @@ void menuSettings(){
                     printf("Le dialogue est maintenant actif !\n");
                 }
             }
-            menuSettings();
+            menuSettings(user);
             break;
         case 3:
             difficultyMenu();
-            menuSettings();
+            menuSettings(user);
             break;
         default:
             printf("Choix invalide\n");
-            menuSettings();
+            menuSettings(user);
             break;
     }
 
