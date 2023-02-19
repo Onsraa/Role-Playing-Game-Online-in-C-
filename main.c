@@ -1,5 +1,6 @@
 #include "./Struct/struct.h"
 #include "./sql.h"
+#include "./Settings/settings.h"
 
 int main(){
 
@@ -11,12 +12,17 @@ int main(){
 
         //connectUserToDataBase();
 
+      
         User * me = malloc(sizeof(User));
+        /*
         me->id = 1;
-        me->nickname = "Onsra";
+        me->nickname = "Teddy";
         me->password = "Teddy123";
         me->nb_characters = 0;
         me->characters = NULL;
+        */
+
+        connectUserToDataBase(me);
 
         introduction(me);
 
@@ -36,5 +42,6 @@ int main(){
         chooseWeapon(me->characters[0]);
         */
 
+        free(me);
         exit(EXIT_SUCCESS);
 }

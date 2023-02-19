@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "./Struct/struct.h"
+#include "./sql.h"
 
 #define ARROW_UP KEY_UP
 #define ARROW_DOWN KEY_DOWN
@@ -215,6 +216,7 @@ void main_menu(User *user){
         case 3:
             break;
         case 4:
+            sendUserInfoToDB(user);
             break;
         case 5:
             break;
