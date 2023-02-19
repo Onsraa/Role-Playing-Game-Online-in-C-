@@ -9,7 +9,7 @@
 
 void finish_with_error(MYSQL *con);
 
-int connectUserToDatabase(User * user);
+int connectUserToDataBase(User * currentUser);
 
 void sendUserInfoToDB(User * user);
 
