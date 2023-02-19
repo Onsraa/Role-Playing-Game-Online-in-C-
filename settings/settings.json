@@ -1,7 +1,6 @@
 {
   "settings":{
-    "color":"red",
-    "difficulty":"hard",
+    "difficulty":2,
     "combat_mode":0,
     "dialogue":0
   }
