@@ -106,4 +106,4 @@ void cleanSpells(Character *character){
         free(character->spells[i-1]->element);
         free(character->spells[i-1]);
     }  
-}œ
+}
