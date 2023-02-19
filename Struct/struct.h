@@ -208,7 +208,6 @@ struct Armor
 
 struct Element
 {
-
     int type;
 };
 
@@ -255,7 +254,7 @@ void mageSpells(Character *character);
 struct User
 {
 
-    char *id;
+    int  id;
     char *nickname;
     char *password;
 

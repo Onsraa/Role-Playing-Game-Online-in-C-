@@ -15,8 +15,8 @@ else
     CFLAGS=-I. $(shell json-c-config --cflags)
     LIBS=$(shell json-c-config --libs)
 endif
-DEPS := main.h Struct/Users/users.h Struct/Spells/spells.h Struct/Classes/classes.h
-OBJ = main.o sql.o Struct/Users/users.o Struct/Spells/spells.o Struct/Classes/classes.o Save/save.o Settings/settings.o
+DEPS := main.h Struct/Users/users.h Struct/Spells/spells.h Struct/Classes/classes.h sql.h
+OBJ = main.o sql.o Struct/Users/users.o Struct/Spells/spells.o Struct/Classes/classes.o Settings/settings.o
 
 %.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)

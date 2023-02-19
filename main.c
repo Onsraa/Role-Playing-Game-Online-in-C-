@@ -1,13 +1,12 @@
 #include "./Struct/struct.h"
+#include "sql.h"
 
 int main(){
 
         User * me = malloc(sizeof(User));
-        me->id = "m87KqduzxS";
-        me->nickname = "Onsra";
-        me->password = "Teddy123";
-        me->nb_characters = 0;
-        me->characters = NULL;
+
+        //Conected user to the database
+        connectUserToDatabase(me);
 
         initializeCharacter(me);
         
