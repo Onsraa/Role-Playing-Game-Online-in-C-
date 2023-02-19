@@ -162,44 +162,93 @@ void start(User *user)
     character_menu(user);
 }
 
+void adventure_menu(User *user){
+
+    int choice;
+
+    do{
+        system("clear");
+        printf("Welcome to the " COLOR_RED_TERMINAL "unrealm" COLOR_RESET_TERMINAL ". Do you want to start a new adventure ? (y)es - (n)o\n\n");
+        scanf("%c", &choice);
+    }while(choice!= 'y' && choice!= 'n');
+
+    switch(choice){
+        case 'y':
+            start(user);
+            break;
+        case 'n':
+            system("clear");
+            printf("Oh okay.. bye then.");
+            exit(EXIT_SUCCESS);
+    }
+}
 void character_menu(User *user)
 {
 
     int choice;
 
-    Character * current_character = user->characters[user->used_character - 1];
-
-    do
+    if (user->used_character != 0)
     {
-        system("clear");
-        printf("What do you want to do ?\n\n");
-        printf("1 - Choose a character\n");
-        printf("2 - Open the bag\n");
-        printf("3 - Add a new character\n");
-        printf("4 - Delete a character\n");
-        printf("5 - Delete all characters\n");
-        printf("6 - Exit\n\n");
-        scanf("%d", &choice);
-    } while (choice < 1 || choice > 6);
+        Character *current_character = user->characters[user->used_character - 1];
 
-    switch (choice)
+        do
+        {
+            system("clear");
+            printf("What do you want to do ?\n\n");
+            printf("1 - Choose a character\n");
+            printf("2 - Open the bag\n");
+            printf("3 - Add a new character\n");
+            printf("4 - Delete a character\n");
+            printf("5 - Delete all characters\n");
+            printf("6 - Exit\n\n");
+            scanf("%d", &choice);
+        } while (choice < 1 || choice > 6);
+
+        switch (choice)
+        {
+        case 1:
+            chooseCharacter(user);
+            break;
+        case 2:
+            showBag(user, current_character);
+            break;
+        case 3:
+            chooseNewClass(user);
+            break;
+        case 4:
+            deleteCharacter(user);
+            break;
+        case 5:
+            deleteAllCharacters(user);
+            break;
+        case 6:
+            checkStatus(user);
+            break;
+        }
+    }
+    else
     {
-    case 1:
-        chooseCharacter(user);
-        break;
-    case 2:
-        showBag(user, current_character);
-        break;
-    case 3:
-        chooseNewClass(user);
-        break;
-    case 4:
-        deleteCharacter(user);
-        break;
-    case 5:
-        deleteAllCharacters(user);
-        break;
-    case 6:
-        break;
+        do
+        {
+            system("clear");
+            printf("What do you want to do ?\n\n");
+            printf("1 - Choose a character\n");
+            printf("2 - Add a new character\n");
+            printf("3 - Exit\n\n");
+            scanf("%d", &choice);
+        } while (choice < 1 || choice > 6);
+
+        switch (choice)
+        {
+        case 1:
+            chooseCharacter(user);
+            break;
+        case 2:
+            chooseNewClass(user);
+            break;
+        case 3:
+            // Exit
+            break;
+        }
     }
 }

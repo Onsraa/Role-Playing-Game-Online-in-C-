@@ -162,16 +162,15 @@ void showBag(User *user, Character *character)
     {
         int answer;
 
-        system("clear");
-        puts("\n");
         if (character->bag->nb_weapons == 0 && character->bag->nb_armors == 0)
         {
             do
             {
+                system("clear");
                 printf(COLOR_RED_TERMINAL "Bag is empty\n" COLOR_RESET_TERMINAL);
                 puts(" ");
 
-                printf("1 - Leave\n");
+                printf("1 - Leave\n\n");
 
                 if (scanf("%d", &answer) != 1)
                 {
