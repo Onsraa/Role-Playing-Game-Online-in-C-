@@ -184,9 +184,7 @@ void initializeNewCharacter(User *user){
 void chooseNewClass(User *user)
 {
     if(!user->characters){
-        system("clear");
-        printf("An error occurred while initializing the character.");
-        exit(EXIT_FAILURE);
+        initializeNewCharacter(user);
     }
 
     char **classes = malloc(sizeof(char *) * 4);
@@ -235,25 +233,13 @@ void chooseNewClass(User *user)
     free(classes);
 };
 
-void checkStatus(User *user){
-    
-    int answer;
-    system("clear");
-    printf("Number of characters : %d\n", user->nb_characters);
-    for(int i = 0 ; i < user->nb_characters; i++){
-        printf("number : %d\n", user->characters[i]->number);
-    }
-    scanf("%d", &answer);
-    if(answer == 1){
-        character_menu(user);
-    }
-}
-
 void addClass(User *user, int selection)
 {
 
     if(!user->characters){
-        user->characters = malloc(sizeof(Character *));
+        system("clear");
+        printf("Cannot allocate memory\n");
+        exit(EXIT_FAILURE);
     }
 
     /* Update the size of the array of characters */
@@ -309,7 +295,7 @@ void addClass(User *user, int selection)
     new_character->number = user->nb_characters;
 
     user->characters[user->nb_characters - 1] = new_character;
-
+    
     giveSpells(new_character);
 };
 

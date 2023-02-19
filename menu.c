@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "./Struct/struct.h"
 #include "./sql.h"
+#include "./Settings/settings.h"
 
 #define ARROW_UP KEY_UP
 #define ARROW_DOWN KEY_DOWN
@@ -16,6 +17,7 @@ enum menu
     EXIT = 4
 };
 
+/*
 void startingMenu()
 {
     int i, c, currentItem = 0;
@@ -120,12 +122,30 @@ void startingMenu()
             break;
         }
     }
-
     endwin();
 }
+*/
 
 void introduction(User *user){
-
+    
+    /*
+    int response;
+    do{
+        response = connectUserToDataBase(user);
+    }while(response != 1 && response!= 2); // 1 : Authenticate, 2 : Created
+        
+    if(response == 1){
+        //getDataFromDatabase(user);
+        //main_menu(user);
+        printf("Address : %s\n", user);
+        printf("ID : %d\n", user->id);
+        printf("nickname : %s\n", user->nickname);
+        printf("password : %s\n", user->password);
+        printf("Nb chars : %d\n", user->nb_characters);
+        exit(1);
+    }
+    */
+    
     char choice;
 
     do{
@@ -208,12 +228,13 @@ void main_menu(User *user){
     
     switch(answer){
         case 1:
-            generateMap(user, returnCurrentCharacter(user), difficulty, auto_mode, dialogue);
+            generateMap(user, returnCurrentCharacter(user), getDifficulty(), getCombatMode(), getDialogueMode());
             break;
         case 2:
             character_menu(user);
             break;
         case 3:
+            menuSettings(user);
             break;
         case 4:
             sendUserInfoToDB(user);

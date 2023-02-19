@@ -1,7 +1,7 @@
 {
   "settings":{
-    "difficulty":1,
+    "difficulty":3,
     "combat_mode":1,
-    "dialogue":1
+    "dialogue":0
   }
 }

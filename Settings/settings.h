@@ -15,6 +15,6 @@ void updateCombatMode(int newCombatMode);
 void printSettings();
 int printDifficulty();
 void difficultyMenu();
-void menuSettings();
+void menuSettings(User * user);
 
 #endif

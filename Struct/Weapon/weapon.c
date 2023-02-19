@@ -121,6 +121,8 @@ Weapon *chooseWeapon(User *user, Character *character)
 
         do
         {
+            
+            system("clear");
             printf("Your weapons : \n\n");
             printf(COLOR_RED_TERMINAL "(To equip, enter the number | To unequip, enter the number of the current gear equipped)\n\n" COLOR_RESET_TERMINAL);
 

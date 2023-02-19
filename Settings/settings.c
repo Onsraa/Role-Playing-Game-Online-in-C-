@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <json-c/json.h>
 #include <string.h>
+#include "../Struct/struct.h"
 
 void readSettings(){
     FILE *fp;
@@ -386,7 +387,7 @@ void difficultyMenu(){
     free(confirm2);
 }
 
-void menuSettings(){
+void menuSettings(User * user){
     int choice;
     char *confirm = malloc(sizeof(char) * 5);
     int difficulty;
@@ -396,6 +397,7 @@ void menuSettings(){
     scanf("%d", &choice);
     switch(choice){
         case 0:
+            main_menu(user);
             break;
         case 1:
             if (getCombatMode() == 1){
@@ -421,7 +423,7 @@ void menuSettings(){
                     printf("Le mode de combat est maintenant actif !\n");
                 }
             }
-            menuSettings();
+            menuSettings(user);
             break;
         case 2:
             if (getDialogueMode() == 1){
@@ -447,15 +449,15 @@ void menuSettings(){
                     printf("Le dialogue est maintenant actif !\n");
                 }
             }
-            menuSettings();
+            menuSettings(user);
             break;
         case 3:
             difficultyMenu();
-            menuSettings();
+            menuSettings(user);
             break;
         default:
             printf("Choix invalide\n");
-            menuSettings();
+            menuSettings(user);
             break;
     }
 

@@ -101,7 +101,8 @@ Armor *chooseArmor(User *user, Character *character)
     {
 
         do
-        {
+        {   
+            system("clear");
             printf("Your armors : \n\n");
 
             if (character->gears->armor)

@@ -14,6 +14,7 @@ int main(){
 
       
         User * me = malloc(sizeof(User));
+        
         /*
         me->id = 1;
         me->nickname = "Teddy";
@@ -21,8 +22,6 @@ int main(){
         me->nb_characters = 0;
         me->characters = NULL;
         */
-
-        connectUserToDataBase(me);
 
         introduction(me);
 
