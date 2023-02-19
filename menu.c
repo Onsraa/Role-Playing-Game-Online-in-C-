@@ -180,7 +180,7 @@ void character_menu(User *user)
         printf("5 - Delete all characters\n");
         printf("6 - Exit\n\n");
         scanf("%d", &choice);
-    } while (choice < 1 || choice > (4));
+    } while (choice < 1 || choice > 6);
 
     switch (choice)
     {
@@ -197,6 +197,7 @@ void character_menu(User *user)
         deleteCharacter(user);
         break;
     case 5:
+        deleteAllCharacters(user);
         break;
     case 6:
         break;

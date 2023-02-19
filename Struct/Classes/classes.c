@@ -22,10 +22,11 @@ void showAllCharacters(User *user){
                 printf(COLOR_GREEN_TERMINAL);
             }
 
-            printf("%d : %s [%d]\n" COLOR_RESET_TERMINAL, i + 1, user->characters[i]->className, user->characters[i]->level);
+            printf("%d : %s [%d] [classId] : %d\n" COLOR_RESET_TERMINAL, i + 1, user->characters[i]->className, user->characters[i]->level, user->characters[i]->classId);
         }puts(" ");
         printf(COLOR_GREEN_TERMINAL "*current character used" COLOR_RESET_TERMINAL);
-
+        puts("\n");
+        printf("Number of characters : %d", user->nb_characters);
     }else{
         printf(COLOR_RED_TERMINAL "You have no character.\n\n" COLOR_RESET_TERMINAL);
         printf("Would you like to create a character ? (y)es - (n)o\n\n");
@@ -35,19 +36,38 @@ void chooseCharacter(User * user){
 
     int choice;
 
-    do{
-        system("clear");
-        showAllCharacters(user);
-        puts("\n");
-        printf("Choose a character : ");
+    if(user->nb_characters > 0){
+        do{
+            system("clear");
+            showAllCharacters(user);
+            puts("\n");
+            printf("Choose a character : ");
 
-        if (scanf("%d", &choice) != 1)
-        {
-            while (fgetc(stdin) != '\n');
-        };
-    }while(choice < 1 || choice > user->nb_characters);
+            if (scanf("%d", &choice) != 1)
+            {
+                while (fgetc(stdin) != '\n');
+            };
+        }while(choice < 1 || choice > user->nb_characters);
 
-    user->used_character = choice;
+        user->used_character = choice;
+    }else{
+        do{
+            system("clear");
+            printf(COLOR_RED_TERMINAL "You have no character.\n\n" COLOR_RESET_TERMINAL);
+            printf("Would you like to create a character? (y)es - (n)o\n");
+
+            if (scanf("%d", &choice) != 1)
+            {
+                while (fgetc(stdin) != '\n');
+            };
+        }while(choice != 'y' && choice!= 'n');
+
+        switch(choice){
+            case 'y':
+                initializeNewCharacter(user);
+                break;
+        }
+    }
 
     character_menu(user);
 }
@@ -75,11 +95,12 @@ void deleteCharacter(User * user){
     if(choice == 0){
         character_menu(user);
     }else{
-        do{
+        while(verification != 'y' && verification!= 'n'){
+            system("clear");
             characterStats(user, user->characters[choice - 1]);
             printf("Are you sure you want to delete this character ? (y)es - (n)o\n\n");
             scanf("%c", &verification);
-        }while(verification != 'y' && verification!= 'n');
+        };
 
         switch (verification){
 
@@ -91,20 +112,21 @@ void deleteCharacter(User * user){
             break;
         }
     }
+
+    character_menu(user);
 }
 
 void deleteAllCharacters(User * user){
 
     char verification;
-    system("clear");
-    showAllCharacters(user);
     
-    puts(" ");
-    
-    do{
-        printf("Are you sure that you want to" COLOR_RED_TERMINAL "delete all the characters?\n\n" COLOR_RESET_TERMINAL);
+    while(verification != 'y' && verification!= 'n'){
+        system("clear");
+        showAllCharacters(user);
+        puts("\n");
+        printf("Are you sure that you want to " COLOR_RED_TERMINAL "delete all the characters ? (y)es - (n)o\n\n" COLOR_RESET_TERMINAL);
         scanf("%c", &verification);
-    }while(verification != 'y' && verification!= 'n');
+    };
 
     switch (verification){
     case 'y':
@@ -127,16 +149,18 @@ void cleanCharacter(User * user, Character * character){
     cleanGear(character);
     cleanSpells(character);
 
-    free(user->characters[classPosition]);
     user->nb_characters--;
     
+    free(character);
+    character = NULL;
+
     if(classId != user->nb_characters && user->nb_characters > 0){
         for(int i = classId; i < user->nb_characters + 1; i++){
             user->characters[i]->classId--; // Decrease the classId of all the characters after the one deleted.
             user->characters[i] = user->characters[i - 1]; // Decrease the position of all the characters after the one deleted.
         }
     }
-    
+ 
     if(user->nb_characters == 0){
         user->used_character = 0;
     }else{
@@ -209,6 +233,7 @@ void chooseNewClass(User *user)
     }
 
     character_menu(user);
+    free(classes);
 };
 
 void addClass(User *user, int selection)
