@@ -16,7 +16,7 @@ int connectUserToDataBase(User * currentUser){
     MYSQL_RES *res;
     MYSQL_ROW row;
     
-    //N'utilisez pas notre serveur à mauvais escinet svp. Merci <3
+    //N'utilisez pas notre serveur à mauvais escient svp. Merci <3
     char *server = "162.19.64.73";
     char *user = "clarence";
     char *password = "Respons11";
