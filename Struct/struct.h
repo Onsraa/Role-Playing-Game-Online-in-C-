@@ -194,6 +194,8 @@ void cleanCharacter(User *user, Character *character);
 void deleteCharacter(User *user);
 void deleteAllCharacters(User *user);
 
+Character * returnCurrentCharacter(User * user);
+
 struct Bag
 {
 
@@ -281,7 +283,7 @@ void archerSelected(Character *character);
 
 void mageSelected(Character *character);
 
-void characterStats(User *user, Character *character);
+void characterStats(Character *character);
 
 void showBars(Character *character);
 
@@ -332,8 +334,8 @@ void archerSpells(Character *character);
 void mageSpells(Character *character);
 
 void cleanSpells(Character *character);
-/* MOB */
 
+/* MOB */
 struct Mob
 {
 
@@ -396,11 +398,12 @@ void cleanGear(Character *character);
 /* MENU */
 
 void startingMenu();
-void adventure_menu(User *user);
-void start(User *user);
-void character_menu(User *user);
 
-void checkStatus(User *user);
+void introduction(User *user);
+void start(User *user);
+void main_menu(User *user);
+void character_menu(User *user);
+void checkStatus(User *user); //test 
 
 /* ZONE */
 
@@ -423,7 +426,7 @@ struct Zone{
 };
 
 StartZone * initializeFirstZone();
-void generateMap(User *user, Character * character, Zone * zone, int difficulty, int auto_mode, int dialogue);
+void generateMap(User *user, Character * character, int difficulty, int auto_mode, int dialogue);
 Zone * generateRandomZone(int difficulty);
 Zone * createZone(int zoneName, int difficulty);
 char * printZoneName(Zone * zone);

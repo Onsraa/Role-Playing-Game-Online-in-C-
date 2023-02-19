@@ -37,21 +37,20 @@ void levelUp(Character *character){
 
 void fight(Character *character, Mob *mob, int auto_mode, int dialogue)
 {
+    int rounds = 0;
 
     system("clear");
-    int rounds = 0;
     puts(" ");
     printf("##########################################");
     puts(" ");
     printf("\tFight: %s VS %s", character->className, mob->name);
     puts(" ");
     printf("##########################################");
-
     puts(" ");
+
     switch (auto_mode)
     {
     case 0:
-
         break;
     case 1:
         while (character->isAlive && mob->isAlive)

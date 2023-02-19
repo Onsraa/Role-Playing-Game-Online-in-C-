@@ -18,7 +18,7 @@ int main(){
         me->nb_characters = 0;
         me->characters = NULL;
 
-        adventure_menu(me);
+        introduction(me);
 
         /*
         initializeNewCharacter(me);

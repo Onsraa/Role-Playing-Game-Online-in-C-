@@ -279,9 +279,15 @@ void cleanBag(Character *character)
 void cleanGear(Character *character)
 {
 
-    free(character->gears->weapon);
-    free(character->gears->armor);
-    free(character->gears);
+    if(character->gears->weapon){
+        free(character->gears->weapon);
+    }
+    if(character->gears->armor){
+        free(character->gears->armor);
+    }
+    if(character->gears){
+        free(character->gears);
+    }
 
     character->gears->weapon = NULL;
     character->gears->armor = NULL;

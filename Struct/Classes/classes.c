@@ -63,7 +63,7 @@ void chooseCharacter(User * user){
         }
     }
 
-    character_menu(user);
+    main_menu(user);
 }
 
 void deleteCharacter(User * user){
@@ -91,7 +91,7 @@ void deleteCharacter(User * user){
     }else{
         while(verification != 'y' && verification!= 'n'){
             system("clear");
-            characterStats(user, user->characters[choice - 1]);
+            characterStats(user->characters[choice - 1]);
             printf("Are you sure you want to delete this character ? (y)es - (n)o\n\n");
             scanf("%c", &verification);
         };
@@ -225,7 +225,7 @@ void chooseNewClass(User *user)
         break;
     }
 
-    character_menu(user);
+    main_menu(user);
     free(classes);
 };
 
@@ -281,8 +281,8 @@ void addClass(User *user, int selection)
     new_character->bag->nb_armors = 0;
     
     new_character->gears = malloc(sizeof(Gears));
-    new_character->gears->weapon = malloc(sizeof(Weapon));
-    new_character->gears->armor = malloc(sizeof(Armor));
+    new_character->gears->weapon = NULL;
+    new_character->gears->armor = NULL;
 
     switch (selection)
     {
@@ -301,7 +301,7 @@ void addClass(User *user, int selection)
     }
 
     new_character->number = user->nb_characters;
-    
+
     user->characters[user->nb_characters - 1] = new_character;
 
     giveSpells(new_character);
@@ -371,7 +371,7 @@ void mageSelected(Character *character)
     character->currentMp = character->maxMp;
 };
 
-void characterStats(User *user, Character *character){
+void characterStats(Character *character){
     
     printf("Name : %s\n", character->className);
 
@@ -412,4 +412,33 @@ void showBars(Character *character){
     }
     printf("]");
     puts(" ");
+}
+
+Character * returnCurrentCharacter(User * user){
+
+    if(!user){
+        system("clear");
+        printf("No user\n");
+        exit(EXIT_FAILURE);
+    }
+
+    if(user->used_character == 0){
+        
+        int choice;
+
+        do{
+            system("clear");
+            printf("You haven't chosen a character to play with yet.\n");
+            printf("Please choose a character first.\n\n");
+            printf("0 - Exit");
+        }while(choice!= 0);
+
+        character_menu(user);
+    }else{
+        for(int i = 0 ; i < user->nb_characters ; i++){
+          if(user->characters[i]->number == user->used_character){
+            return user->characters[i];
+          }  
+        }
+    }
 }

@@ -123,6 +123,27 @@ void startingMenu()
     endwin();
 }
 
+void introduction(User *user){
+
+    char choice;
+
+    do{
+        system("clear");
+        printf("Welcome to the " COLOR_RED_TERMINAL "unrealm" COLOR_RESET_TERMINAL ".\n\nDo you want to start a new adventure ? (y)es - (n)o\n\n");
+        scanf("%c", &choice);
+    }while(choice != 'y' && choice != 'n');
+
+    switch(choice){
+        case 'y':
+            start(user);
+            break;
+        case 'n':
+            system("clear");
+            printf("Oh okay.. bye then.\n\n");
+            exit(EXIT_SUCCESS);
+    }
+}
+
 void start(User *user)
 {
 
@@ -154,34 +175,52 @@ void start(User *user)
             initializeNewCharacter(user);
             break;
         case 'n':
-            exit(EXIT_SUCCESS);
+            introduction(user);
             break;
         }
     }
 
-    character_menu(user);
+    main_menu(user);
 }
 
-void adventure_menu(User *user){
 
-    int choice;
+void main_menu(User *user){
+
+    int answer;
+
+    int difficulty = 1;
+    int auto_mode = 1;
+    int dialogue = 1;
 
     do{
         system("clear");
-        printf("Welcome to the " COLOR_RED_TERMINAL "unrealm" COLOR_RESET_TERMINAL ". Do you want to start a new adventure ? (y)es - (n)o\n\n");
-        scanf("%c", &choice);
-    }while(choice!= 'y' && choice!= 'n');
+        printf("#####################[MENU]#####################\n\n");
+        printf("1 - Start adventure !\n");
+        printf("2 - Check characters\n");
+        printf("3 - Modify parameters\n");
+        printf("4 - Save data\n");
+        printf("5 - Leave unrealm\n\n");
+        printf("################################################\n\n");
 
-    switch(choice){
-        case 'y':
-            start(user);
+        scanf("%d", &answer);
+    }while(answer < 1 || answer > 5);
+    
+    switch(answer){
+        case 1:
+            generateMap(user, returnCurrentCharacter(user), difficulty, auto_mode, dialogue);
             break;
-        case 'n':
-            system("clear");
-            printf("Oh okay.. bye then.");
-            exit(EXIT_SUCCESS);
+        case 2:
+            character_menu(user);
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        case 5:
+            break;
     }
 }
+
 void character_menu(User *user)
 {
 
@@ -200,7 +239,7 @@ void character_menu(User *user)
             printf("3 - Add a new character\n");
             printf("4 - Delete a character\n");
             printf("5 - Delete all characters\n");
-            printf("6 - Exit\n\n");
+            printf("6 - Menu\n\n");
             scanf("%d", &choice);
         } while (choice < 1 || choice > 6);
 
@@ -222,7 +261,7 @@ void character_menu(User *user)
             deleteAllCharacters(user);
             break;
         case 6:
-            checkStatus(user);
+            main_menu(user);
             break;
         }
     }
