@@ -85,7 +85,8 @@ int connectUserToDataBase(User * currentUser){
                 currentUser->id = atoi(row[0]);
                 currentUser->nickname = (char*)malloc(strlen(row[1])+1);
                 strcpy(currentUser->nickname, row[1]);
-                currentUser->password = row[2];
+                currentUser->password = (char*)malloc(strlen(row[2])+1);
+                strcpy(currentUser->password, row[2]);
                 currentUser->nb_characters = atoi(row[3]);
                 mysql_free_result(res);
                 return 1;                                     /// 1 = user authenticated
@@ -301,6 +302,7 @@ void getDataFromDatabase(User *user){
 
         character_id = atoi(row[0]);
         character->classId = atoi(row[1]);
+        character->className = (char*)malloc(strlen(row[2])+1);
         strcpy(character->className, row[2]);
         character->physicalPower = atoi(row[3]);
         character->magicalPower = atoi(row[4]);
@@ -333,6 +335,7 @@ void getDataFromDatabase(User *user){
         MYSQL_ROW row_gear = mysql_fetch_row(res_gear);
         if (row_gear != NULL) {
             gears->weapon = malloc(sizeof(Weapon));
+            gears->weapon->name = malloc(strlen(row_gear[1])+1);
             strcpy(gears->weapon->name, row_gear[1]);
             gears->weapon->bonus_damage = atoi(row_gear[2]);
             gears->weapon->rarity = atoi(row_gear[3]);
@@ -350,6 +353,7 @@ void getDataFromDatabase(User *user){
         row_gear = mysql_fetch_row(res_gear);
         if (row_gear != NULL) {
             gears->armor = malloc(sizeof(Armor));
+            gears->armor->name = malloc(strlen(row_gear[1])+1);
             strcpy(gears->armor->name, row_gear[1]);
             gears->armor->bonus_resistance = atoi(row_gear[2]);
             gears->armor->rarity = atoi(row_gear[3]);
@@ -371,6 +375,7 @@ void getDataFromDatabase(User *user){
             while ((row = mysql_fetch_row(res_armor)) != NULL && row[5] != NULL) {
                 Armor *armor = malloc(sizeof(Armor));
                 armor->element = malloc(sizeof(Element));
+                armor->name = malloc(strlen(row[1])+1);
                 strcpy(armor->name, row[1]);
                 armor->bonus_resistance = atoi(row[2]);
                 armor->rarity = atoi(row[3]);
@@ -393,6 +398,7 @@ void getDataFromDatabase(User *user){
             while ((row = mysql_fetch_row(res_weapon)) != NULL && row[5] != NULL) {
                 Weapon *weapon = malloc(sizeof(Weapon));
                 weapon->element = malloc(sizeof(Element));
+                weapon->name = malloc(strlen(row[1])+1);
                 strcpy(weapon->name, row[1]);
                 weapon->bonus_damage = atoi(row[2]);
                 weapon->rarity = atoi(row[3]);
@@ -416,7 +422,9 @@ void getDataFromDatabase(User *user){
             while ((row = mysql_fetch_row(res_spells)) != NULL && row[5] != NULL) {
                 Spell *spell = malloc(sizeof(Spell));
                 spell->element = malloc(sizeof(Element));
+                spell->spellName = malloc(strlen(row[1])+1);
                 strcpy(spell->spellName, row[1]);
+                spell->description = malloc(strlen(row[2])+1);
                 strcpy(spell->description, row[2]);
                 spell->valueFactor = atoi(row[3]);
                 spell->value = atoi(row[4]);
