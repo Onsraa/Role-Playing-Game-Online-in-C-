@@ -15,7 +15,7 @@ gcc -o main.o $(mysql_config --cflags) main.c menu.c sql.c Settings/settings.c A
 Le programme se lancera avec le fichier main.o
 
 
-Ce projet est un rpg du type DeadCells mais en plus cheap et sans inteface graphique. Sur ce jeu on peut incarner des personnages typiques d'un D&D classique.
+Ce projet est un rpg du type DeadCells mais en plus cheap et sans interface graphique. Sur ce jeu on peut incarner des personnages typiques d'un D&D classique.
 On y compte un guerrier, un assassin, un archer et un mage.
 
 Vous pourrez créer plusieurs classes de personnages ou même les supprimer. Les choisir à volonter pour les lancer dans les donjons.
