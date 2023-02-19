@@ -128,7 +128,7 @@ void startingMenu()
 
 void introduction(User *user){
     
-    /*
+    
     int response;
     do{
         response = connectUserToDataBase(user);
@@ -142,9 +142,7 @@ void introduction(User *user){
         printf("nickname : %s\n", user->nickname);
         printf("password : %s\n", user->password);
         printf("Nb chars : %d\n", user->nb_characters);
-        exit(1);
     }
-    */
     
     char choice;
 
