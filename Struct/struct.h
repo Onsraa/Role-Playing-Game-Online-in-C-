@@ -122,7 +122,7 @@ typedef struct Mob Mob;
 struct User
 {
 
-    char *id;
+    int id;
     char *nickname;
     char *password;
 

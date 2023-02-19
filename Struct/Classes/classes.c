@@ -127,21 +127,23 @@ void cleanCharacter(User * user, Character * character){
     cleanGear(character);
     cleanSpells(character);
 
-    printf("%p", user->characters[classPosition]);
-    exit(1);
     free(user->characters[classPosition]);
     user->nb_characters--;
-
-    if(user->nb_characters != 0){
-        for(int i = classId; i < user->nb_characters; i++){
+    
+    if(classId != user->nb_characters && user->nb_characters > 0){
+        for(int i = classId; i < user->nb_characters + 1; i++){
             user->characters[i]->classId--; // Decrease the classId of all the characters after the one deleted.
             user->characters[i] = user->characters[i - 1]; // Decrease the position of all the characters after the one deleted.
         }
-        
-        if(user->used_character == classId){ // If the character deleted is the used character, unequip it.
+    }
+    
+    if(user->nb_characters == 0){
+        user->used_character = 0;
+    }else{
+        if(user->used_character == classId){ // If the character deleted is the current character, unequip it.
             user->used_character = 0;
         }
-        else if(user->used_character > classId ){ // If the character deleted is not the used character and its position is lower, decrement the used_character so it equips the right character.
+        else if(user->used_character > classId){ // If the character deleted is not the used character and its position is lower, decrement the used_character so it equips the right character.
             user->used_character--;
         }
     }
@@ -213,9 +215,7 @@ void addClass(User *user, int selection)
 {
 
     if(!user->characters){
-            system("clear");
-            printf("An error occurred, the pointer to your characters doesn't exist.");
-            exit(EXIT_FAILURE);
+        user->characters = malloc(sizeof(Character *));
     }
 
     /* Update the size of the array of characters */

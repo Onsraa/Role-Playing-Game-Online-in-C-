@@ -260,13 +260,17 @@ void cleanBag(Character *character)
     for (int i = 0; i < character->bag->nb_weapons; i++)
     {   
         free(character->bag->weapons[i]->element);
+        character->bag->weapons[i]->element = NULL;
         free(character->bag->weapons[i]);
+        character->bag->weapons[i] = NULL;
     }
 
     for (int i = 0; i < character->bag->nb_armors; i++)
     {
         free(character->bag->armors[i]->element);
+        character->bag->armors[i]->element = NULL;
         free(character->bag->armors[i]);
+        character->bag->armors[i]= NULL;
     }
 
     free(character->bag);
