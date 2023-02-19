@@ -76,8 +76,7 @@ void dropWeapon(Character *character, int weapon_rarity)
 
         if (scanf("%c", &answer) != 1)
         {
-            while (fgetc(stdin) != '\n')
-                ;
+            while (fgetc(stdin) != '\n');
         };
     };
 

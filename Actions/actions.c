@@ -32,6 +32,15 @@ void levelUp(Character *character){
     character->experienceNeededToLevelUp *= 1.5;
     character->level++;
 
+    character->physicalPower *= 1.5;
+    character->magicalPower *= 1.5;
+    
+    character->maxHp *= 1.3;
+    character->maxMp *= 1.3;
+
+    updateSpells(character);
+    resetCharacter(character);
+
     printf("You leveled up ! You are now level %d\n\n", character->level);
 }
 

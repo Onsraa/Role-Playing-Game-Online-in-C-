@@ -136,15 +136,18 @@ Weapon *chooseWeapon(User *user, Character *character)
 
                 if (equipped_weapon)
                 {
-                    if (current_weapon->id == equipped_weapon->id);
+                    if (current_weapon->id == equipped_weapon->id)
                     {
                         printf(COLOR_GREEN_TERMINAL);
                     }
                 }
 
-                printf("%d : %s | %s\n" COLOR_RESET_TERMINAL, i + 1, current_weapon->name, printRarity(current_weapon->rarity));
+                printf("%d : %s | %s | %s\n" COLOR_RESET_TERMINAL, i + 1, current_weapon->name, printRarity(current_weapon->rarity), numberToElementName(current_weapon->element->type));
             }
-
+             if (character->gears->weapon)
+            {
+                equipped_weapon = character->gears->weapon;
+            }
             printf(COLOR_GREEN_TERMINAL "\n* equipped weapon\n\n" COLOR_RESET_TERMINAL);
             printf("0 - exit\n\n");
 

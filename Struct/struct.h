@@ -335,6 +335,7 @@ void mageSpells(Character *character);
 
 void cleanSpells(Character *character);
 
+void updateSpells(Character *character);
 /* MOB */
 struct Mob
 {
@@ -356,6 +357,7 @@ struct Mob
 };
 
 Mob *generateMob(int difficulty);
+Mob * createMob(char * mobName, int phyisicalPower, int magicalPower, int hp, int difficulty);
 
 Mob *dragon(int difficulty);
 Mob *goblin(int difficulty);

@@ -239,9 +239,10 @@ void character_menu(User *user)
             printf("3 - Add a new character\n");
             printf("4 - Delete a character\n");
             printf("5 - Delete all characters\n");
-            printf("6 - Menu\n\n");
+            printf("6 - Show stats\n");
+            printf("7 - Menu\n\n");
             scanf("%d", &choice);
-        } while (choice < 1 || choice > 6);
+        } while (choice < 1 || choice > 7);
 
         switch (choice)
         {
@@ -261,6 +262,15 @@ void character_menu(User *user)
             deleteAllCharacters(user);
             break;
         case 6:
+            do{
+                system("clear");
+                characterStats(current_character);
+                printf("0 - Leave\n\n");
+                scanf("%d", &choice);
+            } while (choice != 0);
+            main_menu(user);
+            break;
+        case 7:
             main_menu(user);
             break;
         }
@@ -271,22 +281,18 @@ void character_menu(User *user)
         {
             system("clear");
             printf("What do you want to do ?\n\n");
-            printf("1 - Choose a character\n");
-            printf("2 - Add a new character\n");
-            printf("3 - Exit\n\n");
+            printf("1 - Create first character\n");
+            printf("2 - Exit\n\n");
             scanf("%d", &choice);
-        } while (choice < 1 || choice > 6);
+        } while (choice < 1 || choice > 2);
 
         switch (choice)
         {
         case 1:
-            chooseCharacter(user);
-            break;
-        case 2:
             chooseNewClass(user);
             break;
-        case 3:
-            // Exit
+        case 2:
+            main_menu(user);
             break;
         }
     }

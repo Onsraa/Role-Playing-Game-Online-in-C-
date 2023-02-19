@@ -35,15 +35,15 @@ Mob * generateMob(int difficulty){
     return generatedMob;
 }
 
-Mob * dragon(int difficulty){ // Boss mob
+Mob * createMob(char * mobName, int phyisicalPower, int magicalPower, int hp, int difficulty){
 
     Mob * mob = malloc(sizeof(Mob));
 
-    mob->name = "Dragon";
-    mob->physicalPower = 200;
-    mob->magicalPower = 200;
+    mob->name = mobName;
+    mob->physicalPower = phyisicalPower * difficulty;
+    mob->magicalPower = magicalPower * difficulty;
 
-    mob->maxHp = 4000;
+    mob->maxHp = hp * difficulty;
     mob->currentHp = mob->maxHp;
 
     mob->level = difficulty;
@@ -51,60 +51,26 @@ Mob * dragon(int difficulty){ // Boss mob
     mob->isAlive = 1;
 
     return mob;
+}
+
+Mob * dragon(int difficulty){ // Boss mob
+
+    return createMob("Dragon", 190, 100, 3000, difficulty);
 }
 
 Mob * goblin(int difficulty){
 
-    Mob * mob = malloc(sizeof(Mob));
-
-    mob->name = "Goblin";
-    mob->physicalPower = 50;
-    mob->magicalPower = 20;
-
-    mob->maxHp = 600;
-    mob->currentHp = mob->maxHp;
-
-    mob->level = difficulty;
-
-    mob->isAlive = 1;
-
-    return mob;
+    return createMob("Goblin", 30, 0, 100, difficulty);
 }
 
 Mob * titan(int difficulty){
 
-    Mob * mob = malloc(sizeof(Mob));
-
-    mob->name = "Titan";
-    mob->physicalPower = 110;
-    mob->magicalPower = 50;
-
-    mob->maxHp = 1300;
-    mob->currentHp = mob->maxHp;
-
-    mob->level = difficulty;
-
-    mob->isAlive = 1;
-
-    return mob;
+    return createMob("Titan", 80, 10, 500, difficulty);
 }
 
 Mob * ghost(int difficulty){
-
-    Mob * mob = malloc(sizeof(Mob));
-
-    mob->name = "Ghost";
-    mob->physicalPower = 50;
-    mob->magicalPower = 80;
-
-    mob->maxHp = 900;
-    mob->currentHp = mob->maxHp;
-
-    mob->level = difficulty;
-
-    mob->isAlive = 1;
-
-    return mob;
+    
+    return createMob("Ghost", 50, 50, 300, difficulty);
 }
 
 void mobStats(Mob * mob){

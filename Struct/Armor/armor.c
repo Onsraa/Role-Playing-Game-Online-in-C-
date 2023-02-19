@@ -117,13 +117,12 @@ Armor *chooseArmor(User *user, Character *character)
                 if (equipped_armor)
                 {
                     if (current_armor->id == equipped_armor->id)
-                        ;
                     {
                         printf(COLOR_GREEN_TERMINAL);
                     }
                 }
 
-                printf("%d : %s | %s\n" COLOR_RESET_TERMINAL , i + 1, current_armor->name, printRarity(current_armor->rarity));
+                printf("%d : %s | %s | %s\n" COLOR_RESET_TERMINAL , i + 1, current_armor->name, printRarity(current_armor->rarity), numberToElementName(current_armor->element->type));
             }
 
             printf(COLOR_GREEN_TERMINAL "\n* equipped Armor\n\n" COLOR_RESET_TERMINAL);

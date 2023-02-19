@@ -72,9 +72,34 @@ void generateMap(User *user, Character *character, int difficulty, int auto_mode
         }else{
             resetCharacter(character);
             main_menu(user);
-            break;
         }
     }
+
+    system("clear");
+
+    char final_answer;
+
+    do{
+        printf("WOW ! Very impressive...\n\n");
+        printf("You just completed %d stages in a row without dying.\n");
+        printf("You maybe deserve to fight the best of the best.\n\n");
+        printf("Are you ready ? (y/n)\n\n");
+
+        if (scanf("%c", &final_answer) != 1)
+        {
+            while (fgetc(stdin) != '\n');
+        };
+    }while(final_answer == 'y' || final_answer == 'n');
+
+    system("clear");
+
+    switch(final_answer){
+        case 'y':
+            printf("Good, now you're gonna fight the %s Dragon !");
+            fight(character, dragon(difficulty), auto_mode, dialogue);
+    }
+
+    resetCharacter(character);
 }
 
 Zone *generateRandomZone(int difficulty)

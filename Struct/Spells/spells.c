@@ -107,3 +107,9 @@ void cleanSpells(Character *character){
         free(character->spells[i-1]);
     }  
 }
+
+void updateSpells(Character *character){
+
+    character->spells[0]->value += 0.2 * (character->physicalPower + character->magicalPower);
+    character->spells[1]->value += 0.2 * (character->physicalPower + character->magicalPower);
+}
