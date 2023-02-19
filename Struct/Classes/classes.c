@@ -23,7 +23,7 @@ void showAllCharacters(User *user){
             }
 
             printf("%d : %s [%d]\n" COLOR_RESET_TERMINAL, i + 1, user->characters[i]->className, user->characters[i]->level);
-        }puts("\n");
+        }puts(" ");
         printf(COLOR_GREEN_TERMINAL "*current character used" COLOR_RESET_TERMINAL);
 
     }else{
@@ -36,13 +36,20 @@ void chooseCharacter(User * user){
     int choice;
 
     do{
+        system("clear");
         showAllCharacters(user);
         puts("\n");
         printf("Choose a character : ");
-        scanf("%d", &choice);
+
+        if (scanf("%d", &choice) != 1)
+        {
+            while (fgetc(stdin) != '\n');
+        };
     }while(choice < 1 || choice > user->nb_characters);
 
     user->used_character = choice;
+
+    character_menu(user);
 }
 
 void deleteCharacter(User * user){
@@ -50,30 +57,63 @@ void deleteCharacter(User * user){
     int choice;
     char verification;
 
-    showAllCharacters(user);
-
     puts(" ");
     do{
+        system("clear");
+        showAllCharacters(user);
+        puts("\n");
+        printf("0 - Exit\n\n");
         printf("What character do you want to " COLOR_RED_TERMINAL "delete ?\n\n" COLOR_RESET_TERMINAL);
-    }while(choice < 1 || choice > user->nb_characters);
+        if (scanf("%d", &choice) != 1)
+        {
+            while (fgetc(stdin) != '\n');
+        };
+    }while(choice < 0 || choice > user->nb_characters);
 
     system("clear");
 
+    if(choice == 0){
+        character_menu(user);
+    }else{
+        do{
+            characterStats(user, user->characters[choice - 1]);
+            printf("Are you sure you want to delete this character ? (y)es - (n)o\n\n");
+            scanf("%c", &verification);
+        }while(verification != 'y' && verification!= 'n');
+
+        switch (verification){
+
+        case 'y':
+            cleanCharacter(user, user->characters[choice - 1]);
+            break;
+        case 'n':
+            character_menu(user);
+            break;
+        }
+    }
+}
+
+void deleteAllCharacters(User * user){
+
+    char verification;
+    system("clear");
+    showAllCharacters(user);
+    
+    puts(" ");
+    
     do{
-        characterStats(user->characters[choice - 1]);
-        printf("Are you sure you want to delete this character ? (y)es - (n)o\n\n");
+        printf("Are you sure that you want to" COLOR_RED_TERMINAL "delete all the characters?\n\n" COLOR_RESET_TERMINAL);
         scanf("%c", &verification);
     }while(verification != 'y' && verification!= 'n');
 
     switch (verification){
     case 'y':
-
-        user->nb_characters--;
-        
-
+        for(int i = user->nb_characters - 1 ; i >= 0 ; i--){
+            cleanCharacter(user, user->characters[i]);
+        }
         break;
     case 'n':
-        deleteCharacter(user);
+        character_menu(user);
         break;
     }
 }
@@ -81,24 +121,28 @@ void deleteCharacter(User * user){
 void cleanCharacter(User * user, Character * character){
 
     int classId = character->classId;
-
-    free(user->characters[classId - 1]->element);
+    int classPosition = classId - 1;
 
     cleanBag(character);
     cleanGear(character);
     cleanSpells(character);
 
-    free(user->characters[classId - 1]);
+    printf("%p", user->characters[classPosition]);
+    exit(1);
+    free(user->characters[classPosition]);
     user->nb_characters--;
-
-    if(user->used_character == classId){
-        user->used_character = 0;
-    }
 
     if(user->nb_characters != 0){
         for(int i = classId; i < user->nb_characters; i++){
-            user->characters[i]->classId --;
-            user->characters[i] = user->characters[i - 1];
+            user->characters[i]->classId--; // Decrease the classId of all the characters after the one deleted.
+            user->characters[i] = user->characters[i - 1]; // Decrease the position of all the characters after the one deleted.
+        }
+        
+        if(user->used_character == classId){ // If the character deleted is the used character, unequip it.
+            user->used_character = 0;
+        }
+        else if(user->used_character > classId ){ // If the character deleted is not the used character and its position is lower, decrement the used_character so it equips the right character.
+            user->used_character--;
         }
     }
 
@@ -108,6 +152,7 @@ void cleanCharacter(User * user, Character * character){
 void initializeNewCharacter(User *user){
     
     user->characters = malloc(sizeof(Character *));
+    user->used_character = 1;
     chooseNewClass(user);
 }
 
@@ -160,6 +205,8 @@ void chooseNewClass(User *user)
         addClass(user, MAGE);
         break;
     }
+
+    character_menu(user);
 };
 
 void addClass(User *user, int selection)
@@ -192,17 +239,19 @@ void addClass(User *user, int selection)
 
     new_character->isAlive = 1;
 
-    new_character->level = 0;
+    new_character->level = 1;
     new_character->experience = 0;
     new_character->experienceNeededToLevelUp = XP_NEEDED;
 
     new_character->bag = malloc(sizeof(Bag));
+    new_character->bag->weapons = malloc(sizeof(Weapon *));
+    new_character->bag->armors = malloc(sizeof(Armor *));
     new_character->bag->nb_weapons = 0;
     new_character->bag->nb_armors = 0;
     
     new_character->gears = malloc(sizeof(Gears));
-    new_character->gears->weapon = NULL;
-    new_character->gears->armor = NULL;
+    new_character->gears->weapon = malloc(sizeof(Weapon));
+    new_character->gears->armor = malloc(sizeof(Armor));
 
     switch (selection)
     {
@@ -220,6 +269,7 @@ void addClass(User *user, int selection)
         break;
     }
 
+    new_character->classId = user->nb_characters;
     user->characters[user->nb_characters - 1] = new_character;
 
     giveSpells(new_character);
@@ -227,7 +277,6 @@ void addClass(User *user, int selection)
 
 void warriorSelected(Character *character)
 {
-    character->classId = WARRIOR;
 
     character->className = "Warrior";
     character->physicalPower = 80;
@@ -242,7 +291,6 @@ void warriorSelected(Character *character)
 
 void rogueSelected(Character *character)
 {
-    character->classId = ROGUE;
 
     character->className = "Rogue";
     character->physicalPower = 200;
@@ -257,7 +305,6 @@ void rogueSelected(Character *character)
 
 void archerSelected(Character *character)
 {
-    character->classId = ARCHER;
 
     character->className = "Archer";
     character->physicalPower = 150;
@@ -272,7 +319,6 @@ void archerSelected(Character *character)
 
 void mageSelected(Character *character)
 {
-    character->classId = MAGE;
 
     character->className = "Mage";
     character->physicalPower = 0;
@@ -285,7 +331,7 @@ void mageSelected(Character *character)
     character->currentMp = character->maxMp;
 };
 
-void characterStats(Character *character){
+void characterStats(User *user, Character *character){
     
     printf("Name : %s\n", character->className);
 
@@ -297,8 +343,6 @@ void characterStats(Character *character){
     printf("Level : %d\n", character->level);
 
     showSpells(character);
-
-    showBag(character);
 
     printf("\n");
 }

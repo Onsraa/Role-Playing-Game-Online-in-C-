@@ -18,6 +18,9 @@ int main(){
         me->nb_characters = 0;
         me->characters = NULL;
 
+        start(me);
+        
+        /*
         initializeNewCharacter(me);
         chooseNewClass(me);
 
@@ -31,6 +34,7 @@ int main(){
         
         chooseWeapon(me->characters[0]);
         chooseWeapon(me->characters[0]);
-        
+        */
+
         exit(EXIT_SUCCESS);
 }

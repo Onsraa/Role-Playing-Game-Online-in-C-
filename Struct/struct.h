@@ -10,8 +10,8 @@
 
 /*COLORS*/
 #define COLOR_RESET_TERMINAL "\x1b[0m"
-#define COLOR_RED_TERMINAL  "\x1b[31m"
-#define COLOR_GREEN_TERMINAL  "\x1b[32m"
+#define COLOR_RED_TERMINAL "\x1b[31m"
+#define COLOR_GREEN_TERMINAL "\x1b[32m"
 
 /*INTERFACES*/
 #define BAR_LENGTH 40
@@ -177,7 +177,11 @@ struct Character
 };
 
 void showAllCharacters(User *user);
-void chooseCharacter(User * user);
+void chooseCharacter(User *user);
+
+void cleanCharacter(User *user, Character *character);
+void deleteCharacter(User *user);
+void deleteAllCharacters(User *user);
 
 struct Bag
 {
@@ -196,8 +200,7 @@ struct Gears
     Armor *armor;
 };
 
-char *printRarity(int rarity);
-void dropStuff(Character *character, Mob *mob);
+
 
 /*WEAPONS*/
 struct Weapon
@@ -267,7 +270,7 @@ void archerSelected(Character *character);
 
 void mageSelected(Character *character);
 
-void characterStats(Character *character);
+void characterStats(User *user, Character *character);
 
 void showBars(Character *character);
 
@@ -367,18 +370,23 @@ void gainXp(Character *character, Mob *mob);
 
 int generateRarity();
 
+char *printRarity(int rarity);
+
 void dropStuff(Character *character, Mob *mob);
 void dropBoth(Character *character, int weapon_rarity, int armor_rarity);
 void dropWeapon(Character *character, int weapon_rarity);
 void dropArmor(Character *character, int armor_rarity);
 
-void showBag(Character *character);
+void showBag(User *user, Character *character);
 
 void cleanBag(Character *character);
 void cleanGear(Character *character);
 
 /* MENU */
+
 void startingMenu();
 
+void start(User *user);
+void character_menu(User *user);
 
 #endif

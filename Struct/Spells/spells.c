@@ -102,10 +102,8 @@ void mageSpells(Character *character)
 
 void cleanSpells(Character *character){
 
-    for(int i = 0; i < NB_SPELLS; i++){
-        free(character->spells[i]->spellName);
-        free(character->spells[i]->description);
-        free(character->spells[i]->element);
-        free(character->spells[i]);
-    }
-}
+    for(int i = NB_SPELLS; i > 0; i--){
+        free(character->spells[i-1]->element);
+        free(character->spells[i-1]);
+    }  
+}œ

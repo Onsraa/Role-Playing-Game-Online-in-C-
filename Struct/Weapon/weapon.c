@@ -122,7 +122,7 @@ Weapon *chooseWeapon(Character *character)
         do
         {
             printf("Your weapons : \n\n");
-            printf(COLOR_RED_TERMINAL  "(To equip, enter the number | To unequip, enter the number of the current gear equipped)\n\n" COLOR_RESET_TERMINAL );
+            printf(COLOR_RED_TERMINAL "(To equip, enter the number | To unequip, enter the number of the current gear equipped)\n\n" COLOR_RESET_TERMINAL);
 
             if (character->gears->weapon)
             {
@@ -139,14 +139,14 @@ Weapon *chooseWeapon(Character *character)
                     if (current_weapon->id == equipped_weapon->id)
                         ;
                     {
-                        printf(COLOR_GREEN_TERMINAL );
+                        printf(COLOR_GREEN_TERMINAL);
                     }
                 }
 
-                printf("%d : %s | %s\n" COLOR_RESET_TERMINAL , i + 1, current_weapon->name, printRarity(current_weapon->rarity));
+                printf("%d : %s | %s\n" COLOR_RESET_TERMINAL, i + 1, current_weapon->name, printRarity(current_weapon->rarity));
             }
 
-            printf(COLOR_GREEN_TERMINAL  "\n* equipped weapon\n\n" COLOR_RESET_TERMINAL );
+            printf(COLOR_GREEN_TERMINAL "\n* equipped weapon\n\n" COLOR_RESET_TERMINAL);
             printf("0 - exit\n\n");
 
             scanf("%d", &answer);
@@ -156,19 +156,27 @@ Weapon *chooseWeapon(Character *character)
         if (answer == 0)
         {
             // Leave
-        }else if(equipped_weapon){
-            if(character->bag->weapons[answer - 1]->id == equipped_weapon->id){
+        }
+        else if (equipped_weapon)
+        {
+            if (character->bag->weapons[answer - 1]->id == equipped_weapon->id)
+            {
                 character->gears->weapon = NULL;
-            }else{
+            }
+            else
+            {
                 Weapon *choosed_weapon = character->bag->weapons[answer - 1];
                 character->gears->weapon = choosed_weapon;
             }
-        }else{
-             Weapon *choosed_weapon = character->bag->weapons[answer - 1];
+        }
+        else
+        {
+            Weapon *choosed_weapon = character->bag->weapons[answer - 1];
             character->gears->weapon = choosed_weapon;
         }
     }
-    else{
+    else
+    {
         printf(COLOR_RED_TERMINAL "You have no weapon.\n" COLOR_RESET_TERMINAL);
     }
 }

@@ -6,13 +6,20 @@
 #define ARROW_UP KEY_UP
 #define ARROW_DOWN KEY_DOWN
 
-enum menu {START_ADVENTURE = 0, CHECK_CHARACTERS = 1, CHECK_ITEMS = 2, SAVE = 3, EXIT = 4};
+enum menu
+{
+    START_ADVENTURE = 0,
+    CHECK_CHARACTERS = 1,
+    CHECK_ITEMS = 2,
+    SAVE = 3,
+    EXIT = 4
+};
 
 void startingMenu()
 {
     int i, c, currentItem = 0;
     int numItems = 5;
-    char *menuItems[] = { "Start adventure", "Check characters", "Check items", "Save", "Exit" };
+    char *menuItems[] = {"Start adventure", "Check characters", "Check items", "Save", "Exit"};
     char *selectedItem;
 
     initscr();
@@ -72,29 +79,39 @@ void startingMenu()
 
             int selection;
 
-            if(selectedItem == "Start adventure"){
+            if (selectedItem == "Start adventure")
+            {
                 selection = START_ADVENTURE;
-            }else if(selectedItem == "Check characters"){
+            }
+            else if (selectedItem == "Check characters")
+            {
                 selection = CHECK_CHARACTERS;
-            }else if(selectedItem == "Check items"){
+            }
+            else if (selectedItem == "Check items")
+            {
                 selection = CHECK_ITEMS;
-            }else if(selectedItem == "Save"){
+            }
+            else if (selectedItem == "Save")
+            {
                 selection = SAVE;
-            }else{
+            }
+            else
+            {
                 selection = EXIT;
             }
-            
-            switch(selection){
-                case START_ADVENTURE:
-                    break;
-                case CHECK_CHARACTERS:
-                    break;
-                case CHECK_ITEMS:
-                    break;
-                case SAVE:
-                    break;
-                case EXIT:
-                    break;
+
+            switch (selection)
+            {
+            case START_ADVENTURE:
+                break;
+            case CHECK_CHARACTERS:
+                break;
+            case CHECK_ITEMS:
+                break;
+            case SAVE:
+                break;
+            case EXIT:
+                break;
             }
 
             refresh();
@@ -106,34 +123,82 @@ void startingMenu()
     endwin();
 }
 
-void character_menu(User *user){
+void start(User *user)
+{
 
-        int choice;
-        
-        do{
+    if (!user)
+    {
+        printf("User not found\n");
+        exit(EXIT_FAILURE);
+    }
 
+    char answer;
 
-            printf("What do you want to do ?\n\n");
-            printf("1 - Choose a character\n");
-            printf("2 - Add a new character\n");
-            printf("3 - Delete a character\n");
-            printf("4 - Delete all characters\n");
-            printf("5 - Exit\n\n");
-            scanf("%d", &choice);
-        }while(choice < 1 || choice > (4));
-       
-        switch(choice){
-            case 1:
-                chooseCharacter(user);
-                break;
-            case 2:
-                chooseNewClass(user);
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
+    if (!user->characters)
+    {
+        do
+        {
+            system("clear");
+            printf("Welcome, let's initialize your first " COLOR_GREEN_TERMINAL "character" COLOR_RESET_TERMINAL ".\n\n");
+            printf("You ready ? (y)es - (n)o\n\n");
+            if (scanf("%c", &answer) != 1)
+            {
+                while (fgetc(stdin) != '\n')
+                    ;
+            };
+        } while (answer != 'y' && answer != 'n');
+
+        switch (answer)
+        {
+        case 'y':
+            initializeNewCharacter(user);
+            break;
+        case 'n':
+            exit(EXIT_SUCCESS);
+            break;
         }
+    }
+
+    character_menu(user);
+}
+
+void character_menu(User *user)
+{
+
+    int choice;
+
+    Character * current_character = user->characters[user->used_character - 1];
+
+    do
+    {
+        system("clear");
+        printf("What do you want to do ?\n\n");
+        printf("1 - Choose a character\n");
+        printf("2 - Open the bag\n");
+        printf("3 - Add a new character\n");
+        printf("4 - Delete a character\n");
+        printf("5 - Delete all characters\n");
+        printf("6 - Exit\n\n");
+        scanf("%d", &choice);
+    } while (choice < 1 || choice > (4));
+
+    switch (choice)
+    {
+    case 1:
+        chooseCharacter(user);
+        break;
+    case 2:
+        showBag(user, current_character);
+        break;
+    case 3:
+        chooseNewClass(user);
+        break;
+    case 4:
+        deleteCharacter(user);
+        break;
+    case 5:
+        break;
+    case 6:
+        break;
+    }
 }
