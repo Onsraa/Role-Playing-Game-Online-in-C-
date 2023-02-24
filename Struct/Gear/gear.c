@@ -190,7 +190,7 @@ void showBag(User *user, Character *character)
             do
             {
                 system("clear");
-                if (!character->bag->nb_weapons == 0)
+                if (character->bag->nb_weapons != 0)
                 {   
                     printf("WEAPONS : [");
                     for (int i = 0; i < character->bag->nb_weapons; i++)
@@ -207,7 +207,7 @@ void showBag(User *user, Character *character)
                 {
                     printf(COLOR_RED_TERMINAL "\nYou don't have weapon.\n" COLOR_RESET_TERMINAL);
                 }
-                if (!character->bag->nb_armors == 0)
+                if (character->bag->nb_armors != 0)
                 {
                     printf("ARMORS  : [");
                     for (int i = 0; i < character->bag->nb_armors; i++)

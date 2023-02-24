@@ -21,6 +21,7 @@ Armor *generateArmor(int rarity)
         return commonArmor();
         break;
     }
+    return 0;
 }
 
 Armor *createArmor(char *name, int bonus_resistance, int rarity, int element)
@@ -154,4 +155,5 @@ Armor *chooseArmor(User *user, Character *character)
     {
         printf(COLOR_RED_TERMINAL "You have no armor.\n" COLOR_RESET_TERMINAL);
     }
+    return 0;
 }

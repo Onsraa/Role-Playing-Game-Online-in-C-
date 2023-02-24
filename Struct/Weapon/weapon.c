@@ -21,6 +21,7 @@ Weapon *generateWeapon(int rarity)
         return commonWeapon();
         break;
     }
+    return 0;
 }
 
 Weapon *createWeapon(char *name, int bonus_damage, int rarity, int element)
@@ -101,7 +102,8 @@ char *printRarity(int rarity)
         return "Rare";
     case COMMON:
         return "Common";
-    }
+    }    
+    return 0;
 }
 
 Weapon *chooseWeapon(User *user, Character *character)

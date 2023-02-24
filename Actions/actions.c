@@ -161,7 +161,7 @@ void players_turn(Character *character, Mob *mob, int dialogue)
            character->currentMp = 0; 
         }
 
-        if (character->spells[0]->valueFactor = STATIC)
+        if (character->spells[0]->valueFactor == STATIC)
         {
             total_damage += offensive_spell->value;
         }
@@ -186,7 +186,7 @@ void players_turn(Character *character, Mob *mob, int dialogue)
            character->currentMp = 0; 
         }
 
-        if (character->spells[1]->valueFactor = STATIC)
+        if (character->spells[1]->valueFactor == STATIC)
         {
             total_damage += healing_spell->value;
         }
@@ -223,7 +223,7 @@ void mobs_turn(Mob *mob, Character *character, int dialogue)
 
     if (dialogue)
     {
-        printf("The %s hits you for %d !\n", mob->name, total_damage, character->currentHp, character->maxHp);
+        printf("The %s hits you for %d !\n", mob->name, total_damage, character->currentHp);
     }
     character->currentHp -= total_damage;
 

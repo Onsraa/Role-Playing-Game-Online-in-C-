@@ -81,7 +81,7 @@ void generateMap(User *user, Character *character, int difficulty, int auto_mode
 
     do{
         printf("WOW ! Very impressive...\n\n");
-        printf("You just completed %d stages in a row without dying.\n");
+        printf("You just completed %d stages in a row without dying.\n", NB_STAGES - nb_stages);
         printf("You maybe deserve to fight the best of the best.\n\n");
         printf("Are you ready ? (y/n)\n\n");
 
@@ -93,13 +93,17 @@ void generateMap(User *user, Character *character, int difficulty, int auto_mode
 
     system("clear");
 
+    Mob * big_boss = dragon(difficulty);
+    
     switch(final_answer){
         case 'y':
-            printf("Good, now you're gonna fight the %s Dragon !");
-            fight(character, dragon(difficulty), auto_mode, dialogue);
+            printf("Good, now you're gonna fight the %s Dragon !", big_boss->name);
+            fight(character, big_boss, auto_mode, dialogue);
     }
-
+    
+    free(big_boss);
     resetCharacter(character);
+    main_menu(user);
 }
 
 Zone *generateRandomZone(int difficulty)
